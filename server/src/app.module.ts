@@ -1,9 +1,18 @@
 import { Module } from '@nestjs/common';
 import { SequelizeModule } from '@nestjs/sequelize';
-import { PersonModule } from './person/person.module';
 import { ConfigModule } from '@nestjs/config';
 
+import { PersonsModule } from './persons/persons.module';
+import { Person } from './persons/persons.model';
+import { User } from './users/users.model';
+import { UsersModule } from './users/users.module';
+import { RolesModule } from './roles/roles.module';
+import { Role } from './roles/roles.model';
+import { UserRoles } from './roles/user-roles.model';
+
 @Module({
+    controllers: [],
+    providers: [],
     imports: [
         ConfigModule.forRoot({
             envFilePath: '.env',
@@ -15,12 +24,12 @@ import { ConfigModule } from '@nestjs/config';
             username: process.env.POSTGRES_USER,
             password: process.env.POSTGRES_PASSWORD,
             database: process.env.POSTGRES_DB,
-            models: [],
+            models: [Person, User, Role, UserRoles],
             autoLoadModels: true,
         }),
-        PersonModule,
+        PersonsModule,
+        UsersModule,
+        RolesModule,
     ],
-    controllers: [],
-    providers: [],
 })
 export class AppModule {}
