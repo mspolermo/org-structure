@@ -19,7 +19,7 @@ export class RolesController {
     @ApiOperation({ summary: 'Посмотреть все существующие роли' })
     @ApiResponse({ status: 200, type: [Role] })
     @Get()
-    getAllRoles() {
+    getAll() {
         return this.roleService.getAllRoles();
     }
 

@@ -1,5 +1,6 @@
 import { ApiProperty } from '@nestjs/swagger';
-import { Column, DataType, Model, Table } from 'sequelize-typescript';
+import { Column, DataType, HasOne, Model, Table } from 'sequelize-typescript';
+import { User } from 'src/users/users.model';
 
 interface PersonsCreationAttrs {
     name: string;
@@ -94,4 +95,7 @@ export class Person extends Model<Person, PersonsCreationAttrs> {
         defaultValue: false,
     })
     isManager: string;
+
+    @HasOne(() => User)
+    user: User;
 }

@@ -27,7 +27,14 @@ export class PersonsController {
     @ApiOperation({ summary: 'Получить сотрудника по id' })
     @ApiResponse({ status: 200, type: Person })
     @Get('/:id')
-    getPerson(@Param('id') id: string) {
-        return this.personsService.getPerson(id);
+    getById(@Param('id') id: string) {
+        return this.personsService.getPersonById(id);
+    }
+
+    @ApiOperation({ summary: 'Получить сотрудника по email' })
+    @ApiResponse({ status: 200, type: Person })
+    @Get('/mail/:email')
+    getByEmail(@Param('email') email: string) {
+        return this.personsService.getPersonByEmail(email);
     }
 }

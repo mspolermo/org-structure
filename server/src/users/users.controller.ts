@@ -1,4 +1,4 @@
-import { Body, Controller, Get, Post } from '@nestjs/common';
+import { Body, Controller, Get, Param, Post } from '@nestjs/common';
 import { ApiOperation, ApiResponse, ApiTags } from '@nestjs/swagger';
 
 import { UsersService } from './users.service';
@@ -22,5 +22,12 @@ export class UsersController {
     @Get()
     getAll() {
         return this.usersService.getAllUsers();
+    }
+
+    @ApiOperation({ summary: 'Получить пользователя по email' })
+    @ApiResponse({ status: 200, type: User })
+    @Get('/mail/:email')
+    getByEmail(@Param('email') email: string) {
+        return this.usersService.getUserByEmail(email);
     }
 }
