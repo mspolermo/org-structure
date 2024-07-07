@@ -1,6 +1,7 @@
 import { ApiProperty } from '@nestjs/swagger';
 import { Column, DataType, HasOne, Model, Table } from 'sequelize-typescript';
 import { User } from 'src/users/users.model';
+import { PersonDetales } from './person-detales.model';
 
 interface PersonsCreationAttrs {
     name: string;
@@ -98,4 +99,7 @@ export class Person extends Model<Person, PersonsCreationAttrs> {
 
     @HasOne(() => User)
     user: User;
+
+    @HasOne(() => PersonDetales)
+    personDetales: PersonDetales;
 }

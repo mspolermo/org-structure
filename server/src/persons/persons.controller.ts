@@ -4,6 +4,8 @@ import { ApiOperation, ApiResponse, ApiTags } from '@nestjs/swagger';
 import { PersonsService } from './persons.service';
 import { CreatePersonDto } from './dto/create-person.dto';
 import { Person } from './persons.model';
+import { PersonDetales } from './person-detales.model';
+import { CreatePersonDetalesDto } from './dto/create-person-detales.dto';
 
 @ApiTags('Сотрудники')
 @Controller('persons')
@@ -36,5 +38,18 @@ export class PersonsController {
     @Get('/mail/:email')
     getByEmail(@Param('email') email: string) {
         return this.personsService.getPersonByEmail(email);
+    }
+
+    @ApiOperation({ summary: 'Создание детализацию сотрудника' })
+    @ApiResponse({ status: 200, type: PersonDetales })
+    @Post('/detales/:personId')
+    createDetales(
+        @Param('personId') personId: string,
+        @Body() personDetalesDto: CreatePersonDetalesDto,
+    ) {
+        return this.personsService.createPersonDetales(
+            personDetalesDto,
+            personId,
+        );
     }
 }
