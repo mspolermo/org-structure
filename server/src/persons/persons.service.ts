@@ -27,6 +27,12 @@ export class PersonsService {
 
     async getPersonById(id: string) {
         const role = await this.personRepository.findOne({ where: { id } });
+        if (!role) {
+            throw new HttpException(
+                'Сотрудник с данным ID не найден',
+                HttpStatus.BAD_REQUEST,
+            );
+        }
         return role;
     }
 
@@ -40,17 +46,17 @@ export class PersonsService {
 
     async createPersonDetales(dto: CreatePersonDetalesDto, personId: string) {
         const person = await this.getPersonById(personId);
-        if (!person) {
-            throw new HttpException(
-                'Сотрудник с данным ID не найден',
-                HttpStatus.BAD_REQUEST,
-            );
-        }
         const personDetales = await this.personDetalesRepository.create({
             ...dto,
             personId: person.id,
         });
+        return personDetales;
+    }
 
+    async getPersonDetalesById(personId: string) {
+        const personDetales = await this.personDetalesRepository.findOne({
+            where: { personId },
+        });
         return personDetales;
     }
 }

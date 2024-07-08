@@ -52,4 +52,11 @@ export class PersonsController {
             personId,
         );
     }
+
+    @ApiOperation({ summary: 'Получить детализацию сотрудника по personId' })
+    @ApiResponse({ status: 200, type: PersonDetales })
+    @Get('/detales/:personId')
+    getDetalesById(@Param('personId') personId: string) {
+        return this.personsService.getPersonDetalesById(personId);
+    }
 }
