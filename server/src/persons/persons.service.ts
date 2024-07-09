@@ -57,6 +57,12 @@ export class PersonsService {
         const personDetales = await this.personDetalesRepository.findOne({
             where: { personId },
         });
+        if (!personDetales) {
+            throw new HttpException(
+                'Детали для сотрудник с данным ID не найдены',
+                HttpStatus.BAD_REQUEST,
+            );
+        }
         return personDetales;
     }
 }

@@ -10,6 +10,7 @@ import { RolesModule } from './roles/roles.module';
 import { Role } from './roles/roles.model';
 import { UserRoles } from './roles/user-roles.model';
 import { PersonDetales } from './persons/person-detales.model';
+import { OrgUnitModule } from './org-unit/org-unit.module';
 
 @Module({
     controllers: [],
@@ -31,6 +32,7 @@ import { PersonDetales } from './persons/person-detales.model';
         PersonsModule,
         UsersModule,
         RolesModule,
+        OrgUnitModule,
     ],
 })
 export class AppModule {}
