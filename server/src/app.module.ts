@@ -11,6 +11,7 @@ import { Role } from './roles/roles.model';
 import { UserRoles } from './roles/user-roles.model';
 import { PersonDetales } from './persons/person-detales.model';
 import { OrgUnitModule } from './org-unit/org-unit.module';
+import { OrgUnit } from './org-unit/org-unit.model';
 
 @Module({
     controllers: [],
@@ -26,7 +27,7 @@ import { OrgUnitModule } from './org-unit/org-unit.module';
             username: process.env.POSTGRES_USER,
             password: process.env.POSTGRES_PASSWORD,
             database: process.env.POSTGRES_DB,
-            models: [Person, User, Role, UserRoles, PersonDetales],
+            models: [Person, User, Role, UserRoles, PersonDetales, OrgUnit],
             autoLoadModels: true,
         }),
         PersonsModule,
