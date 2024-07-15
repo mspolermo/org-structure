@@ -1,9 +1,10 @@
-import { Body, Controller, Get, Post } from '@nestjs/common';
+import { Body, Controller, Get, Param, Post } from '@nestjs/common';
 import { OrgUnitService } from './org-unit.service';
 import { CreateOrgUnitDto } from './dto/create-orgUnit.dto';
-import { ApiOperation, ApiResponse } from '@nestjs/swagger';
+import { ApiOperation, ApiResponse, ApiTags } from '@nestjs/swagger';
 import { OrgUnit } from './org-unit.model';
 
+@ApiTags('Оргюниты')
 @Controller('org-unit')
 export class OrgUnitController {
     constructor(private orgUnitService: OrgUnitService) {}
@@ -20,5 +21,12 @@ export class OrgUnitController {
     @Get()
     getAll() {
         return this.orgUnitService.getAllOrgUnits();
+    }
+
+    @ApiOperation({ summary: 'Получить оргюнит по id' })
+    @ApiResponse({ status: 200, type: OrgUnit })
+    @Get('/:id')
+    getById(@Param('id') id: string) {
+        return this.orgUnitService.getOrgUnitById(id);
     }
 }

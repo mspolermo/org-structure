@@ -27,13 +27,13 @@ import { OrgUnit } from './org-unit/org-unit.model';
             username: process.env.POSTGRES_USER,
             password: process.env.POSTGRES_PASSWORD,
             database: process.env.POSTGRES_DB,
-            models: [Person, User, Role, UserRoles, PersonDetales, OrgUnit],
+            models: [OrgUnit, Person, User, Role, UserRoles, PersonDetales],
             autoLoadModels: true,
         }),
+        OrgUnitModule,
         PersonsModule,
         UsersModule,
         RolesModule,
-        OrgUnitModule,
     ],
 })
 export class AppModule {}
