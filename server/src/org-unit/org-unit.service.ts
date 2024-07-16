@@ -2,6 +2,7 @@ import { HttpException, HttpStatus, Injectable } from '@nestjs/common';
 import { InjectModel } from '@nestjs/sequelize';
 import { OrgUnit } from './org-unit.model';
 import { CreateOrgUnitDto } from './dto/create-orgUnit.dto';
+import { Person } from 'src/persons/persons.model';
 
 @Injectable()
 export class OrgUnitService {
@@ -15,7 +16,9 @@ export class OrgUnitService {
     }
 
     async getAllOrgUnits() {
-        const orgUnits = await this.orgUnitRepository.findAll();
+        const orgUnits = await this.orgUnitRepository.findAll({
+            include: [{ model: Person }],
+        });
         return orgUnits;
     }
 

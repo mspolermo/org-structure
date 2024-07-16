@@ -1,5 +1,6 @@
 import { ApiProperty } from '@nestjs/swagger';
-import { Column, DataType, Model, Table } from 'sequelize-typescript';
+import { Column, DataType, HasMany, Model, Table } from 'sequelize-typescript';
+import { Person } from 'src/persons/persons.model';
 
 interface OrgUnitCreationAttrs {
     name: string;
@@ -18,13 +19,16 @@ export class OrgUnit extends Model<OrgUnit, OrgUnitCreationAttrs> {
     id: number;
 
     @ApiProperty({ example: 'Управление', description: 'Название отдела' })
-    @Column({ type: DataType.INTEGER, unique: true, allowNull: false })
+    @Column({ type: DataType.STRING, unique: true, allowNull: false })
     name: string;
 
     @ApiProperty({
         example: 'Аппарат управления организацией',
         description: 'Описание отдела',
     })
-    @Column({ type: DataType.INTEGER, allowNull: true })
+    @Column({ type: DataType.STRING, allowNull: true })
     description: string;
+
+    @HasMany(() => Person)
+    persons: Person[];
 }

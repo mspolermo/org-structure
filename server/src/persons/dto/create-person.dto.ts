@@ -30,4 +30,10 @@ export class CreatePersonDto {
 
     @ApiProperty({ example: 'А-103', description: 'Табельный номер' })
     readonly table: string;
+
+    @ApiProperty({
+        example: '123',
+        description: 'Идентификационный номер оргЮнита',
+    })
+    readonly orgUnitId: number;
 }
