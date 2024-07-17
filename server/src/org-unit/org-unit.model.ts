@@ -1,5 +1,13 @@
 import { ApiProperty } from '@nestjs/swagger';
-import { Column, DataType, HasMany, Model, Table } from 'sequelize-typescript';
+import {
+    BelongsTo,
+    Column,
+    DataType,
+    ForeignKey,
+    HasMany,
+    Model,
+    Table,
+} from 'sequelize-typescript';
 import { Person } from 'src/persons/persons.model';
 
 interface OrgUnitCreationAttrs {
@@ -31,4 +39,14 @@ export class OrgUnit extends Model<OrgUnit, OrgUnitCreationAttrs> {
 
     @HasMany(() => Person)
     persons: Person[];
+
+    @ForeignKey(() => Person)
+    @Column({
+        type: DataType.INTEGER,
+        allowNull: true,
+    })
+    chefId: number;
+
+    @BelongsTo(() => Person, 'chefId')
+    chef: Person;
 }

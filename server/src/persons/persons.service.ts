@@ -6,6 +6,7 @@ import { CreatePersonDto } from './dto/create-person.dto';
 import { User } from 'src/users/users.model';
 import { CreatePersonDetalesDto } from './dto/create-person-detales.dto';
 import { PersonDetales } from './person-detales.model';
+import { OrgUnit } from 'src/org-unit/org-unit.model';
 
 @Injectable()
 export class PersonsService {
@@ -13,11 +14,30 @@ export class PersonsService {
         @InjectModel(Person) private personRepository: typeof Person,
         @InjectModel(PersonDetales)
         private personDetalesRepository: typeof PersonDetales,
+        @InjectModel(OrgUnit) private orgUnitRepository: typeof OrgUnit,
     ) {}
 
     async createPerson(dto: CreatePersonDto) {
-        const person = await this.personRepository.create(dto);
-        return person;
+        if (dto.isChef) {
+            const orgUnit = await this.orgUnitRepository.findByPk(
+                dto.orgUnitId,
+            );
+
+            if (orgUnit.chefId) {
+                throw new HttpException(
+                    'В этом оргЮните уже назначен начальник',
+                    HttpStatus.BAD_REQUEST,
+                );
+            }
+
+            const person = await this.personRepository.create(dto);
+            orgUnit.chefId = person.id;
+            await orgUnit.save();
+            return person;
+        } else {
+            const person = await this.personRepository.create(dto);
+            return person;
+        }
     }
 
     async getAllPersons() {

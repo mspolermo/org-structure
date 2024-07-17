@@ -17,7 +17,20 @@ export class OrgUnitService {
 
     async getAllOrgUnits() {
         const orgUnits = await this.orgUnitRepository.findAll({
-            include: [{ model: Person }],
+            include: [
+                {
+                    model: Person,
+                    as: 'chef',
+                },
+                {
+                    model: Person,
+                    as: 'persons',
+                    where: {
+                        isChef: false,
+                    },
+                    required: false,
+                },
+            ],
         });
         return orgUnits;
     }

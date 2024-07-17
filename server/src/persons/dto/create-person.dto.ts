@@ -36,4 +36,7 @@ export class CreatePersonDto {
         description: 'Идентификационный номер оргЮнита',
     })
     readonly orgUnitId: number;
+
+    @ApiProperty({ example: false, description: 'Начальник или нет' })
+    readonly isChef: boolean;
 }
