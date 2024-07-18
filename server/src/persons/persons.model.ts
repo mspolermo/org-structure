@@ -97,14 +97,14 @@ export class Person extends Model<Person, PersonsCreationAttrs> {
         type: DataType.BOOLEAN,
         defaultValue: false,
     })
-    isChef: string;
+    isChef: boolean;
 
     @ApiProperty({ example: false, description: 'Мэнэджер или нет' })
     @Column({
         type: DataType.BOOLEAN,
         defaultValue: false,
     })
-    isManager: string;
+    isManager: boolean;
 
     @HasOne(() => User)
     user: User;

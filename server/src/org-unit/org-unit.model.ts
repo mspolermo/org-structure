@@ -49,4 +49,13 @@ export class OrgUnit extends Model<OrgUnit, OrgUnitCreationAttrs> {
 
     @BelongsTo(() => Person, 'chefId')
     chef: Person;
+
+    @HasMany(() => Person, {
+        foreignKey: 'orgUnitId',
+        constraints: false,
+        scope: {
+            isManager: true,
+        },
+    })
+    managers: Person[];
 }

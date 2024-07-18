@@ -27,6 +27,15 @@ export class OrgUnitService {
                     as: 'persons',
                     where: {
                         isChef: false,
+                        isManager: false,
+                    },
+                    required: false,
+                },
+                {
+                    model: Person,
+                    as: 'managers',
+                    where: {
+                        isManager: true,
                     },
                     required: false,
                 },
