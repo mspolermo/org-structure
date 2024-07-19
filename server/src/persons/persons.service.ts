@@ -23,6 +23,13 @@ export class PersonsService {
                 dto.orgUnitId,
             );
 
+            if (!orgUnit) {
+                throw new HttpException(
+                    'OrgUnit с данным ID не найден',
+                    HttpStatus.BAD_REQUEST,
+                );
+            }
+
             if (orgUnit.chefId) {
                 throw new HttpException(
                     'В этом оргЮните уже назначен начальник',

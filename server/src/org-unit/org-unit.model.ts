@@ -13,6 +13,7 @@ import { Person } from 'src/persons/persons.model';
 interface OrgUnitCreationAttrs {
     name: string;
     description: string;
+    nestingLevel?: number;
 }
 
 @Table({ tableName: 'orgunits' })
@@ -58,4 +59,23 @@ export class OrgUnit extends Model<OrgUnit, OrgUnitCreationAttrs> {
         },
     })
     managers: Person[];
+
+    @ForeignKey(() => OrgUnit)
+    @Column({
+        type: DataType.INTEGER,
+        allowNull: true,
+    })
+    parentOrgUnitId: number;
+
+    @BelongsTo(() => OrgUnit, 'parentOrgUnitId')
+    parentOrgUnit: OrgUnit;
+
+    @HasMany(() => OrgUnit, 'parentOrgUnitId')
+    childOrgUnitItems: OrgUnit[];
+
+    @Column({
+        type: DataType.INTEGER,
+        defaultValue: 0,
+    })
+    nestingLevel: number;
 }

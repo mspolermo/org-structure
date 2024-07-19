@@ -11,7 +11,28 @@ export class OrgUnitService {
     ) {}
 
     async createOrgUnit(dto: CreateOrgUnitDto) {
-        const orgUnit = await this.orgUnitRepository.create(dto);
+        let nestingLevel = 0;
+
+        if (dto.parentOrgUnitId) {
+            const parentOrgUnit = await this.orgUnitRepository.findOne({
+                where: { id: dto.parentOrgUnitId },
+            });
+
+            if (!parentOrgUnit) {
+                throw new HttpException(
+                    'Parent OrgUnit with the given ID not found',
+                    HttpStatus.BAD_REQUEST,
+                );
+            }
+
+            nestingLevel = parentOrgUnit.nestingLevel + 1;
+        }
+
+        const orgUnit = await this.orgUnitRepository.create({
+            ...dto,
+            nestingLevel,
+        });
+
         return orgUnit;
     }
 
@@ -38,6 +59,10 @@ export class OrgUnitService {
                         isManager: true,
                     },
                     required: false,
+                },
+                {
+                    model: OrgUnit,
+                    as: 'childOrgUnitItems',
                 },
             ],
         });

@@ -9,4 +9,11 @@ export class CreateOrgUnitDto {
         description: 'Описание отдела',
     })
     readonly description: string;
+
+    @ApiProperty({
+        example: 1,
+        description: 'ID родительского оргЮнита (опционально)',
+        required: false,
+    })
+    readonly parentOrgUnitId?: number;
 }
