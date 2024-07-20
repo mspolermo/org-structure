@@ -38,10 +38,15 @@ export class OrgUnitService {
 
     async getAllOrgUnits() {
         const orgUnits = await this.orgUnitRepository.findAll({
+            where: {
+                parentOrgUnitId: null,
+            },
+            attributes: { exclude: ['createdAt', 'updatedAt'] },
             include: [
                 {
                     model: Person,
                     as: 'chef',
+                    attributes: { exclude: ['createdAt', 'updatedAt'] },
                 },
                 {
                     model: Person,
@@ -51,6 +56,7 @@ export class OrgUnitService {
                         isManager: false,
                     },
                     required: false,
+                    attributes: { exclude: ['createdAt', 'updatedAt'] },
                 },
                 {
                     model: Person,
@@ -59,10 +65,28 @@ export class OrgUnitService {
                         isManager: true,
                     },
                     required: false,
+                    attributes: { exclude: ['createdAt', 'updatedAt'] },
                 },
                 {
                     model: OrgUnit,
                     as: 'childOrgUnitItems',
+                    attributes: { exclude: ['createdAt', 'updatedAt'] },
+                    include: [
+                        {
+                            model: OrgUnit,
+                            as: 'childOrgUnitItems',
+                            attributes: { exclude: ['createdAt', 'updatedAt'] },
+                            include: [
+                                {
+                                    model: OrgUnit,
+                                    as: 'childOrgUnitItems',
+                                    attributes: {
+                                        exclude: ['createdAt', 'updatedAt'],
+                                    },
+                                },
+                            ],
+                        },
+                    ],
                 },
             ],
         });
