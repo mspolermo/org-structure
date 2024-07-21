@@ -1,0 +1,55 @@
+.Toggle {
+    cursor: pointer;
+    font-size: var(--font-size-m);
+}
+
+.label {
+    color: var(--text-color);
+}
+
+.toggle {
+    position: relative;
+}
+
+.rail {
+    z-index: var(--overlay-z-index);
+    width: 70px;
+    position: absolute;
+    top: 50%;
+}
+
+.button {
+    z-index: var(--modal-z-index);
+    font-weight: 300;
+    background-color: var(--bg-color);
+    color: var(--active-text-color);
+    font-size: var(--font-size-s);
+    border-radius: 20%;
+    transition: transform 0.25s ease;
+}
+
+.toggledYes {
+
+    .button {
+        border: 1px solid var(--success-color);
+        color: var(--success-color);
+        padding: 10px 8px;
+        transform: translateX(100%);
+    }
+
+    .rail {
+        border-top: 1px solid var(--success-color);
+    }
+}
+
+.toggledNo {
+
+    .button {
+        border: 1px solid var(--button-border-color);
+        padding: 10px 5px;
+    }
+
+    .rail {
+        border-top: 1px solid var(--button-border-color);
+    }
+}

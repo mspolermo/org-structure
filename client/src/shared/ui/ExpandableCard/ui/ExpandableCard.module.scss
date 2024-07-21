@@ -1,0 +1,39 @@
+.ExpandableCard {
+    width: 100%;
+    //height: 100%;
+}
+
+.open {
+    margin-bottom: 10px;
+    position: relative;
+    background-color: transparent;
+    padding-bottom: 40px !important; //чтобы пробить паддинг компонента Card
+    border: 1px solid var(--divider-color) !important; //чтобы пробить бордер компонента Card
+    &:hover{
+        border: 1px solid var(--secondary-color) !important;
+    }
+}
+
+.close {
+    position: absolute;
+    background-color: var(--primary-color);
+    //border-top: 1px solid var(--divider-color);
+    padding: 6px;
+    bottom: 0;
+    left: 0;
+    &:hover {
+        cursor: pointer;
+        background-color: var(--secondary-color);
+        .svg {
+            fill: var(--icon-color)
+        }
+    }
+}
+
+.withBorder {
+    border: 1px solid var(--divider-color) !important;
+}
+
+.withBtn {
+    padding-right: 20px ;
+}

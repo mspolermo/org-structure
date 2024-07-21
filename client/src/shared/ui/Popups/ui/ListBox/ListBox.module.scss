@@ -1,0 +1,20 @@
+.trigger {
+    background: none;
+    border: 1px solid var(--popup-border-color);
+    outline: none;
+    padding: 6px;
+    margin: 0;
+    font: var(--font-s);
+}
+
+.options {
+    position: absolute;
+    background: var(--popup-bg-color);
+    z-index: var(--popup-menu-z-index);
+    border-radius: 12px;
+    box-shadow: 4px 4px 8px var(--popup-bg-color);
+}
+
+.item {
+    padding: 10px 20px;
+}

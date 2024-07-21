@@ -6,6 +6,12 @@ import { AppModule } from './app.module';
 async function start() {
     const PORT = process.env.PORT || 5001;
     const app = await NestFactory.create(AppModule);
+    app.enableCors({
+        origin: 'http://localhost:5173', // Порт, на котором работает ваш клиент
+        methods: 'GET,HEAD,PUT,PATCH,POST,DELETE',
+        credentials: true,
+        allowedHeaders: 'Content-Type, Authorization',
+    });
 
     const config = new DocumentBuilder()
         .setTitle('Организационная структура')

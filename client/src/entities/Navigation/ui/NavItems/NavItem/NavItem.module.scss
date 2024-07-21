@@ -1,0 +1,40 @@
+.NavItem {
+    gap: 8px;
+    width: 100%;
+    padding: 8px 30px;
+    flex-wrap: wrap;
+    &:first-child{
+        padding-top: 14px;
+    }
+}
+
+.innerItem{
+    break-inside: avoid;
+    &:hover {
+        cursor: pointer;
+        p {
+            text-decoration: underline;
+            font-weight: 500;
+            color: var(--inverted-active-text-color);
+        }
+    }
+}
+
+@media (max-height: 850px) {
+    .NavItem {
+        padding: 6px 18px;
+        gap: 6px;
+        &:first-child{
+            padding-top: 10px;
+        }
+    }
+}
+
+@media (max-height: 650px) {
+    .NavItem {
+        padding: 4px 10px;
+        &:first-child{
+            padding-top: 6px;
+        }
+    }
+}

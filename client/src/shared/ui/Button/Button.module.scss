@@ -1,0 +1,109 @@
+.Button {
+  cursor: pointer;
+  color: var(--text-color);
+  background-color: var(--button-bg-color);
+  padding: 6px 15px;
+  border-radius: 4px;
+  &:hover {
+    color: var(--active-text-color);
+  }
+  &:active {
+    transform: translateY(1px);
+  }
+}
+
+.clear,
+.clearInverted {
+  padding: 0;
+  border: none;
+  background: none;
+  outline: none;
+}
+
+.outline {
+  background: none;
+  border: 1px solid var(--button-border-color);
+  color: var(--additional-text-color);
+  &:hover {
+    border: 1px solid var(--text-color);
+    color: var(--button-border-color-inverted);
+  }
+}
+
+.outline-inverted {
+  background: none;
+  border: 1px solid var(--button-border-color-inverted);
+  color: var(--text-color);
+  &:hover {
+    border: 1px solid var(--button-border-color);
+    color: var(--additional-text-color);
+  }
+}
+
+.square {
+  padding: 0;
+}
+
+.square.xs {
+  width: var(--font-line-xs);
+  height: var(--font-line-xs);
+}
+
+.square.s {
+  width: var(--font-line-s);
+  height: var(--font-line-s);
+}
+
+.square.m {
+  width: var(--font-line-m);
+  height: var(--font-line-m);
+}
+
+.square.l {
+  width: var(--font-line-l);
+  height: var(--font-line-l);
+}
+
+.square.xl {
+  width: var(--font-line-xl);
+  height: var(--font-line-xl);
+}
+
+.xs {
+  font: var(--font-xs);
+}
+
+.s {
+  font: var(--font-s);
+}
+
+.m {
+  font: var(--font-m);
+}
+
+.l {
+  font: var(--font-l);
+}
+
+.xl {
+  font: var(--font-xl);
+}
+
+.disabled {
+  opacity: 0.3;
+  cursor: default;
+  border: 1px solid var(--button-border-color);
+  color: var(--additional-text-color);
+  &:active {
+    transform: translateY(0);
+  }
+  &:hover {
+    pointer-events: none;
+    border: 1px solid var(--button-border-color);
+    color: var(--additional-text-color);
+  }
+}
+
+.fullWidth {
+  width: 100%;
+}

@@ -1,0 +1,42 @@
+.ActionButton  {
+    height: 100%;
+    width: var(--navbar-height);
+    cursor: pointer;
+    &:hover {
+      background-color: var(--primary-color);
+    }
+    &:active {
+      background-color: var(--secondary-color);
+    }
+}
+
+.iconWrapper {
+  min-height: 100%;
+  min-width: 100%;
+  &:hover{
+    svg {
+      color: var(--additional-icon-color);
+      fill: var(--additional-icon-color);
+      stroke: var(--additional-icon-color);      
+    }
+  }
+}
+
+.icon {
+  width: 20px;
+  height: 20px;
+}
+
+@media (max-height: 850px) {
+  .icon {
+    width: 16px;
+    height: 16px;
+  }
+}
+
+@media (max-height: 650px) {
+  .icon {
+    width: 14px;
+    height: 14px;
+  }
+}

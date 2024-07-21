@@ -1,0 +1,28 @@
+.PersonDetails {
+    padding: 20px 30px 0 30px;
+}
+
+.id {
+    text-wrap: nowrap;
+}
+
+//
+.href {
+    text-decoration: underline;
+    cursor: pointer;
+
+    :hover {
+        opacity: 0.7;
+    }
+}
+
+.photo {
+    min-height: 150px;
+    min-width: 112px;
+    color: var(--inverted-active-text-color);
+}
+
+.rows {
+    padding-top: 3px;
+    width: 100%;
+}

@@ -73,16 +73,111 @@ export class OrgUnitService {
                     attributes: { exclude: ['createdAt', 'updatedAt'] },
                     include: [
                         {
+                            model: Person,
+                            as: 'chef',
+                            attributes: { exclude: ['createdAt', 'updatedAt'] },
+                        },
+                        {
+                            model: Person,
+                            as: 'persons',
+                            where: {
+                                isChef: false,
+                                isManager: false,
+                            },
+                            required: false,
+                            attributes: { exclude: ['createdAt', 'updatedAt'] },
+                        },
+                        {
+                            model: Person,
+                            as: 'managers',
+                            where: {
+                                isManager: true,
+                            },
+                            required: false,
+                            attributes: { exclude: ['createdAt', 'updatedAt'] },
+                        },
+                        {
                             model: OrgUnit,
                             as: 'childOrgUnitItems',
                             attributes: { exclude: ['createdAt', 'updatedAt'] },
                             include: [
+                                {
+                                    model: Person,
+                                    as: 'chef',
+                                    attributes: {
+                                        exclude: ['createdAt', 'updatedAt'],
+                                    },
+                                },
+                                {
+                                    model: Person,
+                                    as: 'persons',
+                                    where: {
+                                        isChef: false,
+                                        isManager: false,
+                                    },
+                                    required: false,
+                                    attributes: {
+                                        exclude: ['createdAt', 'updatedAt'],
+                                    },
+                                },
+                                {
+                                    model: Person,
+                                    as: 'managers',
+                                    where: {
+                                        isManager: true,
+                                    },
+                                    required: false,
+                                    attributes: {
+                                        exclude: ['createdAt', 'updatedAt'],
+                                    },
+                                },
                                 {
                                     model: OrgUnit,
                                     as: 'childOrgUnitItems',
                                     attributes: {
                                         exclude: ['createdAt', 'updatedAt'],
                                     },
+                                    include: [
+                                        {
+                                            model: Person,
+                                            as: 'chef',
+                                            attributes: {
+                                                exclude: [
+                                                    'createdAt',
+                                                    'updatedAt',
+                                                ],
+                                            },
+                                        },
+                                        {
+                                            model: Person,
+                                            as: 'persons',
+                                            where: {
+                                                isChef: false,
+                                                isManager: false,
+                                            },
+                                            required: false,
+                                            attributes: {
+                                                exclude: [
+                                                    'createdAt',
+                                                    'updatedAt',
+                                                ],
+                                            },
+                                        },
+                                        {
+                                            model: Person,
+                                            as: 'managers',
+                                            where: {
+                                                isManager: true,
+                                            },
+                                            required: false,
+                                            attributes: {
+                                                exclude: [
+                                                    'createdAt',
+                                                    'updatedAt',
+                                                ],
+                                            },
+                                        },
+                                    ],
                                 },
                             ],
                         },
@@ -94,13 +189,160 @@ export class OrgUnitService {
     }
 
     async getOrgUnitById(id: string) {
-        const orgUnit = await this.orgUnitRepository.findOne({ where: { id } });
+        const orgUnit = await this.orgUnitRepository.findOne({
+            where: { id },
+            attributes: { exclude: ['createdAt', 'updatedAt'] },
+            include: [
+                {
+                    model: Person,
+                    as: 'chef',
+                    attributes: { exclude: ['createdAt', 'updatedAt'] },
+                },
+                {
+                    model: Person,
+                    as: 'persons',
+                    where: {
+                        isChef: false,
+                        isManager: false,
+                    },
+                    required: false,
+                    attributes: { exclude: ['createdAt', 'updatedAt'] },
+                },
+                {
+                    model: Person,
+                    as: 'managers',
+                    where: {
+                        isManager: true,
+                    },
+                    required: false,
+                    attributes: { exclude: ['createdAt', 'updatedAt'] },
+                },
+                {
+                    model: OrgUnit,
+                    as: 'childOrgUnitItems',
+                    attributes: { exclude: ['createdAt', 'updatedAt'] },
+                    include: [
+                        {
+                            model: Person,
+                            as: 'chef',
+                            attributes: { exclude: ['createdAt', 'updatedAt'] },
+                        },
+                        {
+                            model: Person,
+                            as: 'persons',
+                            where: {
+                                isChef: false,
+                                isManager: false,
+                            },
+                            required: false,
+                            attributes: { exclude: ['createdAt', 'updatedAt'] },
+                        },
+                        {
+                            model: Person,
+                            as: 'managers',
+                            where: {
+                                isManager: true,
+                            },
+                            required: false,
+                            attributes: { exclude: ['createdAt', 'updatedAt'] },
+                        },
+                        {
+                            model: OrgUnit,
+                            as: 'childOrgUnitItems',
+                            attributes: { exclude: ['createdAt', 'updatedAt'] },
+                            include: [
+                                {
+                                    model: Person,
+                                    as: 'chef',
+                                    attributes: {
+                                        exclude: ['createdAt', 'updatedAt'],
+                                    },
+                                },
+                                {
+                                    model: Person,
+                                    as: 'persons',
+                                    where: {
+                                        isChef: false,
+                                        isManager: false,
+                                    },
+                                    required: false,
+                                    attributes: {
+                                        exclude: ['createdAt', 'updatedAt'],
+                                    },
+                                },
+                                {
+                                    model: Person,
+                                    as: 'managers',
+                                    where: {
+                                        isManager: true,
+                                    },
+                                    required: false,
+                                    attributes: {
+                                        exclude: ['createdAt', 'updatedAt'],
+                                    },
+                                },
+                                {
+                                    model: OrgUnit,
+                                    as: 'childOrgUnitItems',
+                                    attributes: {
+                                        exclude: ['createdAt', 'updatedAt'],
+                                    },
+                                    include: [
+                                        {
+                                            model: Person,
+                                            as: 'chef',
+                                            attributes: {
+                                                exclude: [
+                                                    'createdAt',
+                                                    'updatedAt',
+                                                ],
+                                            },
+                                        },
+                                        {
+                                            model: Person,
+                                            as: 'persons',
+                                            where: {
+                                                isChef: false,
+                                                isManager: false,
+                                            },
+                                            required: false,
+                                            attributes: {
+                                                exclude: [
+                                                    'createdAt',
+                                                    'updatedAt',
+                                                ],
+                                            },
+                                        },
+                                        {
+                                            model: Person,
+                                            as: 'managers',
+                                            where: {
+                                                isManager: true,
+                                            },
+                                            required: false,
+                                            attributes: {
+                                                exclude: [
+                                                    'createdAt',
+                                                    'updatedAt',
+                                                ],
+                                            },
+                                        },
+                                    ],
+                                },
+                            ],
+                        },
+                    ],
+                },
+            ],
+        });
+
         if (!orgUnit) {
             throw new HttpException(
                 'ОргЮнит с данным ID не найден',
                 HttpStatus.BAD_REQUEST,
             );
         }
+
         return orgUnit;
     }
 }

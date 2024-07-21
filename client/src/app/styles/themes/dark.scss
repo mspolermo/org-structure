@@ -1,0 +1,50 @@
+/**
+ * CSS-переменные палитры тёмной темы приложения
+*/
+
+.app_dark_theme {
+--bg-color: #333333; // main flow
+--inverted-bg-color: #2b2929; // left panel (+devPanel)
+--additional-bg-color: #373638; // top panel
+
+--text-color: #cccccc;
+--additional-text-color: #c5c0c0;
+--active-text-color: #918c8c;
+
+--inverted-text-color: #999999;
+--inverted-active-text-color: #ffffffd3;
+
+--icon-color: #cccccc;
+--inverted-icon-color: #ffffffd3;
+--additional-icon-color: #999999;
+
+--divider-color: #999999;
+--inverted-divider-color: #999999;
+--link-color: #6699CC;
+--tag-color: #6f5b51; //dont use
+
+--button-border-color: #666666;
+--button-border-color-inverted: #999999;
+--button-bg-color: #666666;
+
+--input-border-color: #a5a4a4;
+--popup-border-color: #a5a4a4;
+--popup-bg-color: #1d2020;
+--loader-color: #999999;
+    // Цвета скелетона
+--skeleton-color: #50504d;
+--skeleton-shadow: #5e5e5b;
+    // Цвета выделения
+--primary-color: #424141;
+--secondary-color: #737773; 
+--inverted-primary-color: #434443;
+    // Цвета тултипа (подсказки по наведению)
+--tooltip-color: #000;
+--tooltip-bg-color: #c2c2c2;
+// Цвета уведомлений
+--normal-color: #cccccc; 
+--success-color: #669966;
+--danger-color: #cc6666; 
+--warning-color: #cc9966;
+--attention-color: #cc3333; //dont use
+}

@@ -1,0 +1,50 @@
+.SearchPanel {
+    position: relative;
+    width: var(--sidebar-width);
+    height: 100%;
+    border-right: 1px solid var(--divider-color);
+    display: flex;
+    align-items: center;
+    justify-content: space-between;
+}
+
+.input {
+    height: 100%;
+    margin-left: 20px;
+    color: var(--text-color);
+}
+
+.suggester {
+    position: absolute;
+    z-index: var(--overlay-z-index);
+    font: var(--font-s);
+    width: var(--sidebar-width);
+    background-color: var(--additional-bg-color);
+    border-right: 1px solid var(--divider-color);
+    border-bottom: 1px solid var(--divider-color);
+    white-space: nowrap;
+    top: 100%;
+    margin-top: 1px;
+    left: 0;
+}
+
+.loader {
+    display: flex;
+    align-items: center;
+}
+
+.clearBtn {
+    position: absolute;
+    top: 10px;
+    right: 10px;
+    width: 14px;
+    height: 14px;
+}
+
+.hidden {
+    opacity: 0;
+}
+
+.display {
+    opacity: 1;
+}

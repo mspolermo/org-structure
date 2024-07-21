@@ -1,0 +1,16 @@
+.MainLayout {
+  min-height: 100vh;
+}
+
+.flow {
+  position: relative;
+  display: grid;
+  grid-template-areas: 'sidebar content';
+  grid-template-columns: var(--sidebar-width) 1fr;
+}
+
+.toolbar {
+  position: absolute;
+  right: 25px;
+  height: 100%;
+}

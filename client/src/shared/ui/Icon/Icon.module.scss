@@ -1,0 +1,49 @@
+.Icon {
+  stroke-width: 0;
+}
+
+.button {
+  margin: 0;
+  padding: 0;
+  border: none;
+  outline: none;
+  background: none;
+  cursor: pointer;
+}
+
+.button:hover .Icon {
+  color: var(--additional-icon-color);
+  fill: var(--additional-icon-color);
+  stroke: var(--additional-icon-color);
+}
+
+.colorNormal {
+  color: var(--icon-color);
+  fill: var(--icon-color);
+  stroke: var(--icon-color);
+}
+
+.button:hover .colorNormal {
+  color: var(--additional-icon-color) !important;
+  fill: var(--additional-icon-color) !important;
+  stroke: var(--additional-icon-color) !important;
+}
+
+.colorInverted {
+  color: var(--additional-icon-color);
+  fill: var(--additional-icon-color);
+  stroke: var(--additional-icon-color);
+}
+
+.button:hover .colorInverted {
+  color: var(--icon-color);
+  fill: var(--icon-color);
+  stroke: var(--icon-color);
+}
+
+.borderSoft {
+  border: 1px solid var(--button-border-color);
+  padding: 6px;
+  border-radius: 6px;
+}
+

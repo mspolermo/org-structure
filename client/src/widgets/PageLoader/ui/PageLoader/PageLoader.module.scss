@@ -1,0 +1,17 @@
+.PageLoader {
+  height: calc(100vh - var(--navbar-height));
+  display: flex;
+  justify-content: center;
+  align-items: center;
+  flex-grow: 1;
+  background-color: var(--bg-color);
+  padding: 20px 50px;
+}
+
+.withDevpanel {
+  max-height: calc(100vh - var(--navbar-height) - var(--devpanel-height));
+}
+
+.loader {
+  transform: translateY(-60px);
+}

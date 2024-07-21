@@ -1,0 +1,45 @@
+/**
+ * Подключение шрифтов в приложение
+*/
+
+@font-face {
+  font-family: 'Roboto';
+  font-style: normal;
+  font-weight: 300;
+  src: url('@/app/styles/fonts/Roboto-Light.ttf') format('truetype'),
+  url('@/app/styles/fonts/Roboto-Light.woff') format('woff'),
+  url('@/app/styles/fonts/Roboto-Light.woff2') format('woff2');
+}
+
+@font-face {
+  font-family: 'Roboto';
+  font-style: normal;
+  font-weight: 400;
+  src: url('@/app/styles/fonts/Roboto-Regular.ttf') format('truetype'),
+  url('@/app/styles/fonts/Roboto-Regular.woff') format('woff'),
+  url('@/app/styles/fonts/Roboto-Regular.woff2') format('woff2');
+}
+
+@font-face {
+  font-family: 'Roboto';
+  font-style: normal;
+  font-weight: 500;
+  src: url('@/app/styles/fonts/Roboto-Medium.ttf') format('truetype'),
+  url('@/app/styles/fonts/Roboto-Medium.woff') format('woff'),
+  url('@/app/styles/fonts/Roboto-Medium.woff2') format('woff2');
+}
+
+@font-face {
+    font-family: 'PT Serif';
+    font-style: normal;
+    font-weight: 400;
+    src: url('@/app/styles/fonts/PTSerif-Regular.ttf') format('truetype');
+}
+  
+@font-face {
+    font-family: 'PT Serif Caption';
+    font-style: normal;
+    font-weight: 400;
+    src: url('@/app/styles/fonts/PTSerifCaption-Regular.ttf') format('truetype');
+}
+  

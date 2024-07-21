@@ -1,0 +1,13 @@
+<svg viewBox="0 0 18 18">
+  <path
+    d="M9 18A9 9 0 119 0a9 9 0 010 18zm0-2A7 7 0 109 2a7 7 0 000 14z"
+  />
+  <path
+    d="M6.002 11.648A3.99 3.99 0 009 13a3.99 3.99 0 003.003-1.358"
+    fill="none"
+    strokeWidth="2"
+    strokeLinecap="round"
+  />
+  <circle cx="6.25" cy="7.25" r="1.25" />
+  <circle cx="11.75" cy="7.25" r="1.25" />
+</svg>

@@ -1,0 +1,37 @@
+{
+    "groups": [
+        {
+            "name": {
+                "id": "0",
+                "name": "Софтваре Девеломент",
+                "isLink": false
+            },
+            "items": []
+        },
+        {
+            "name": {
+                "id": "1",
+                "name": "УИТ",
+                "isLink": true
+            },
+            "items": [
+                {
+                    "id": "2",
+                    "name": "1",
+                    "isLink": true
+                },
+                {
+                    "id": "3",
+                    "name": "2",
+                    "isLink": true
+                }
+            ]
+        }
+    ],
+    "user": {
+        "id": "0",
+        "fullName": "Админов Админ Админович",
+        "shortName": "Админов А.А.",
+        "allowDeveloperTools": true
+    }
+}

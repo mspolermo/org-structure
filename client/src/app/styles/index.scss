@@ -1,0 +1,32 @@
+/**
+ * Главный SCSS файл приложения
+*/
+
+@import "reset.scss";
+@import "fonts/fonts.scss";
+@import "variables/global";
+
+:root {
+  font: var(--font-m);
+  background-color: var(--bg-color);
+  overflow-x: hidden;
+}
+
+.suspense {
+  min-height: 100vh !important; //для перебивки высоты с учетом Topbar и DevPanel
+}
+
+*::-webkit-scrollbar {
+  width: 10px;
+  height: 8px;
+}
+
+*::-webkit-scrollbar-track {
+  background: var(--bg-color);
+}
+
+*::-webkit-scrollbar-thumb {
+  background-color: var(--additional-bg-color);
+  border-radius: 10px;
+  border: 1px solid var(--divider-color);
+}

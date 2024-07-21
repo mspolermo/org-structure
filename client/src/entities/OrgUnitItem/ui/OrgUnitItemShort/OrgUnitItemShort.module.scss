@@ -1,0 +1,38 @@
+.OrgUnitItemShort {
+    padding: 12px 6px;
+    color: var(--text-color);
+    align-items: center;
+    justify-content: center !important;
+    &:hover{
+        text-decoration: underline;
+        cursor: pointer;
+    }
+}
+
+.description {
+    transform: translateY(2px);
+}
+
+.indent_0 {
+    margin-left: var(--nesting-0);
+}
+
+.indent_1 {
+    margin-left: var(--nesting-1);
+}
+
+.indent_2 {
+    margin-left: var(--nesting-2);
+}
+
+.indent_3 {
+    margin-left: var(--nesting-3);
+}
+
+.indent_4 {
+    margin-left: var(--nesting-4);
+}
+
+.indent_5 {
+    margin-left: var(--nesting-5);
+}

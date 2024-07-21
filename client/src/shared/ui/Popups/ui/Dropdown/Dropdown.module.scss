@@ -1,0 +1,21 @@
+.menu {
+	background: var(--popup-bg-color);
+	position: absolute;
+	z-index: var(--popup-bg-color);
+	flex-direction: column;
+	display: flex;
+}
+
+.menu {
+	z-index: var(--popup-menu-z-index);
+}
+
+.item {
+	padding: 10px 25px;
+	width: 100%;
+	border: none;
+	background: none;
+	outline: none;
+	color: var(--text-color);
+	cursor: pointer;
+}

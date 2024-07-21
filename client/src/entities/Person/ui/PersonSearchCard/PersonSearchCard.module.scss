@@ -1,0 +1,24 @@
+.PersonSearchCard {
+    width: 100%;
+    padding: 10px;
+    &:hover {
+        background-color: var(--primary-color);
+        cursor: pointer;
+    }
+}
+
+.focused {
+    background-color: var(--primary-color);
+    cursor: pointer;
+}
+
+.ava {
+    min-height: 40px;
+    min-width: 40px;
+    border-radius: 8px;
+    color: var(--inverted-active-text-color)
+}
+
+.textWrapper {
+    text-wrap: wrap;
+}

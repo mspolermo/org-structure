@@ -1,0 +1,15 @@
+.primary {
+  color: var(--text-redesigned);
+
+  &:hover {
+    color: var(--active-icon-color);
+  }
+}
+
+.blue {
+  color: var(--link-color);
+  font: var(--font-m);
+  &:hover {
+    opacity: 0.8;
+  }
+}

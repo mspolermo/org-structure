@@ -1,0 +1,13 @@
+/**
+ * CSS-переменные отступов приложения
+*/
+
+:root {
+    //для OrgUintItems и Person (shortView) согласно nestingLevel, приходящему c бэка
+    --nesting-0: 0px;
+    --nesting-1: 14px;
+    --nesting-2: 30px;
+    --nesting-3: 50px;
+    --nesting-4: 70px;
+    --nesting-5: 90px;
+}

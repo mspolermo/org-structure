@@ -1,0 +1,50 @@
+/**
+ * CSS-переменные палитры светлой темы приложения
+*/
+
+:root {
+--bg-color: #fff; // main flow
+--inverted-bg-color: #3d3d3d; // left panel (+devPanel)
+--additional-bg-color: #f3f1f7; // top panel
+
+--text-color: #000;
+--additional-text-color: rgba(0, 0, 0, 0.48);
+--active-text-color: rgb(164, 164, 164);
+
+--inverted-text-color: rgb(164, 164, 164);
+--inverted-active-text-color: #fff;
+
+--icon-color: #000;
+--inverted-icon-color: #fff;
+--additional-icon-color: rgb(164, 164, 164);
+
+--divider-color: rgba(0, 0, 0, 0.08);
+--inverted-divider-color: rgb(164, 164, 164);
+--link-color: #2196f3;
+--tag-color: #90a4ae; //dont use
+
+--button-border-color: rgb(164, 164, 164);
+--button-border-color-inverted: #000;
+--button-bg-color: #cccccc;
+
+--input-border-color: #000;
+--popup-border-color: #000;
+--popup-bg-color: #e2dfdf;
+--loader-color: #3d3d3d;
+    // Цвета скелетона
+--skeleton-color: #f3f1f7;
+--skeleton-shadow: #d5d5d6;
+    // Цвета выделения
+--primary-color: rgba(0, 0, 0, 0.04);
+--secondary-color: rgba(0, 0, 0, 0.12); 
+--inverted-primary-color: rgba(255, 255, 255, 0.08);
+    // Цвета тултипа (подсказки по наведению)
+--tooltip-color: #fff;
+--tooltip-bg-color: #3d3d3d;
+    // Цвета уведомлений
+--normal-color: #a4a4a4;
+--success-color: #8bc34a;
+--danger-color: #f44336; 
+--warning-color: #ff9800;
+--attention-color: #ff5722;
+}

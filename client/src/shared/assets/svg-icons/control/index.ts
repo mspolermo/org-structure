@@ -1,0 +1,7 @@
+export { default as ArrowDown } from './arrow-down.svg'
+export { default as ArrowLeft } from './arrow-left.svg'
+export { default as ArrowRight } from './arrow-right.svg'
+export { default as ArrowUp } from './arrow-up.svg'
+export { default as Cross } from './cross.svg'
+export { default as Plus } from './plus.svg'
+export { default as Spinner } from './spinner.svg'

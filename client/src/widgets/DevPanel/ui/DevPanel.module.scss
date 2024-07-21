@@ -1,0 +1,16 @@
+.DevPanel {
+    padding: 0 24px;
+    display: none;
+    height:  var(--devpanel-height);
+    width: 100%;
+    background-color: var(--inverted-bg-color);
+
+}
+
+.open {
+    display: flex;
+}
+
+.active {
+    text-decoration: underline;
+}

@@ -1,0 +1,179 @@
+// Старый лоадер (3 точки)
+
+.lds-ellipsis {
+  display: inline-block;
+  position: relative;
+  width: 80px;
+  height: 80px;
+}
+
+.lds-ellipsis div {
+  position: absolute;
+  width: 10px;
+  height: 10px;
+  border-radius: 50%;
+  background: var(--loader-color);
+  animation-timing-function: cubic-bezier(0, 1, 1, 0);
+}
+
+.lds-ellipsis div:nth-child(1) {
+  left: 8px;
+  animation: lds-ellipsis1 0.6s infinite;
+}
+
+.lds-ellipsis div:nth-child(2) {
+  left: 8px;
+  animation: lds-ellipsis2 0.6s infinite;
+}
+
+.lds-ellipsis div:nth-child(3) {
+  left: 32px;
+  animation: lds-ellipsis2 0.6s infinite;
+}
+
+.lds-ellipsis div:nth-child(4) {
+  left: 56px;
+  animation: lds-ellipsis3 0.6s infinite;
+}
+
+@keyframes lds-ellipsis1 {
+  0% {
+    transform: scale(0);
+  }
+
+  100% {
+    transform: scale(1);
+  }
+}
+
+@keyframes lds-ellipsis3 {
+  0% {
+    transform: scale(1);
+  }
+
+  100% {
+    transform: scale(0);
+  }
+}
+
+@keyframes lds-ellipsis2 {
+    0% {
+      transform: translate(0, 0);
+    }
+
+    100% {
+      transform: translate(24px, 0);
+    }
+}
+
+// Новый лоадер (Новатор)
+
+.novatorLoader {
+  position: relative;
+  width: 120px;
+  height: 120px;
+  max-width: 120px;
+  max-height: 120px;
+}
+
+.novatorIcon {
+  position: absolute;
+  opacity: 0;
+  animation: lds-ripple 2s cubic-bezier(0, 0.2, 0.8, 1) ;
+  fill: var(--loader-color);
+  &:nth-child(2) {
+    animation-delay: -0.5s;
+  }
+}
+
+.novatorTitle {
+  position: absolute;
+  bottom: 50px;
+  left: 12px;
+  color: var(--loader-color);
+  font: var(--font-size-l) / var(--font-line-l) "PT Serif ";
+  font-weight: 700;
+  transform: scaleX(1.4);
+  opacity: 0.2;
+  animation: heading 2s cubic-bezier(0, 0.2, 0.8, 1) infinite;
+}
+
+@keyframes lds-ripple {
+  0% {
+    top: 60px;
+    left: 60px;
+    width: 0;
+    height: 0;
+    opacity: 0;
+    transform: skewY(-60deg);
+  }
+  10% {
+    top: 60px;
+    left: 60px;
+    width: 0;
+    height: 0;
+    opacity: 0.2;
+    
+  }
+  15% {
+    top: 60px;
+    left: 60px;
+    width: 0;
+    height: 0;
+    opacity: 0.4;
+  }
+  50% {
+    top: 0px;
+    left: 0px;
+    width: 120px;
+    height: 120px;
+    opacity: 0.8;
+    transform: skewY(0deg);
+  }
+  85% {
+    top: 60px;
+    left: 60px;
+    width: 0;
+    height: 0;
+    opacity: 0.4;
+  }
+  90% {
+    top: 60px;
+    left: 60px;
+    width: 0;
+    height: 0;
+    opacity: 0.2;
+  }
+  100% {
+    top: 60px;
+    left: 60px;
+    width: 0;
+    height: 0;
+    opacity: 0;
+    transform: skewY(60deg);
+  }
+}
+
+@keyframes heading {
+  0% {
+    opacity: 0.4;
+  }
+  10% {
+    opacity: 0.4;
+  }
+  50% {
+    opacity: 0;
+  }
+  85% {
+    opacity: 0.2;
+  }
+  100% {
+    opacity: 0.4;
+  }
+}
+
+
+
+
+
+

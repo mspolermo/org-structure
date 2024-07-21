@@ -1,0 +1,30 @@
+.PersonShort {
+    display: grid;
+    grid-template-columns: 2fr 1fr 1fr 2fr;
+    padding: 8px;
+    cursor: pointer;
+}
+
+.indent_0 {
+    margin-left: var(--nesting-0);
+}
+
+.indent_1 {
+    margin-left: var(--nesting-1);
+}
+
+.indent_2 {
+    margin-left: var(--nesting-2);
+}
+
+.indent_3 {
+    margin-left: var(--nesting-3);
+}
+
+.indent_4 {
+    margin-left: var(--nesting-4);
+}
+
+.indent_5 {
+    margin-left: var(--nesting-5);
+}

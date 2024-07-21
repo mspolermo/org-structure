@@ -1,0 +1,44 @@
+.Page {
+    position: relative;
+    flex-grow: 1;
+    height: calc(100vh - var(--navbar-height));
+    overflow-y: auto;
+    //flex-shrink: 100;
+    scroll-behavior: smooth;
+    background-color: var(--bg-color);
+    scrollbar-gutter: stable;
+}
+
+.topBorder {
+    height: 0px;
+}
+
+.withDevpanel {
+    max-height: calc(100vh - var(--navbar-height) - var(--devpanel-height));
+}
+
+.header {
+    display: block;
+    padding: 30px 50px;
+    border-bottom: 1px solid var(--divider-color);
+    width: 100%;
+    flex-grow: 0;
+}
+
+.withoutHeader {
+    padding: 0;
+    border-bottom: none;
+}
+
+.content {
+    width: 100%;
+    padding: 20px 50px;
+    flex-grow: 3;
+}
+
+.footer {
+    flex-grow: 0;
+    padding: 20px 0 20px;
+    align-self: center;
+    cursor: default;
+}

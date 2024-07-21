@@ -1,0 +1,18 @@
+<svg viewBox="0 0 35 35">
+  <defs>
+    <linearGradient
+      id="linear-gradient"
+      x1="0"
+      y1="35"
+      x2="0"
+      y2="0"
+      gradientUnits="userSpaceOnUse"
+    >
+      <stop offset="0" stopColor="#fff" stopOpacity="0" />
+      <stop offset="1" />
+    </linearGradient>
+  </defs>
+  <path
+    d="M33.97 17A16.49 16.49 0 1 0 17 33.975v1A17.49 17.49 0 1 1 34.97 17h-1z"
+  />
+</svg>

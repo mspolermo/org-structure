@@ -1,0 +1,16 @@
+.Navpanel {
+    width: var(--sidebar-width);
+    overflow-wrap: break-word;
+    height: 100%;
+    overflow: hidden;
+}
+
+.AnchorParentItem {
+    gap: 16px;
+}
+
+@media (max-height: 850px) {
+    .AnchorParentItem {
+        gap: 8px;
+    }
+}

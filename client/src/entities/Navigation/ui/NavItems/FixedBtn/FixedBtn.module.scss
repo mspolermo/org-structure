@@ -1,0 +1,51 @@
+.FixedBtn {
+    width: 100%;
+    padding: 20px 20px;
+    border-top: 1px solid var(--inverted-divider-color);
+    .svg {
+        stroke: var(--additional-icon-color);
+        fill: var(--additional-icon-color);
+        stroke-width: 0;
+        transform: translateY(-1px);
+    }
+    &:hover {
+        .svg {
+            stroke: var(--inverted-icon-color);
+            fill: var(--inverted-icon-color);
+        }
+        p {
+            text-decoration: underline;
+            font-weight: 500;
+            color: var(--inverted-active-text-color);
+        }
+    }
+}
+
+.svg {
+    width: 20px;
+    height: 20px;
+}
+
+.active {
+    border-right: 1px solid var(--divider-color);
+}
+
+@media (max-height: 850px) {
+    .FixedBtn {
+        padding: 14px 14px;
+    }
+    .svg {
+        width: 16px;
+        height: 16px;
+    }
+}
+
+@media (max-height: 650px) {
+    .FixedBtn {
+        padding: 4px 10px;
+    }
+    .svg {
+        width: 14px;
+        height: 14px;
+    }
+}
