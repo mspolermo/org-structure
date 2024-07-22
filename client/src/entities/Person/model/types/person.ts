@@ -1,20 +1,12 @@
 export interface Person {
+    id: string,
     name: string,
+    post: string,
+    email: string,
+    phone: string
+    location: string,
     isChief: boolean,
     isManager: boolean,
-    post: string,
-    id: string,
-    children: Person[],
-    canEdit: boolean, // TODO этот флаг нужен для отображения кнопки редактировать
-    nestingLevel: number,
-    mainContact: {
-        phone: {
-            type: any, // какие типы кроме null?
-            number: string,
-            description: any, // какие типы кроме null?
-        },
-        location: string
-    }
 }
 
 // Новый эндпойнт

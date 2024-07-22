@@ -1,0 +1,13 @@
+{
+    "manifest_version": 3,
+    "name": "Orgstructure editor",
+    "version": "1.0",
+    "description": "Сорздание и редактирование оргюнитов и персон",
+    "permissions": ["activeTab", "storage"],
+    "action": {
+        "default_popup": "popup.html"
+    },
+    "background": {
+        "service_worker": "background.js"
+    }
+}

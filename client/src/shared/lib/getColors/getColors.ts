@@ -64,6 +64,8 @@ export function convertId(id:string) {
 }
   
 export function getColor(id:string) {
+    return '#9C2452'
+    //TODO: нужно переделать id с числа на guid и потом раскоментировать
     return colors[convertId(id) % colors.length]
 }
   

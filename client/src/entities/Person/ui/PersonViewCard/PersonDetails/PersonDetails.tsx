@@ -57,18 +57,18 @@ export const PersonDetails = observer(({ className, person, store }: PersonDetai
         }
     });
     
-    const appointments = useStoreRetrieve<personDetails>({
-        storeField: store.personFast,
-        pendindElement: <Skeleton height={'120px'}/>,
-        fulfilledElement: (v) => {
-            const appointmentsList = v.appointments.map( (e, i) => {
-                return <Text key={i} text={`${e.orgUnitName}, ${e.post}`} size='s'/>
-            })
+    // const appointments = useStoreRetrieve<personDetails>({
+    //     storeField: store.personFast,
+    //     pendindElement: <Skeleton height={'120px'}/>,
+    //     fulfilledElement: (v) => {
+    //         const appointmentsList = v.appointments.map( (e, i) => {
+    //             return <Text key={i} text={`${e.orgUnitName}, ${e.post}`} size='s'/>
+    //         })
                 
-            return <VStack>
-                {appointmentsList}
-            </VStack>}
-    });
+    //         return <VStack>
+    //             {appointmentsList}
+    //         </VStack>}
+    // });
 
     return (
         <VStack max gap='8' className={classNames(cls.PersonDetails, {}, [className])}>
@@ -149,9 +149,9 @@ export const PersonDetails = observer(({ className, person, store }: PersonDetai
                         </HStack>
                         <HStack max gap='4' align='start'>
                             <Text text='Назначения:' size='m'/>
-                            <VStack gap='4' className={cls.rows}>
+                            {/* <VStack gap='4' className={cls.rows}>
                                 {appointments}
-                            </VStack>
+                            </VStack> */}
                         </HStack>
                         <HStack max gap='4' align='start'>
                             <Text text='Подчинения:' size='m'/>

@@ -1,13 +1,17 @@
 import { NestFactory } from '@nestjs/core';
 import { DocumentBuilder, SwaggerModule } from '@nestjs/swagger';
-
 import { AppModule } from './app.module';
 
 async function start() {
     const PORT = process.env.PORT || 5001;
     const app = await NestFactory.create(AppModule);
+
+    const clientOrigin = 'http://localhost:5173'; // Порт клиента
+    const extensionOrigin =
+        'chrome-extension://pogagdbencbpdbamblmemmgllkalooia'; // ИД расширения
+
     app.enableCors({
-        origin: 'http://localhost:5173', // Порт, на котором работает ваш клиент
+        origin: [clientOrigin, extensionOrigin],
         methods: 'GET,HEAD,PUT,PATCH,POST,DELETE',
         credentials: true,
         allowedHeaders: 'Content-Type, Authorization',
@@ -25,4 +29,5 @@ async function start() {
         console.log('Server started on PORT: ' + PORT);
     });
 }
+
 start();

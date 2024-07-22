@@ -1,0 +1,87 @@
+<!DOCTYPE html>
+<html>
+<head>
+  <title>Org Unit and Person Creator</title>
+  <style>
+    body {
+      font-family: Arial, sans-serif;
+      width: 300px;
+      padding: 10px;
+    }
+    .tab {
+      display: none;
+    }
+    .tab.active {
+      display: block;
+    }
+    .tab-buttons {
+      display: flex;
+      justify-content: space-between;
+    }
+    .tab-button {
+      flex: 1;
+      padding: 10px;
+      cursor: pointer;
+      text-align: center;
+      background-color: #f1f1f1;
+      border: 1px solid #ccc;
+    }
+    .tab-button.active {
+      background-color: #ccc;
+    }
+    label {
+      display: block;
+      margin-top: 10px;
+    }
+    input, select, button {
+      width: 100%;
+      padding: 5px;
+      margin-top: 5px;
+    }
+  </style>
+</head>
+<body>
+  <div class="tab-buttons">
+    <div class="tab-button active" id="org-unit-tab-button">Create Org Unit</div>
+    <div class="tab-button" id="person-tab-button">Create Person</div>
+  </div>
+
+  <div id="org-unit-tab" class="tab active">
+    <h1>Create Org Unit</h1>
+    <label for="org-unit-name">Name</label>
+    <input type="text" id="org-unit-name" />
+    <label for="org-unit-description">Description</label>
+    <input type="text" id="org-unit-description" />
+    <label for="parent-org-unit-id">Parent Org Unit ID (optional)</label>
+    <input type="text" id="parent-org-unit-id" />
+    <button id="create-org-unit">Create Org Unit</button>
+  </div>
+
+  <div id="person-tab" class="tab">
+    <h1>Create Person</h1>
+    <label for="person-name">Name</label>
+    <input type="text" id="person-name" />
+    <label for="person-post">Post</label>
+    <input type="text" id="person-post" />
+    <label for="person-email">Email</label>
+    <input type="text" id="person-email" />
+    <label for="person-phone">Phone</label>
+    <input type="text" id="person-phone" />
+    <label for="person-location">Location</label>
+    <input type="text" id="person-location" />
+    <label for="person-birthday">Birthday</label>
+    <input type="text" id="person-birthday" />
+    <label for="person-table">Table</label>
+    <input type="text" id="person-table" />
+    <label for="org-unit-id">Org Unit ID</label>
+    <input type="text" id="org-unit-id" />
+    <label for="is-chief">Is Chief</label>
+    <input type="checkbox" id="is-chief" />
+    <label for="is-manager">Is Manager</label>
+    <input type="checkbox" id="is-manager" />
+    <button id="create-person">Create Person</button>
+  </div>
+
+  <script src="popup.js"></script>
+</body>
+</html>

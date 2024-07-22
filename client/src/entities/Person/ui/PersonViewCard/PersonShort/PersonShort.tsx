@@ -15,7 +15,7 @@ interface PersonShortProps {
 }
 
 export const PersonShort = memo(({ className, person, isOpen, setIsOpen }: PersonShortProps) => {
-    const indent = cls[`indent_${person.nestingLevel}`];
+    const indent = cls[`indent_0`]; //TODO: временный фик, так тут был _person.nestingLevel, но его нет в новом беке
     
     const openingHandler = useCallback( (e: React.MouseEvent<HTMLDivElement, MouseEvent>) => {
         e.stopPropagation();
@@ -29,14 +29,14 @@ export const PersonShort = memo(({ className, person, isOpen, setIsOpen }: Perso
         >
             <Text text={person.name} size='s' className={indent}/>
 
-            {(isOpen && person.mainContact.phone.number)
-                ? <UseSearch text={person.mainContact.phone.number} size='s'/>
-                : <Text text={person.mainContact.phone.number || '-'} size='s'/>
+            {(isOpen && person.phone)
+                ? <UseSearch text={person.phone} size='s'/>
+                : <Text text={person.phone|| '-'} size='s'/>
             }
 
-            {(isOpen && person.mainContact.location)
-                ? <UseSearch text={person.mainContact.location} size='s'/>
-                : <Text text={person.mainContact.location || '-'} size='s'/>
+            {(isOpen && person.location)
+                ? <UseSearch text={person.location} size='s'/>
+                : <Text text={person.location || '-'} size='s'/>
             }
 
             <Text text={person.post || '-'} size='s'/>
