@@ -4,87 +4,51 @@
     <head lang="ru">
     <meta charset="UTF-8">
     <meta name="viewport" content="width=device-width, initial-scale=1.0">
-  <title>Org Unit and Person Creator</title>
-  <style>
-    body {
-      font-family: Arial, sans-serif;
-      width: 300px;
-      padding: 10px;
-    }
-    .tab {
-      display: none;
-    }
-    .tab.active {
-      display: block;
-    }
-    .tab-buttons {
-      display: flex;
-      justify-content: space-between;
-    }
-    .tab-button {
-      flex: 1;
-      padding: 10px;
-      cursor: pointer;
-      text-align: center;
-      background-color: #f1f1f1;
-      border: 1px solid #ccc;
-    }
-    .tab-button.active {
-      background-color: #ccc;
-    }
-    label {
-      display: block;
-      margin-top: 10px;
-    }
-    input, select, button {
-      width: 100%;
-      padding: 5px;
-      margin-top: 5px;
-    }
-  </style>
+    <title>Org Unit and Person Creator</title>
+    <link rel="stylesheet" href="./styles.css">
 </head>
 <body>
-  <div class="tab-buttons">
-    <div class="tab-button active" id="org-unit-tab-button">Создать OrgUnit</div>
-    <div class="tab-button" id="person-tab-button">Создать сотрудника (Person)</div>
-  </div>
+    <div class="tab-buttons">
+        <div class="tab-button active" id="org-unit-tab-button">Создать OrgUnit</div>
+        <div class="tab-button" id="person-tab-button">Создать сотрудника (Person)</div>
+    </div>
 
-  <div id="org-unit-tab" class="tab active">
-    <h1>Создать OrgUnit</h1>
-    <label for="org-unit-name">Название</label>
-    <input type="text" id="org-unit-name" />
-    <label for="org-unit-description">Описание</label>
-    <input type="text" id="org-unit-description" />
-    <label for="parent-org-unit-id">Родительский OrgUnit ID (опционально)</label>
-    <input type="text" id="parent-org-unit-id" />
-    <button id="create-org-unit">Создать</button>
-  </div>
+    <div id="org-unit-tab" class="tab active">
+        <h1>Создать OrgUnit</h1>
+        <label for="org-unit-name">Название</label>
+        <input type="text" id="org-unit-name" />
+        <label for="org-unit-description">Описание</label>
+        <input type="text" id="org-unit-description" />
+        <label for="parent-org-unit-id">Родительский OrgUnit ID (опционально)</label>
+        <input type="text" id="parent-org-unit-id" />
+        <button id="create-org-unit">Создать</button>
+    </div>
 
-  <div id="person-tab" class="tab">
-    <h1>Создать сотрудника (Person)</h1>
-    <label for="person-name">ФИО</label>
-    <input type="text" id="person-name" />
-    <label for="person-post">Должность</label>
-    <input type="text" id="person-post" />
-    <label for="person-email">Email</label>
-    <input type="text" id="person-email" />
-    <label for="person-phone">Пароль</label>
-    <input type="text" id="person-phone" />
-    <label for="person-location">Кабинет</label>
-    <input type="text" id="person-location" />
-    <label for="person-birthday">Дата рожение</label>
-    <input type="text" id="person-birthday" />
-    <label for="person-table">Табельный номер</label>
-    <input type="text" id="person-table" />
-    <label for="org-unit-id">OrgUnit ID</label>
-    <input type="text" id="org-unit-id" />
-    <label for="is-chief">Начальник?</label>
-    <input type="checkbox" id="is-chief" />
-    <label for="is-manager">Менеджер?</label>
-    <input type="checkbox" id="is-manager" />
-    <button id="create-person">Создать</button>
-  </div>
+    <div id="person-tab" class="tab">
+        <h1>Создать сотрудника (Person)</h1>
+        <label for="person-name">ФИО</label>
+        <input type="text" id="person-name" />
+        <label for="person-post">Должность</label>
+        <input type="text" id="person-post" />
+        <label for="person-email">Email</label>
+        <input type="text" id="person-email" />
+        <label for="person-phone">Пароль</label>
+        <input type="text" id="person-phone" />
+        <label for="person-location">Кабинет</label>
+        <input type="text" id="person-location" />
+        <label for="person-birthday">Дата рожение</label>
+        <input type="text" id="person-birthday" />
+        <label for="person-table">Табельный номер</label>
+        <input type="text" id="person-table" />
+        <label for="org-unit-id">OrgUnit ID</label>
+        <input type="text" id="org-unit-id" />
+        <label for="is-chief">Начальник?</label>
+        <input type="checkbox" id="is-chief" />
+        <label for="is-manager">Менеджер?</label>
+        <input type="checkbox" id="is-manager" />
+        <button id="create-person">Создать</button>
+    </div>
 
-  <script src="popup.js"></script>
+    <script src="popup.js"></script>
 </body>
 </html>
