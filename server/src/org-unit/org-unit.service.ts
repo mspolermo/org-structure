@@ -345,4 +345,48 @@ export class OrgUnitService {
 
         return orgUnit;
     }
+
+    async getOrgUnitsNavigation() {
+        const parentOrgUnits = await this.orgUnitRepository.findAll({
+            where: {
+                nestingLevel: 0,
+            },
+            attributes: ['id', 'name'],
+            include: [
+                {
+                    model: OrgUnit,
+                    as: 'childOrgUnitItems',
+                    where: {
+                        nestingLevel: 1,
+                    },
+                    required: false,
+                    attributes: ['id', 'name'],
+                },
+            ],
+        });
+
+        const result = parentOrgUnits.map((parentOrgUnit) => ({
+            name: {
+                id: parentOrgUnit.id,
+                name: parentOrgUnit.name,
+                isLink: true,
+            },
+            items: parentOrgUnit.childOrgUnitItems.map((childOrgUnit) => ({
+                id: childOrgUnit.id,
+                name: childOrgUnit.name,
+                isLink: true,
+            })),
+        }));
+        // TODO: добавить пользователя
+
+        return {
+            groups: result,
+            user: {
+                id: '0',
+                fullName: 'Админов Админ Админович',
+                shortName: 'Админов А.А.',
+                allowDeveloperTools: true,
+            },
+        };
+    }
 }

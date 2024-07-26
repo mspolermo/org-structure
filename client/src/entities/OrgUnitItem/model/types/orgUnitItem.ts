@@ -4,7 +4,7 @@ export interface OrgUnitItem {
     id: string,
     name: string,
     description: string | null,
-    chief: Person | null, 
+    chef: Person | null, 
     managers: Person[],
     childOrgUnitItems: OrgUnitItem[],
     persons: Person[],

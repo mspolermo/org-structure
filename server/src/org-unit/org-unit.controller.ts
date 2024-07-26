@@ -23,6 +23,14 @@ export class OrgUnitController {
         return this.orgUnitService.getAllOrgUnits();
     }
 
+    @ApiOperation({ summary: 'Получить навигацию' })
+    @ApiResponse({ status: 200 })
+    // TODO: типизировать и переделать на получение юзера
+    @Get('getNav')
+    getNav() {
+        return this.orgUnitService.getOrgUnitsNavigation();
+    }
+
     @ApiOperation({ summary: 'Получить оргюнит по id' })
     @ApiResponse({ status: 200, type: OrgUnit })
     @Get('/:id')

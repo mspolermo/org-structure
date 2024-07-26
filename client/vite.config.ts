@@ -40,7 +40,7 @@ export default defineConfig({
     },
     define: {
         __API_ORGUNIT__: JSON.stringify('http://localhost:5001/org-unit/'),
-        __API_NAV__: JSON.stringify('http://localhost:5001/navigation'),
+        __API_NAV__: JSON.stringify('http://localhost:5001/org-unit/getNav'),
         __API_PERSON_DETAILS_FAST__: JSON.stringify('http://localhost:5001/persons/detales')
     },
 })

@@ -17,7 +17,7 @@ interface DepartmentProps {
 
 export const Department = observer(({ className, department, store }: DepartmentProps) => {
     if (store== undefined) return null;
-    
+    console.log(department)
     const { isPersonsCollapsed } = store;
 
     const orgUnitsCardArray = useOrgUnitCardStore({orgUnitItems: department.childOrgUnitItems});
@@ -33,7 +33,7 @@ export const Department = observer(({ className, department, store }: Department
 
             <CollapsingPersonListAnimation duration={0.4} isOpen={isPersonsCollapsed} >
                 {<VStack className={classNames(cls.personsList, {}, [])} max>
-                    {department.chief && <PersonView person={department.chief} store={new PersonViewStore()}/>}
+                    {department.chef && <PersonView person={department.chef} store={new PersonViewStore()}/>}
                     {department.managers && department.managers.map( (x, i) => 
                         <PersonView person={x} key={i} store={new PersonViewStore()}/>
                     )}
