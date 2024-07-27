@@ -6,59 +6,45 @@ import { Pencil } from '@/shared/assets/svg-icons/button';
 import { getRouteEditOrgUnit, getRouteFavorites } from '@/shared/const/router';
 import { classNames } from '@/shared/lib/classNames/classNames';
 import { Icon } from '@/shared/ui/Icon';
-import { Skeleton } from '@/shared/ui/Skeleton';
 import { VStack, HStack } from '@/shared/ui/Stack';
 import { Text } from '@/shared/ui/Text';
 import { Tooltip } from '@/shared/ui/Tooltip';
 
 import cls from './OrgUnitItemDetails.module.scss';
+import { OrgUnitItem } from '../../model/types/orgUnitItem';
 
 interface OrgUnitItemDetailsProps {
 	className?: string;
-    id: string;
+    orgUnitItem: OrgUnitItem;
 }
 
-export const OrgUnitItemDetails = memo(({ className, id }: OrgUnitItemDetailsProps) => {
+export const OrgUnitItemDetails = memo(({ className, orgUnitItem }: OrgUnitItemDetailsProps) => {
     const navigate = useNavigate();
 
-    const editBtnHandler = useCallback(()=> navigate(getRouteEditOrgUnit(id)), [id, navigate]);
+    const editBtnHandler = useCallback(()=> navigate(getRouteEditOrgUnit(orgUnitItem.id)), [orgUnitItem.id, navigate]);
     const favoriteBtnHandler = useCallback(()=> navigate(getRouteFavorites()), [navigate]);
 
     return (
         <VStack max gap='8' className={classNames(cls.OrgUnitItemDetails, {}, [className,])}>
-            <HStack gap='4' justify='between'>
-                <Text text='Рабочий день:'/>
-                <Skeleton width={100} height={15}></Skeleton>
+            <HStack gap='32' className={cls.rows}>
+                <HStack gap='4' justify='between'>
+                    <Text text='Рабочий день:'/>
+                    <Text text={orgUnitItem.workingHours}/>
+                </HStack>
+                <HStack gap='4' justify='between'>
+                    <Text text='Обед:'/>
+                    <Text text={orgUnitItem.lunchBreak}/>
+                </HStack>
             </HStack>
-            <HStack gap='4' justify='between'>
-                <Text text='Обед:'/>
-                <Skeleton width={100} height={15}></Skeleton>
-            </HStack>
-            <HStack gap='4' justify='between' align='start'>
-                <Text text='Редакторы:'/>
-                <VStack gap='4' className={cls.rows}>
-                    <Skeleton width={200} height={15}></Skeleton>
-                    <Skeleton width={200} height={15}></Skeleton>
-                </VStack>
-            </HStack>
-            <HStack gap='4' justify='between' align='start'>
-                <Text text='Роли:'/>
-                <VStack gap='4' className={cls.rows}>
-                    <Skeleton width={600} height={15}></Skeleton>
-                    <Skeleton width={600} height={15}></Skeleton>
-                </VStack>
-            </HStack>
-            <HStack gap='4' justify='between' align='start'>
-                <Text text='Подчинения:'/>
-                <VStack gap='4' className={cls.rows}>
-                    <Skeleton width={600} height={15}></Skeleton>
-                    <Skeleton width={600} height={15}></Skeleton>
-                </VStack>
-            </HStack>
+            {Boolean(orgUnitItem.summary) && 
+            <VStack gap='4' justify='between'>
+                <Text text='Информация об отделе:'/>
+                <Text text={orgUnitItem.summary}/>
+            </VStack>}
             <HStack max gap='8' align='start'>
                 <VStack max gap='8'>
                     <HStack max gap='8' justify='end'>
-                        <Text text={id} align='right' className={cls.id}/>
+                        <Text text={orgUnitItem.id} align='right' className={cls.id}/>
                         <Tooltip text='Редактировать'>
                             <Icon
                                 borderType='soft'

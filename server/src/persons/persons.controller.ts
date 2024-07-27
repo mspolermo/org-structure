@@ -1,4 +1,13 @@
-import { Body, Controller, Get, Param, Post } from '@nestjs/common';
+import {
+    Body,
+    Controller,
+    Delete,
+    Get,
+    HttpException,
+    HttpStatus,
+    Param,
+    Post,
+} from '@nestjs/common';
 import { ApiOperation, ApiResponse, ApiTags } from '@nestjs/swagger';
 
 import { PersonsService } from './persons.service';
@@ -58,5 +67,24 @@ export class PersonsController {
     @Get('/detales/:personId')
     getDetalesById(@Param('personId') personId: string) {
         return this.personsService.getPersonDetalesById(personId);
+    }
+
+    @Delete(':id')
+    async deletePerson(@Param('id') id: string) {
+        try {
+            const deleted = await this.personsService.deletePerson(id);
+            if (!deleted) {
+                throw new HttpException(
+                    'Person not found',
+                    HttpStatus.NOT_FOUND,
+                );
+            }
+            return { message: 'Person deleted successfully' };
+        } catch (error) {
+            throw new HttpException(
+                'Error deleting person',
+                HttpStatus.INTERNAL_SERVER_ERROR,
+            );
+        }
     }
 }

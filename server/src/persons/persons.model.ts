@@ -24,15 +24,6 @@ interface PersonsCreationAttrs {
 
 @Table({ tableName: 'persons' })
 export class Person extends Model<Person, PersonsCreationAttrs> {
-    @ApiProperty({ example: '1', description: 'Уникальный идентификатор' })
-    @Column({
-        type: DataType.INTEGER,
-        unique: true,
-        autoIncrement: true,
-        primaryKey: true,
-    })
-    id: number;
-
     @ApiProperty({
         example: '550e8400-e29b-41d4-a716-446655440000',
         description: 'Уникальный GUID',
@@ -42,8 +33,9 @@ export class Person extends Model<Person, PersonsCreationAttrs> {
         defaultValue: uuid,
         unique: true,
         allowNull: false,
+        primaryKey: true,
     })
-    guid: string;
+    id: string;
 
     @ApiProperty({
         example: 'Иванов Иван Иванович',
@@ -135,8 +127,8 @@ export class Person extends Model<Person, PersonsCreationAttrs> {
     personDetales: PersonDetales;
 
     @ForeignKey(() => OrgUnit)
-    @Column({ type: DataType.INTEGER })
-    orgUnitId: number;
+    @Column({ type: DataType.UUID })
+    orgUnitId: string;
 
     @BelongsTo(() => OrgUnit)
     orgUnit: OrgUnit;

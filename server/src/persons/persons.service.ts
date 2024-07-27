@@ -8,6 +8,13 @@ import { CreatePersonDetalesDto } from './dto/create-person-detales.dto';
 import { PersonDetales } from './person-detales.model';
 import { OrgUnit } from 'src/org-unit/org-unit.model';
 
+const generateRandomNumber = (length: number): string => {
+    //TODO вынести в хелперы
+    const min = Math.pow(10, length - 1);
+    const max = Math.pow(10, length) - 1;
+    return (Math.floor(Math.random() * (max - min + 1)) + min).toString();
+};
+
 @Injectable()
 export class PersonsService {
     constructor(
@@ -39,18 +46,23 @@ export class PersonsService {
         }
 
         const person = await this.personRepository.create(dto);
-        const orgUnit = await this.orgUnitRepository.findByPk(dto.orgUnitId);
 
-        // Generate table and phone
-        const formattedOrgUnitId = orgUnit.id.toString().padStart(2, '0');
-        const formattedPersonId = person.id.toString().padStart(2, '0');
+        // Генерация телефона и табельного номера, если они не переданы
 
-        person.table = `${formattedOrgUnitId}-${formattedPersonId}`;
-        person.phone = `343-${formattedOrgUnitId}-${formattedPersonId}`;
+        const formattedOrgUnitId = generateRandomNumber(2);
+        const formattedPersonId = generateRandomNumber(2);
+
+        person.phone =
+            dto.phone ?? `343-${formattedOrgUnitId}-${formattedPersonId}`;
+        person.table =
+            dto.table ?? `${formattedOrgUnitId}-${formattedPersonId}`;
 
         await person.save();
 
         if (dto.isChef) {
+            const orgUnit = await this.orgUnitRepository.findByPk(
+                dto.orgUnitId,
+            );
             orgUnit.chefId = person.id;
             await orgUnit.save();
         }
@@ -102,5 +114,14 @@ export class PersonsService {
             );
         }
         return personDetales;
+    }
+
+    async deletePerson(id: string): Promise<boolean> {
+        const person = await this.personRepository.findByPk(id);
+        if (!person) {
+            return false;
+        }
+        await person.destroy();
+        return true;
     }
 }

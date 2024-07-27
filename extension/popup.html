@@ -17,10 +17,16 @@
         <h1>Создать OrgUnit</h1>
         <label for="org-unit-name">Название</label>
         <input type="text" id="org-unit-name" />
-        <label for="org-unit-description">Описание</label>
+        <label for="org-unit-description">Краткое описание</label>
         <input type="text" id="org-unit-description" />
-        <label for="parent-org-unit-id">Родительский OrgUnit ID (опционально)</label>
+        <label for="parent-org-unit-id">Родительский OrgUnit GUID (опционально)</label>
         <input type="text" id="parent-org-unit-id" />
+        <label for="parent-org-unit-id">Рабочий день (опционально)</label>
+        <input type="text" id="org-unit-working-hours" />
+        <label for="parent-org-unit-id">Обед(опционально)</label>
+        <input type="text" id="org-unit-lunch-break" />
+        <label for="parent-org-unit-id">Информация об отделе (опционально)</label>
+        <input type="text" id="org-unit-summary" />
         <button id="create-org-unit">Создать</button>
     </div>
 
@@ -32,16 +38,18 @@
         <input type="text" id="person-post" />
         <label for="person-email">Email</label>
         <input type="text" id="person-email" />
-        <label for="person-phone">Телефон</label>
+        <label for="person-phone">Телефон (опционально)</label>
         <input type="text" id="person-phone" />
         <label for="person-location">Кабинет</label>
         <input type="text" id="person-location" />
-        <label for="person-birthday">Дата рожение</label>
+        <label for="person-birthday">Дата рожения</label>
         <input type="text" id="person-birthday" />
-        <label for="person-table">Табельный номер</label>
+        <label for="person-table">Табельный номер (опционально)</label>
         <input type="text" id="person-table" />
-        <label for="org-unit-id">OrgUnit ID</label>
+        <label for="org-unit-id">OrgUnit GUID</label>
         <input type="text" id="org-unit-id" />
+        <label for="org-unit-id">Дата устройства на работу</label>
+        <input type="text" id="org-employment-date" />
         <label for="is-chief">Начальник?</label>
         <input type="checkbox" id="is-chief" />
         <label for="is-manager">Менеджер?</label>

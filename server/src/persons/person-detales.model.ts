@@ -8,13 +8,14 @@ import {
     Table,
 } from 'sequelize-typescript';
 import { Person } from 'src/persons/persons.model';
+import { uuid } from 'uuidv4';
 
 interface PersonDetalesCreationAttrs {
     items: string;
     hardware: string;
     software: string;
     exams: string;
-    personId: number;
+    personId: string;
 }
 
 @Table({ tableName: 'person_detales' })
@@ -22,14 +23,18 @@ export class PersonDetales extends Model<
     PersonDetales,
     PersonDetalesCreationAttrs
 > {
-    @ApiProperty({ example: '1', description: 'Уникальный идентификатор' })
+    @ApiProperty({
+        example: '550e8400-e29b-41d4-a716-446655440000',
+        description: 'Уникальный GUID',
+    })
     @Column({
-        type: DataType.INTEGER,
+        type: DataType.UUID,
+        defaultValue: uuid,
         unique: true,
-        autoIncrement: true,
+        allowNull: false,
         primaryKey: true,
     })
-    id: number;
+    id: string;
 
     @ApiProperty({
         example: 'Стол А43, стул Е54',
@@ -72,8 +77,8 @@ export class PersonDetales extends Model<
     exams: string;
 
     @ForeignKey(() => Person)
-    @Column({ type: DataType.INTEGER, unique: true })
-    personId: number;
+    @Column({ type: DataType.UUID, unique: true })
+    personId: string;
 
     @BelongsTo(() => Person)
     person: Person;

@@ -15,7 +15,7 @@ export class CreateOrgUnitDto {
         description: 'ID родительского оргЮнита (опционально)',
         required: false,
     })
-    readonly parentOrgUnitId?: number;
+    readonly parentOrgUnitId?: string;
 
     @ApiProperty({
         example: '08.00-17.00',

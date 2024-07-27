@@ -11,23 +11,28 @@ import {
 import { Person } from 'src/persons/persons.model';
 import { Role } from 'src/roles/roles.model';
 import { UserRoles } from 'src/roles/user-roles.model';
+import { uuid } from 'uuidv4';
 
 interface UserCreationAttrs {
     email: string;
     password: string;
-    personId: number;
+    personId?: string;
 }
 
 @Table({ tableName: 'users' })
 export class User extends Model<User, UserCreationAttrs> {
-    @ApiProperty({ example: '1', description: 'Уникальный идентификатор' })
+    @ApiProperty({
+        example: '550e8400-e29b-41d4-a716-446655440000',
+        description: 'Уникальный GUID',
+    })
     @Column({
-        type: DataType.INTEGER,
+        type: DataType.UUID,
+        defaultValue: uuid,
         unique: true,
-        autoIncrement: true,
+        allowNull: false,
         primaryKey: true,
     })
-    id: number;
+    id: string;
 
     @ApiProperty({
         example: 'user@gmail.com',
@@ -52,10 +57,10 @@ export class User extends Model<User, UserCreationAttrs> {
 
     @ForeignKey(() => Person)
     @Column({
-        type: DataType.INTEGER,
+        type: DataType.UUID,
         allowNull: false,
     })
-    personId: number;
+    personId: string;
 
     @BelongsTo(() => Person)
     person: Person;

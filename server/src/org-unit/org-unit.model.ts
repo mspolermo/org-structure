@@ -22,15 +22,6 @@ interface OrgUnitCreationAttrs {
 
 @Table({ tableName: 'orgunits' })
 export class OrgUnit extends Model<OrgUnit, OrgUnitCreationAttrs> {
-    @ApiProperty({ example: '1', description: 'Уникальный идентификатор' })
-    @Column({
-        type: DataType.INTEGER,
-        unique: true,
-        autoIncrement: true,
-        primaryKey: true,
-    })
-    id: number;
-
     @ApiProperty({
         example: '550e8400-e29b-41d4-a716-446655440000',
         description: 'Уникальный GUID',
@@ -40,8 +31,9 @@ export class OrgUnit extends Model<OrgUnit, OrgUnitCreationAttrs> {
         defaultValue: uuid,
         unique: true,
         allowNull: false,
+        primaryKey: true,
     })
-    guid: string;
+    id: string;
 
     @ApiProperty({ example: 'Управление', description: 'Название отдела' })
     @Column({ type: DataType.STRING, unique: true, allowNull: false })
@@ -92,10 +84,10 @@ export class OrgUnit extends Model<OrgUnit, OrgUnitCreationAttrs> {
 
     @ForeignKey(() => Person)
     @Column({
-        type: DataType.INTEGER,
+        type: DataType.UUID,
         allowNull: true,
     })
-    chefId: number;
+    chefId: string;
 
     @BelongsTo(() => Person, 'chefId')
     chef: Person;
@@ -111,10 +103,10 @@ export class OrgUnit extends Model<OrgUnit, OrgUnitCreationAttrs> {
 
     @ForeignKey(() => OrgUnit)
     @Column({
-        type: DataType.INTEGER,
+        type: DataType.UUID,
         allowNull: true,
     })
-    parentOrgUnitId: number;
+    parentOrgUnitId: string;
 
     @BelongsTo(() => OrgUnit, 'parentOrgUnitId')
     parentOrgUnit: OrgUnit;

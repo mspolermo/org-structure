@@ -34,7 +34,7 @@ export const GetDepartment = observer((props: GetDepartmentProps) => {
         rejected: () => {throw new Error()},
         fulfilled: (value) => {
             console.log(value)
-            if (+value.id !== +id) return (
+            if (value.id !== id) return (
                 // Условие для избежание многократных перерисовок-скачков (и ошибок пререрисовки!),
                 // если пользователь подряд быстро тыкал по множеству отделов в навигации
                 <VStack gap='16' max maxHeight align="center" justify="center">

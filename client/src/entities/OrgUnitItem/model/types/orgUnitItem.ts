@@ -9,4 +9,7 @@ export interface OrgUnitItem {
     childOrgUnitItems: OrgUnitItem[],
     persons: Person[],
     nestingLevel: number
+    workingHours: string
+    lunchBreak: string
+    summary?: string
 }

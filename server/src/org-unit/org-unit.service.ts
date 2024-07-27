@@ -28,14 +28,21 @@ export class OrgUnitService {
             nestingLevel = parentOrgUnit.nestingLevel + 1;
         }
 
-        const orgUnit = await this.orgUnitRepository.create({
-            ...dto,
-            nestingLevel,
-            workingHours: dto.workingHours || '08.00-17.00',
-            lunchBreak: dto.lunchBreak || '12.00-12.45',
-        });
+        console.log('DTO: ', dto);
+        console.log('Nesting Level: ', nestingLevel);
 
-        return orgUnit;
+        try {
+            const orgUnit = await this.orgUnitRepository.create({
+                ...dto,
+                nestingLevel,
+                workingHours: dto.workingHours || '08.00-17.00',
+                lunchBreak: dto.lunchBreak || '12.00-12.45',
+            });
+            return orgUnit;
+        } catch (error) {
+            console.error('Error creating OrgUnit:', error);
+            throw new HttpException(error.message, HttpStatus.BAD_REQUEST);
+        }
     }
 
     async getAllOrgUnits() {

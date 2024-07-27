@@ -54,7 +54,7 @@ export const OrgUnitItemView = observer((props: OrgUnitItemViewProps) => {
                     setIsOpen={updateCardOpeningStatus}
                 />
             }
-            expandableView={<OrgUnitItemDetails id={orgUnitItem.id}/>}
+            expandableView={<OrgUnitItemDetails orgUnitItem={orgUnitItem}/>}
             withBorder
             withButtons
             icons={icons}

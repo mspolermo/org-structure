@@ -1,4 +1,4 @@
-import { ApiProperty } from '@nestjs/swagger';
+import { ApiProperty, ApiPropertyOptional } from '@nestjs/swagger';
 
 export class CreatePersonDto {
     @ApiProperty({
@@ -28,8 +28,20 @@ export class CreatePersonDto {
     })
     readonly employmentDate: Date;
 
+    @ApiPropertyOptional({
+        example: '343-15-41',
+        description: 'Телефон',
+    })
+    readonly phone?: string;
+
+    @ApiPropertyOptional({
+        example: '15-41',
+        description: 'Табельный номер',
+    })
+    readonly table?: string;
+
     @ApiProperty({ example: 1, description: 'ID организационного юнита' })
-    readonly orgUnitId: number;
+    readonly orgUnitId: string;
 
     @ApiProperty({ example: true, description: 'Начальник или нет' })
     readonly isChef: boolean;
