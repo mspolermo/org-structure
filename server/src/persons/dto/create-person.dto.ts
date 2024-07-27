@@ -13,12 +13,6 @@ export class CreatePersonDto {
     })
     readonly email: string;
 
-    @ApiProperty({
-        example: '22-04-11',
-        description: 'Телефон',
-    })
-    readonly phone: string;
-
     @ApiProperty({ example: 'Корпус 1, каб. 5', description: 'Адрес' })
     readonly location: string;
 
@@ -28,15 +22,18 @@ export class CreatePersonDto {
     @ApiProperty({ example: 'Инженер', description: 'Должность сотрудника' })
     readonly post: string;
 
-    @ApiProperty({ example: 'А-103', description: 'Табельный номер' })
-    readonly table: string;
-
     @ApiProperty({
-        example: '123',
-        description: 'Идентификационный номер оргЮнита',
+        example: '2023-01-01',
+        description: 'Дата приема на работу',
     })
+    readonly employmentDate: Date;
+
+    @ApiProperty({ example: 1, description: 'ID организационного юнита' })
     readonly orgUnitId: number;
 
-    @ApiProperty({ example: false, description: 'Начальник или нет' })
+    @ApiProperty({ example: true, description: 'Начальник или нет' })
     readonly isChef: boolean;
+
+    @ApiProperty({ example: true, description: 'Мэнэджер или нет' })
+    readonly isManager: boolean;
 }

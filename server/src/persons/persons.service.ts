@@ -36,15 +36,26 @@ export class PersonsService {
                     HttpStatus.BAD_REQUEST,
                 );
             }
+        }
 
-            const person = await this.personRepository.create(dto);
+        const person = await this.personRepository.create(dto);
+        const orgUnit = await this.orgUnitRepository.findByPk(dto.orgUnitId);
+
+        // Generate table and phone
+        const formattedOrgUnitId = orgUnit.id.toString().padStart(2, '0');
+        const formattedPersonId = person.id.toString().padStart(2, '0');
+
+        person.table = `${formattedOrgUnitId}-${formattedPersonId}`;
+        person.phone = `343-${formattedOrgUnitId}-${formattedPersonId}`;
+
+        await person.save();
+
+        if (dto.isChef) {
             orgUnit.chefId = person.id;
             await orgUnit.save();
-            return person;
-        } else {
-            const person = await this.personRepository.create(dto);
-            return person;
         }
+
+        return person;
     }
 
     async getAllPersons() {

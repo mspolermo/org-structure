@@ -15,8 +15,8 @@ export const useOrgUnitCardStore = ({orgUnitItems}: useOrgUnitCardStoreProps) =>
 
     useEffect( () => {
         const tempArray:orgUnitsCardType[] = [];
-
-        orgUnitItems.forEach(el => tempArray.push(
+        console.log(orgUnitItems);
+        orgUnitItems?.forEach(el => tempArray.push(
             {id: el.id, store: getOrgUnitCardStore(el.id) }
         ));
         

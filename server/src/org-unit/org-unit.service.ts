@@ -31,6 +31,8 @@ export class OrgUnitService {
         const orgUnit = await this.orgUnitRepository.create({
             ...dto,
             nestingLevel,
+            workingHours: dto.workingHours || '08.00-17.00',
+            lunchBreak: dto.lunchBreak || '12.00-12.45',
         });
 
         return orgUnit;

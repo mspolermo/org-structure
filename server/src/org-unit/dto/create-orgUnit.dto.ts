@@ -16,4 +16,25 @@ export class CreateOrgUnitDto {
         required: false,
     })
     readonly parentOrgUnitId?: number;
+
+    @ApiProperty({
+        example: '08.00-17.00',
+        description: 'Рабочее время',
+        required: false,
+    })
+    readonly workingHours?: string;
+
+    @ApiProperty({
+        example: '12.00-12.45',
+        description: 'Обед',
+        required: false,
+    })
+    readonly lunchBreak?: string;
+
+    @ApiProperty({
+        example: 'Это подразденение для управления всеми управлениями',
+        description: 'Дополнительная информация по оргюниту',
+        required: false,
+    })
+    readonly summary?: string;
 }

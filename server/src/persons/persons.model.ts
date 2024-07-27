@@ -11,15 +11,15 @@ import {
 import { User } from 'src/users/users.model';
 import { PersonDetales } from './person-detales.model';
 import { OrgUnit } from 'src/org-unit/org-unit.model';
+import { uuid } from 'uuidv4';
 
 interface PersonsCreationAttrs {
     name: string;
     email: string;
-    phone: string;
     location: string;
     birthday: Date;
     post: string;
-    table: string;
+    employmentDate: Date;
 }
 
 @Table({ tableName: 'persons' })
@@ -32,6 +32,18 @@ export class Person extends Model<Person, PersonsCreationAttrs> {
         primaryKey: true,
     })
     id: number;
+
+    @ApiProperty({
+        example: '550e8400-e29b-41d4-a716-446655440000',
+        description: 'Уникальный GUID',
+    })
+    @Column({
+        type: DataType.UUID,
+        defaultValue: uuid,
+        unique: true,
+        allowNull: false,
+    })
+    guid: string;
 
     @ApiProperty({
         example: 'Иванов Иван Иванович',
@@ -55,12 +67,12 @@ export class Person extends Model<Person, PersonsCreationAttrs> {
     email: string;
 
     @ApiProperty({
-        example: '22-04-11',
+        example: '343-15-41',
         description: 'Телефон',
     })
     @Column({
         type: DataType.STRING,
-        allowNull: false,
+        allowNull: true,
     })
     phone: string;
 
@@ -85,12 +97,22 @@ export class Person extends Model<Person, PersonsCreationAttrs> {
     })
     post: string;
 
-    @ApiProperty({ example: 'А-103', description: 'Табельный номер' })
+    @ApiProperty({ example: '15-41', description: 'Табельный номер' })
     @Column({
         type: DataType.STRING,
-        allowNull: false,
+        allowNull: true,
     })
     table: string;
+
+    @ApiProperty({
+        example: '2023-01-01',
+        description: 'Дата приема на работу',
+    })
+    @Column({
+        type: DataType.DATE,
+        allowNull: false,
+    })
+    employmentDate: Date;
 
     @ApiProperty({ example: false, description: 'Начальник или нет' })
     @Column({
