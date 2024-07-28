@@ -4,7 +4,7 @@ import { useNavigate } from 'react-router-dom';
 
 import { PersonViewStore } from '@/entities/Person';
 import { fetchPersonDetails } from '@/entities/Person/model/services/fetchPersonDetails';
-import { Person, personDetails } from '@/entities/Person/model/types/person';
+import { Person } from '@/entities/Person/model/types/person';
 import { Star2 } from '@/shared/assets/svg-icons/action';
 import { Pencil } from '@/shared/assets/svg-icons/button';
 import { Briefcase, GoToDetails } from '@/shared/assets/svg-icons/status';
@@ -12,9 +12,7 @@ import { getRouteEditPerson, getRouteFavorites } from '@/shared/const/router';
 import { classNames } from '@/shared/lib/classNames/classNames';
 import { getColor } from '@/shared/lib/getColors/getColors';
 import { getInitials } from '@/shared/lib/getInitials/getInitials';
-import { useStoreRetrieve } from '@/shared/lib/hooks/useStoreRetrieve/useStoreRetrieve';
 import { Icon } from '@/shared/ui/Icon';
-import { Skeleton } from '@/shared/ui/Skeleton';
 import { VStack, HStack } from '@/shared/ui/Stack';
 import { Text } from '@/shared/ui/Text';
 import { Tooltip } from '@/shared/ui/Tooltip';
@@ -38,25 +36,25 @@ export const PersonDetails = observer(({ className, person, store }: PersonDetai
     }, [id, store])
 
     const favoriteBtnHandler = useCallback(()=> navigate(getRouteFavorites()), [navigate]);
+    // TODO : заготовка для получения деталей
+    // const editBtn = useStoreRetrieve<personDetails>({
+    //     storeField: store.personFast,
+    //     pendindElement: null,
+    //     fulfilledElement: (v) => {
+    //         if (!v.canEdit) return null
+    //         return (
+    //             <Tooltip text='Редактировать'>
+    //                 <Icon
+    //                     borderType='soft'
+    //                     Svg={Pencil}
+    //                     clickable
+    //                     onClick={()=> navigate(getRouteEditPerson(id))}
+    //                 />
+    //             </Tooltip>
+    //         )
+    //     }
+    // });
 
-    const editBtn = useStoreRetrieve<personDetails>({
-        storeField: store.personFast,
-        pendindElement: null,
-        fulfilledElement: (v) => {
-            if (!v.canEdit) return null
-            return (
-                <Tooltip text='Редактировать'>
-                    <Icon
-                        borderType='soft'
-                        Svg={Pencil}
-                        clickable
-                        onClick={()=> navigate(getRouteEditPerson(id))}
-                    />
-                </Tooltip>
-            )
-        }
-    });
-    
     // const appointments = useStoreRetrieve<personDetails>({
     //     storeField: store.personFast,
     //     pendindElement: <Skeleton height={'120px'}/>,
@@ -74,7 +72,7 @@ export const PersonDetails = observer(({ className, person, store }: PersonDetai
         <VStack max gap='8' className={classNames(cls.PersonDetails, {}, [className])}>
             <HStack max gap='16' align='start'>
                 <VStack gap='8' align='center'>
-                    <Text size='s' text='exampleAA@novator.ru' align='right' className={cls.href}/>
+                    <Text size='s' text={person.email} align='right' className={cls.href}/>
                     <VStack 
                         align='center'
                         justify='center'
@@ -84,7 +82,6 @@ export const PersonDetails = observer(({ className, person, store }: PersonDetai
                         {getInitials(personFullName)}
                     </VStack>
                     <HStack gap='8'>
-                        {editBtn}
                         <Tooltip text='В избранное'>
                             <Icon
                                 Svg={Star2}
@@ -112,60 +109,56 @@ export const PersonDetails = observer(({ className, person, store }: PersonDetai
                                 onClick={()=> {}}
                             />
                         </Tooltip> 
+                        <Tooltip text='Редактировать'>
+                            <Icon
+                                borderType='soft'
+                                Svg={Pencil}
+                                clickable
+                                onClick={()=> navigate(getRouteEditPerson(id))}
+                            />
+                        </Tooltip>
                     </HStack>
                 </VStack>
 
-                <HStack max>
+                <HStack max align='start'>
                     <VStack max gap='4' align='start'>
                         <HStack gap='4' justify='between'>
                             <Text text='Табельный номер:'/>
-                            <Skeleton width={'50px'} height={'15px'}></Skeleton>
+                            <Text text={person.table}/>
                         </HStack>
                         <HStack gap='4' justify='between'>
                             <Text text='Дата рождения:'/>
-                            <Skeleton width={'100px'} height={'15px'}></Skeleton>
+                            <Text text={new Date(person.birthday).getFullYear().toString()}/>
                         </HStack>
-                        <HStack gap='4' justify='between'>
-                            <Text text='Форма допуска:'/>
-                            <Skeleton width={'160px'} height={'15px'}></Skeleton>
+
+                        <HStack max gap='8' align='start'>
+                            <Text text='Рабочее место:' size='m'/>
+                            <Text text={person.location} size='m'/>
                         </HStack>
-                        <HStack gap='4'>
-                            <Text text='ZupId:' size='m'/>
-                            <Text text={id} className={cls.id} size='s'/>
-                        </HStack>
-                        <HStack gap='4'>
-                            <Text text='Id:' size='m'/>
-                            <Text text={id} className={cls.id} size='s'/>
+                        <HStack max gap='8' align='start'>
+                            <Text text='Телефон:' size='m'/>
+                            <Text text={person.phone} size='m'/>
                         </HStack>
                     </VStack>
-                    
-                    <VStack max gap='8'>
-                        <HStack max gap='4' align='start'>
-                            <Text text='Аттестация:'/>
-                            <VStack gap='4' className={cls.rows}>
-                                <Skeleton width={'60%'} height={'15px'}></Skeleton>
-                                <Skeleton width={'60%'} height={'15px'}></Skeleton>
-                            </VStack>
+
+                    <VStack max gap='24'>
+                        <HStack gap='4' justify='between'>
+                            <Text text='Дата приема на работу:'/>
+                            <Text text={new Date(person.employmentDate).getFullYear().toString()}/>
                         </HStack>
-                        <HStack max gap='4' align='start'>
+
+                        <HStack max gap='16' align='start'>
                             <Text text='Назначения:' size='m'/>
-                            {/* <VStack gap='4' className={cls.rows}>
-                                {appointments}
-                            </VStack> */}
-                        </HStack>
-                        <HStack max gap='4' align='start'>
-                            <Text text='Подчинения:' size='m'/>
-                            <VStack gap='4' className={cls.rows}>
-                                <Skeleton width={'60%'} height={'15px'}></Skeleton>
-                                <Skeleton width={'60%'} height={'15px'}></Skeleton>
+                            <VStack gap='4' className={cls.rows} align='start' max>
+                                {person.isChef && <Text text='- Начальник' size='m'/> }
+                                {person.isManager && <Text text='- Менеджер' size='m'/> }
+                                <Text text={`- ${person.post}`} size='m'/>
                             </VStack>
                         </HStack>
-                        <HStack max gap='4' align='start'>
-                            <Text text='Роли:' size='m'/>
-                            <VStack gap='4' className={cls.rows}>
-                                <Skeleton width={'60%'} height={'15px'}></Skeleton>
-                                <Skeleton width={'60%'} height={'15px'}></Skeleton>
-                            </VStack>
+
+                        <HStack gap='4' maxHeight justify='end'>
+                            <Text text='GUID:' size='m'/>
+                            <Text text={id} className={cls.id} size='m'/>
                         </HStack>
                     </VStack>
                 </HStack>

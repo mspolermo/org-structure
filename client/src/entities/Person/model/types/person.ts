@@ -5,8 +5,11 @@ export interface Person {
     email: string,
     phone: string
     location: string,
-    isChief: boolean,
+    isChef: boolean,
     isManager: boolean,
+    birthday: Date,
+    employmentDate: Date,
+    table: string
 }
 
 // Новый эндпойнт

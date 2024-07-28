@@ -6,6 +6,7 @@ import {
     HttpException,
     HttpStatus,
     Param,
+    Patch,
     Post,
 } from '@nestjs/common';
 import { ApiOperation, ApiResponse, ApiTags } from '@nestjs/swagger';
@@ -15,6 +16,7 @@ import { CreatePersonDto } from './dto/create-person.dto';
 import { Person } from './persons.model';
 import { PersonDetales } from './person-detales.model';
 import { CreatePersonDetalesDto } from './dto/create-person-detales.dto';
+import { UpdatePersonDto } from './dto/update-person.dto';
 
 @ApiTags('Сотрудники')
 @Controller('persons')
@@ -67,6 +69,31 @@ export class PersonsController {
     @Get('/detales/:personId')
     getDetalesById(@Param('personId') personId: string) {
         return this.personsService.getPersonDetalesById(personId);
+    }
+
+    @Patch(':id')
+    async updatePerson(
+        @Param('id') id: string,
+        @Body() updatePersonDto: UpdatePersonDto,
+    ) {
+        try {
+            const updatedPerson = await this.personsService.updatePerson(
+                id,
+                updatePersonDto,
+            );
+            if (!updatedPerson) {
+                throw new HttpException(
+                    'Person not found',
+                    HttpStatus.NOT_FOUND,
+                );
+            }
+            return updatedPerson;
+        } catch (error) {
+            throw new HttpException(
+                'Error updating person',
+                HttpStatus.INTERNAL_SERVER_ERROR,
+            );
+        }
     }
 
     @Delete(':id')

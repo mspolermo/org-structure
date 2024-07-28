@@ -1,4 +1,5 @@
 import { departmentStore } from "@/features/getDepartment";
+import { personEditStore } from "@/features/getPersonEditView";
 import { searchPanelStore } from "@/widgets/Topbar";
 
 import rootStore from "../rootStore/rootStore";
@@ -8,6 +9,7 @@ import rootStore from "../rootStore/rootStore";
 class StoreProvider {
     rootStore = rootStore;
     departmentStore = departmentStore;
+    personEditStore = personEditStore
     searchPanelStore = searchPanelStore;
 }
 

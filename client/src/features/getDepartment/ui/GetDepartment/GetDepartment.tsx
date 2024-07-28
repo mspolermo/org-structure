@@ -17,7 +17,6 @@ interface GetDepartmentProps {
 
 export const GetDepartment = observer((props: GetDepartmentProps) => {
     const {id} = props;
-    console.log(id)
 
     useEffect( ()=> {
         fetchDepartment(id);
@@ -33,7 +32,6 @@ export const GetDepartment = observer((props: GetDepartmentProps) => {
         },
         rejected: () => {throw new Error()},
         fulfilled: (value) => {
-            console.log(value)
             if (value.id !== id) return (
                 // Условие для избежание многократных перерисовок-скачков (и ошибок пререрисовки!),
                 // если пользователь подряд быстро тыкал по множеству отделов в навигации
@@ -44,9 +42,7 @@ export const GetDepartment = observer((props: GetDepartmentProps) => {
             return (
                 <VStack gap='16'>
                     <OpeningPageAnimation>
-                        <>
-                            <Department department={value} key={value.id} store={createOrgUnitCardStore(value.id)}/>
-                        </>
+                        <Department department={value} store={createOrgUnitCardStore(value.id)}/>
                     </OpeningPageAnimation>
                 </VStack>
             );

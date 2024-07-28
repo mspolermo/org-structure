@@ -17,7 +17,6 @@ interface DepartmentProps {
 
 export const Department = observer(({ className, department, store }: DepartmentProps) => {
     if (store== undefined) return null;
-    console.log(department)
     const { isPersonsCollapsed } = store;
 
     const orgUnitsCardArray = useOrgUnitCardStore({orgUnitItems: department.childOrgUnitItems});

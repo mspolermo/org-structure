@@ -6,7 +6,7 @@ import { HStack } from '@/shared/ui/Stack';
 import { Text, TextSize } from '@/shared/ui/Text';
 
 import cls from './OrgUnitItemShort.module.scss';
-import { OrgUnitItem } from '../../model/types/orgUnitItem';
+import { OrgUnitItem } from '../../../model/types/orgUnitItem';
 
 
 interface OrgUnitItemShortProps {

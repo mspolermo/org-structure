@@ -11,7 +11,7 @@ import { Text } from '@/shared/ui/Text';
 import { Tooltip } from '@/shared/ui/Tooltip';
 
 import cls from './OrgUnitItemDetails.module.scss';
-import { OrgUnitItem } from '../../model/types/orgUnitItem';
+import { OrgUnitItem } from '../../../model/types/orgUnitItem';
 
 interface OrgUnitItemDetailsProps {
 	className?: string;

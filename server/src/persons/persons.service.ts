@@ -7,6 +7,7 @@ import { User } from 'src/users/users.model';
 import { CreatePersonDetalesDto } from './dto/create-person-detales.dto';
 import { PersonDetales } from './person-detales.model';
 import { OrgUnit } from 'src/org-unit/org-unit.model';
+import { UpdatePersonDto } from './dto/update-person.dto';
 
 const generateRandomNumber = (length: number): string => {
     //TODO вынести в хелперы
@@ -114,6 +115,54 @@ export class PersonsService {
             );
         }
         return personDetales;
+    }
+
+    async updatePerson(id: string, dto: UpdatePersonDto): Promise<Person> {
+        try {
+            const person = await this.personRepository.findByPk(id);
+            if (!person) {
+                throw new HttpException(
+                    'Person not found',
+                    HttpStatus.NOT_FOUND,
+                );
+            }
+
+            // Обновление полей сотрудника
+            await person.update(dto);
+
+            if (dto.isChef !== undefined) {
+                const orgUnit = await this.orgUnitRepository.findByPk(
+                    person.orgUnitId,
+                );
+
+                if (!orgUnit) {
+                    throw new HttpException(
+                        'OrgUnit not found',
+                        HttpStatus.BAD_REQUEST,
+                    );
+                }
+
+                // Если сотрудник теперь начальник, устанавливаем его как chefId
+                if (dto.isChef) {
+                    orgUnit.chefId = person.id;
+                } else {
+                    // Если сотрудник больше не начальник, удаляем его из chefId
+                    if (orgUnit.chefId === person.id) {
+                        orgUnit.chefId = null;
+                    }
+                }
+
+                await orgUnit.save();
+            }
+
+            return person;
+        } catch (error) {
+            console.error('Error updating person:', error);
+            throw new HttpException(
+                'Error updating person',
+                HttpStatus.INTERNAL_SERVER_ERROR,
+            );
+        }
     }
 
     async deletePerson(id: string): Promise<boolean> {

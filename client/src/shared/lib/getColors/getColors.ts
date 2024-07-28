@@ -51,7 +51,7 @@ const colors = [
     '#006A5F',
     '#167565'
 ]
-  
+
 export function convertId(id:string) {
     return id
         .replace(/-/g, '')
@@ -62,10 +62,7 @@ export function convertId(id:string) {
         .sort(function() {return Math.random() - 0.5})
         .reduce((prev, cur) => prev + cur.charCodeAt(0), 0)
 }
-  
+
 export function getColor(id:string) {
-    return '#9C2452'
-    //TODO: нужно переделать id с числа на guid и потом раскоментировать
     return colors[convertId(id) % colors.length]
 }
-  

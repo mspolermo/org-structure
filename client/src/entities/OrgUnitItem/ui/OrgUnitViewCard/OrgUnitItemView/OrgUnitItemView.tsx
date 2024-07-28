@@ -7,8 +7,8 @@ import { classNames } from '@/shared/lib/classNames/classNames';
 import { ExpandableCard } from '@/shared/ui/ExpandableCard';
 
 import cls from './OrgUnitItemView.module.scss';
-import OrgUnitViewStore from '../../model/store/orgUnitItemViewStore';
-import { OrgUnitItem } from '../../model/types/orgUnitItem';
+import OrgUnitViewStore from '../../../model/store/orgUnitItemViewStore';
+import { OrgUnitItem } from '../../../model/types/orgUnitItem';
 import { OrgUnitItemDetails } from '../OrgUnitItemDetails/OrgUnitItemDetails';
 import { OrgUnitItemShort } from '../OrgUnitItemShort/OrgUnitItemShort';
 
