@@ -13,7 +13,7 @@ export async function fetchDepartment (id:string) {
         const response = axios.get<OrgUnitItem>(
             __API_ORGUNIT__ + `${id}`);
         departmentStore.updateDepartmentsData(Promise.resolve(response.then(n => n.data)));
-        departmentStore.updateDepartmentsData(Promise.resolve((await response).data));
+        //departmentStore.updateDepartmentsData(Promise.resolve((await response).data));
     } catch (e) {
         console.error('Ошибка загрузки данных (fetchDepartment)');
         departmentStore.updateDepartmentsData(Promise.reject());

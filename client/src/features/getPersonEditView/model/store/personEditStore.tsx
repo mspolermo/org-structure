@@ -2,7 +2,7 @@
 import { observable, action, makeAutoObservable } from 'mobx';
 import { IPromiseBasedObservable, fromPromise } from 'mobx-utils';
 
-import { Person } from '@/entities/Person';
+import { Person, PersonDetales } from '@/entities/Person';
 
 class PersonEditStore {
     
@@ -11,17 +11,25 @@ class PersonEditStore {
     }
 
     @observable 
-        personEditData?: IPromiseBasedObservable<Person>; // стейт для подгруженных данных о сотруднике
+        person?: IPromiseBasedObservable<Person>; // стейт для подгруженных данных о сотруднике
+        personDetales?: IPromiseBasedObservable<PersonDetales> // стейт для подгруженных данных о деталях сотрудника
 
     @action
-        updatePersonEditData(newData: PromiseLike<Person> ) {
-            this.personEditData = fromPromise(newData, this.personEditData)
+        updatePerson(newPerson: PromiseLike<Person> ) {
+            this.person = fromPromise(newPerson, this.person)
         }
 
-        clearPersonEditData() {
-            this.personEditData = undefined;
+        clearPerson() {
+            this.person = undefined;
         }
 
+        updatePersonDetales(newDetales: PromiseLike<PersonDetales> ) {
+            this.personDetales = fromPromise(newDetales, this.personDetales)
+        }
+
+        clearPersonDetales() {
+            this.personDetales = undefined;
+        }
 }
 
 const personEditStore = new PersonEditStore();
