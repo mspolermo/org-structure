@@ -12,15 +12,16 @@ import { Text } from "@/shared/ui/Text";
 import { Toggle } from "@/shared/ui/Toggle";
 
 import cls from './PersonFullView.module.scss';
-import { Person } from '../../model/types/person';
+import { Person, PersonDetales } from '../../model/types/person';
 
 interface PersonFullViewProps {
 	className?: string;
     person: Person;
+    personDetales: PersonDetales
 }
 
-export const PersonFullView = observer(({ className, person }: PersonFullViewProps) => {
-    const {id, table, employmentDate, birthday, email, name, phone, location , post, isChef, isManager } = person
+export const PersonFullView = observer(({ className, person, personDetales }: PersonFullViewProps) => {
+
     
     const navigate = useNavigate();
 
@@ -31,15 +32,37 @@ export const PersonFullView = observer(({ className, person }: PersonFullViewPro
             <Text title="Служебная информация" size="xl"/>
             <HStack gap="8">
                 <Text text={'GUID:'} thin/>
-                <Text text={id} thin/>
+                <Text text={person.id} thin/>
             </HStack>
             <HStack gap="8">
                 <Text text={'Табельный номер сотрудника:'} thin/>
-                <Text text={table} thin/>
+                <Text text={person.table} thin/>
             </HStack>
             <HStack gap="8">
                 <Text text={'Дата устройства на работу:'} thin/>
-                <Text text={employmentDate.toString()} thin/>
+                <Text text={person.employmentDate.toString()} thin/>
+            </HStack>
+        </VStack>
+    )
+
+    const PersonDetalesBlock = () => (
+        <VStack gap="8" max className={cls.block}>
+            <Text title="Детализация сотрудника" size="xl"/>
+            <HStack gap="8">
+                <Text text={'Оборудование:'} thin/>
+                <Text text={personDetales.items} thin/>
+            </HStack>
+            <HStack gap="8">
+                <Text text={'Техника:'} thin/>
+                <Text text={personDetales.hardware} thin/>
+            </HStack>
+            <HStack gap="8">
+                <Text text={'Програмное обеспечение:'} thin/>
+                <Text text={personDetales.software} thin/>
+            </HStack>
+            <HStack gap="8">
+                <Text text={'Пройденные курсы:'} thin/>
+                <Text text={personDetales.exams} thin/>
             </HStack>
         </VStack>
     )
@@ -51,10 +74,10 @@ export const PersonFullView = observer(({ className, person }: PersonFullViewPro
                 <VStack 
                     align='center'
                     justify='center'
-                    style={{'backgroundColor': getColor(id)}}
+                    style={{'backgroundColor': getColor(person.id)}}
                     className={cls.photo}
                 >
-                    {getInitials(name)}
+                    {getInitials(person.name)}
                 </VStack>
                 
                 <VStack gap="8" max>
@@ -62,27 +85,32 @@ export const PersonFullView = observer(({ className, person }: PersonFullViewPro
                     
                     <HStack gap="16" max>
                         <Text text={'Имя'} thin/>
-                        <Input inputVariant="clear" className={cls.input} placeholder="ФИО сотрудника" value={name}/>
+                        <Input inputVariant="clear" className={cls.input} placeholder="ФИО сотрудника" value={person.name}/>
                     </HStack>
                     <HStack gap="4" max>
                         <Text text="Телефон:" thin/>
-                        <Input inputVariant="clear" className={cls.input} placeholder="Номер телефона" value={phone}/>
+                        <Input inputVariant="clear" className={cls.input} placeholder="Номер телефона" value={person.phone}/>
                     </HStack>
                     <HStack gap="4" max>
                         <Text title="Расположение" thin/>
-                        <Input inputVariant="clear" className={cls.input} placeholder="Расположение" value={location}/>
+                        <Input inputVariant="clear" className={cls.input} placeholder="Расположение" value={person.location}/>
                     </HStack>
                     <HStack gap="4" max>
                         <Text title="Должность" thin/>
-                        <Input inputVariant="clear" className={cls.input} placeholder="Должность" value={post}/>
+                        <Input inputVariant="clear" className={cls.input} placeholder="Должность" value={person.post}/>
                     </HStack>
                     <HStack gap="4" max>
                         <Text title="Email" thin/>
-                        <Input inputVariant="clear" className={cls.input} placeholder="Почтовый адрес" value={email}/>
+                        <Input inputVariant="clear" className={cls.input} placeholder="Почтовый адрес" value={person.email}/>
                     </HStack>
                     <HStack gap="4" max>
                         <Text title="Дата рождения" thin />
-                        <Input inputVariant="clear" className={cls.input} placeholder="Должность" value={birthday.toString()}/>
+                        <Input
+                            inputVariant="clear"
+                            className={cls.input}
+                            placeholder="Должность"
+                            value={person.birthday.toString()}
+                        />
                     </HStack>
                 </VStack>
             </HStack>
@@ -92,17 +120,19 @@ export const PersonFullView = observer(({ className, person }: PersonFullViewPro
                     <Text title="Дополнительные настройки" size="xl"/>
                     <Toggle 
                         label="Начальник отдела" 
-                        value={isChef}
+                        value={person.isChef}
                         onChange={(e) => (console.log('photoChanged: ' + e))}
                     />
                     
                     <Toggle 
                         label="Менеджер отдела" 
-                        value={isManager}
+                        value={person.isManager}
                         onChange={(e) => (console.log('photoChanged: ' + e))}
                     />
                 </VStack>
             </VStack>
+
+            <PersonDetalesBlock />
             
             <HStack justify="end" align="center" gap="16" max>
                 <Button disabled>Сохранить</Button>

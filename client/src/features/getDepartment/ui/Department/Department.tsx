@@ -1,7 +1,7 @@
 import { observer } from 'mobx-react';
 
 import { OrgUnitItemView, OrgUnitItem, OrgUnitViewStore } from '@/entities/OrgUnitItem';
-import { PersonView, PersonViewStore } from '@/entities/Person';
+import { PersonViewCard, PersonStore } from '@/entities/Person';
 import { classNames } from '@/shared/lib/classNames/classNames';
 import { VStack} from '@/shared/ui/Stack';
 
@@ -32,12 +32,12 @@ export const Department = observer(({ className, department, store }: Department
 
             <CollapsingPersonListAnimation duration={0.4} isOpen={isPersonsCollapsed} >
                 {<VStack className={classNames(cls.personsList, {}, [])} max>
-                    {department.chef && <PersonView person={department.chef} store={new PersonViewStore()}/>}
+                    {department.chef && <PersonViewCard person={department.chef} store={new PersonStore()}/>}
                     {department.managers && department.managers.map( (x, i) => 
-                        <PersonView person={x} key={i} store={new PersonViewStore()}/>
+                        <PersonViewCard person={x} key={i} store={new PersonStore()}/>
                     )}
                     {department.persons && department.persons.map( (x, i) => 
-                        <PersonView person={x} key={i} store={new PersonViewStore()}/>
+                        <PersonViewCard person={x} key={i} store={new PersonStore()}/>
                     )}
                 </VStack>}
             </CollapsingPersonListAnimation>

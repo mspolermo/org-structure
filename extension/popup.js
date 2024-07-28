@@ -62,7 +62,7 @@ document.getElementById('create-person').addEventListener('click', async () => {
     const employmentDate = document.getElementById('org-employment-date').value;
     const phone = document.getElementById('person-phone').value; 
     const table = document.getElementById('person-table').value;
-    const isChief = document.getElementById('is-chief').checked;
+    const isChef = document.getElementById('is-chef').checked;
     const isManager = document.getElementById('is-manager').checked;
 
     const response = await fetch('http://localhost:5001/persons', {
@@ -79,7 +79,7 @@ document.getElementById('create-person').addEventListener('click', async () => {
             birthday: birthday,
             table: table || null,
             orgUnitId: orgUnitId,
-            isChief: isChief,
+            isChef: isChef,
             isManager: isManager,
             employmentDate: employmentDate
         })

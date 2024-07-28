@@ -3,18 +3,18 @@ import { observer } from 'mobx-react';
 import { classNames } from '@/shared/lib/classNames/classNames';
 import { ExpandableCard } from '@/shared/ui/ExpandableCard';
 
-import PersonViewStore from '../../../model/store/personViewStore';
+import PersonStore from '../../../model/store/personViewStore';
 import { Person } from '../../../model/types/person';
-import { PersonDetails } from '../PersonDetails/PersonDetails';
-import { PersonShort } from '../PersonShort/PersonShort';
+import { PersonDetalesView } from '../PersonDetalesView/PersonDetalesView';
+import { PersonShortView } from '../PersonShortView/PersonShortView';
 
-interface PersonViewProps {
+interface PersonViewCardProps {
 	className?: string;
     person: Person;
-    store: PersonViewStore;
+    store: PersonStore;
 }
 
-export const PersonView = observer((props: PersonViewProps) => {
+export const PersonViewCard = observer((props: PersonViewCardProps) => {
     const { className, person, store } = props;
 
     const {
@@ -28,13 +28,13 @@ export const PersonView = observer((props: PersonViewProps) => {
             isOpen={isOpen}
             setIsOpen={setIsOpen}
             shortView={
-                <PersonShort 
+                <PersonShortView 
                     person={person}
                     isOpen={isOpen}
                     setIsOpen={setIsOpen}
                 />
             }
-            expandableView={<PersonDetails person={person} store={store}/>}
+            expandableView={<PersonDetalesView person={person}/>}
         />
     );
 });

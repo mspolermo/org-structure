@@ -1,7 +1,10 @@
-import PersonViewStore from './model/store/personViewStore';
+import PersonStore from './model/store/personViewStore';
 
-export { PersonViewStore };
+export { PersonStore };
 export type { Person, PersonDetales } from './model/types/person';
-export { PersonView } from './ui/PersonViewCard/PersonView/PersonView';
+export { fetchPerson } from './model/services/fetchPerson';
+export { fetchPersonDetales } from './model/services/fetchPersonDetales';
+
+export { PersonViewCard } from './ui/PersonViewCard/PersonViewCard/PersonViewCard';
 export { PersonSearchCard } from './ui/PersonSearchCard/PersonSearchCard';
 export { PersonFullView } from './ui/PersonFullView/PersonFullView';

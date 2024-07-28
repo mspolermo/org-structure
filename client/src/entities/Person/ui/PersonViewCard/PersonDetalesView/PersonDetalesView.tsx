@@ -1,9 +1,7 @@
 import { observer } from 'mobx-react';
-import { useEffect, useCallback } from 'react';
+import { useCallback } from 'react';
 import { useNavigate } from 'react-router-dom';
 
-import { PersonViewStore } from '@/entities/Person';
-import { fetchPersonDetails } from '@/entities/Person/model/services/fetchPersonDetails';
 import { Person } from '@/entities/Person/model/types/person';
 import { Star2 } from '@/shared/assets/svg-icons/action';
 import { Pencil } from '@/shared/assets/svg-icons/button';
@@ -17,56 +15,18 @@ import { VStack, HStack } from '@/shared/ui/Stack';
 import { Text } from '@/shared/ui/Text';
 import { Tooltip } from '@/shared/ui/Tooltip';
 
-import cls from './PersonDetails.module.scss';
+import cls from './PersonDetalesView.module.scss';
 
-interface PersonDetailsProps {
+interface PersonDetalesViewProps {
 	className?: string;
     person: Person;
-    store: PersonViewStore;
 }
 
-export const PersonDetails = observer(({ className, person, store }: PersonDetailsProps) => {
+export const PersonDetalesView = observer(({ className, person }: PersonDetalesViewProps) => {
     const {id, name: personFullName} = person;
     const navigate = useNavigate();
 
-    useEffect(() => {
-        if (store.personFast == undefined) {
-            fetchPersonDetails(id, store)
-        }
-    }, [id, store])
-
     const favoriteBtnHandler = useCallback(()=> navigate(getRouteFavorites()), [navigate]);
-    // TODO : заготовка для получения деталей
-    // const editBtn = useStoreRetrieve<personDetails>({
-    //     storeField: store.personFast,
-    //     pendindElement: null,
-    //     fulfilledElement: (v) => {
-    //         if (!v.canEdit) return null
-    //         return (
-    //             <Tooltip text='Редактировать'>
-    //                 <Icon
-    //                     borderType='soft'
-    //                     Svg={Pencil}
-    //                     clickable
-    //                     onClick={()=> navigate(getRouteEditPerson(id))}
-    //                 />
-    //             </Tooltip>
-    //         )
-    //     }
-    // });
-
-    // const appointments = useStoreRetrieve<personDetails>({
-    //     storeField: store.personFast,
-    //     pendindElement: <Skeleton height={'120px'}/>,
-    //     fulfilledElement: (v) => {
-    //         const appointmentsList = v.appointments.map( (e, i) => {
-    //             return <Text key={i} text={`${e.orgUnitName}, ${e.post}`} size='s'/>
-    //         })
-                
-    //         return <VStack>
-    //             {appointmentsList}
-    //         </VStack>}
-    // });
 
     return (
         <VStack max gap='8' className={classNames(cls.PersonDetails, {}, [className])}>

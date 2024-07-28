@@ -5,17 +5,17 @@ import { classNames } from '@/shared/lib/classNames/classNames';
 import { UseSearch } from '@/shared/lib/hooks/useSearch/useSearch';
 import { Text } from '@/shared/ui/Text';
 
-import cls from './PersonShort.module.scss';
+import cls from './PersonShortView.module.scss';
 
-interface PersonShortProps {
+interface PersonShortViewProps {
 	className?: string;
     person: Person;
     isOpen: boolean;
 	setIsOpen: (arg: boolean) => void;
 }
 
-export const PersonShort = memo(({ className, person, isOpen, setIsOpen }: PersonShortProps) => {
-    const indent = cls[`indent_0`]; //TODO: временный фик, так тут был _person.nestingLevel, но его нет в новом беке
+export const PersonShortView = memo(({ className, person, isOpen, setIsOpen }: PersonShortViewProps) => {
+    const indent = cls[`indent_0`]; //TODO: временный фикс, так тут был _person.nestingLevel, но его нет в новом беке
     
     const openingHandler = useCallback( (e: React.MouseEvent<HTMLDivElement, MouseEvent>) => {
         e.stopPropagation();

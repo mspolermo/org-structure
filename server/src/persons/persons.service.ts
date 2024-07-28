@@ -60,6 +60,15 @@ export class PersonsService {
 
         await person.save();
 
+        // Создание пустых записей в PersonDetales
+        await this.personDetalesRepository.create({
+            personId: person.id,
+            items: '',
+            hardware: '',
+            software: '',
+            exams: '',
+        });
+
         if (dto.isChef) {
             const orgUnit = await this.orgUnitRepository.findByPk(
                 dto.orgUnitId,
