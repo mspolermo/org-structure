@@ -1,4 +1,4 @@
-import PersonStore from './model/store/personViewStore';
+import PersonStore from './model/store/personStore';
 
 export { PersonStore };
 export type { Person, PersonDetales } from './model/types/person';

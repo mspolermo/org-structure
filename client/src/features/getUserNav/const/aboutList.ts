@@ -1,4 +1,4 @@
-import { aboutItem } from "../../../entities/Navigation/model/types/navigation";
+import { aboutItem } from "@/entities/Navigation";
 
 export const aboutList: aboutItem [] = [
     {

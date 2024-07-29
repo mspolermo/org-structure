@@ -1,18 +1,18 @@
-import { OrgUnitItem } from "@/entities/OrgUnitItem";
+import { OrgUnitItem, OrgUnitStore } from "@/entities/OrgUnitItem";
 import { Person } from "@/entities/Person";
-import { departmentStore } from "@/features/getDepartment";
 
 
 // TODO fake fetchDATA переделать на настоящий....
 
 function search (object: OrgUnitItem[], value: string, ) {
+    
     if (!value || !object ) return []
 
     const allEmployees: Person[] = [];
 
     function personExtract (data: OrgUnitItem[]) {
         data.forEach(x => {
-            if (x.chief) {allEmployees.push(x.chief)}
+            if (x.chef) {allEmployees.push(x.chef)}
             if (x.managers) {x.managers.forEach(m => allEmployees.push(m))}
             if (x.persons) {x.persons.forEach(p => allEmployees.push(p))}
             if (x.childOrgUnitItems) {
@@ -29,7 +29,7 @@ function search (object: OrgUnitItem[], value: string, ) {
     return result
 }
 
-export function fetchSearchData( inputValue: string ) {
-    const departmentsData = departmentStore.departmentsData?.value;
+export function fetchSearchData( inputValue: string, store: OrgUnitStore ) {
+    const departmentsData = store.mainOrgUnit?.value;
     return search(departmentsData as OrgUnitItem[], inputValue);
 }

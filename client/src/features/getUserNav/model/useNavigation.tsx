@@ -1,16 +1,17 @@
 import { ReactElement, useLayoutEffect } from 'react';
 
-import { Navpanel } from '@/entities/Navigation';
+import { useStoreProvider } from '@/app/providers/StoreProvider';
+import { fetchUserNav, Navpanel } from '@/entities/Navigation';
 import { AppRoutes } from '@/shared/const/router';
 import { useRouteChange } from '@/shared/lib/router/useRouteChange';
 
 import { aboutList } from '../const/aboutList';
-import { fetchUserNav } from '../model/services/fetchUserNav';
 
 export function useAppNavpanel() {
+    const {rootStore} = useStoreProvider();
     useLayoutEffect( ()=> {
-        fetchUserNav();
-    }, [])
+        if (!rootStore.userNavData) fetchUserNav(rootStore);
+    }, [rootStore])
 
     const appRoute = useRouteChange();
 

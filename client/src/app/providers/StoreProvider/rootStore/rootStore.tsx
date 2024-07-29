@@ -6,7 +6,7 @@ import { User } from '@/entities/User';
 import { UserNavType } from '@/features/getUserNav';
 import { DEV_MODE_LOCALSTORAGE_KEY, LOCAL_STORAGE_THEME_KEY } from '@/shared/const/localstorage';
 
-// Общий стор приложения
+// Создатель общего стора приложения
 
 const isDevMode = localStorage.getItem(DEV_MODE_LOCALSTORAGE_KEY) === 'true' ? true : false;
 const isDarkTheme = localStorage.getItem(LOCAL_STORAGE_THEME_KEY) === 'app_dark_theme' ? true : false;
@@ -64,5 +64,4 @@ class RootStore {
 
 }
 
-const rootStore = new RootStore();
-export default rootStore;
+export default RootStore;

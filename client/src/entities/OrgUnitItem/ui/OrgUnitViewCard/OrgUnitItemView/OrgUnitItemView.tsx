@@ -7,7 +7,7 @@ import { classNames } from '@/shared/lib/classNames/classNames';
 import { ExpandableCard } from '@/shared/ui/ExpandableCard';
 
 import cls from './OrgUnitItemView.module.scss';
-import OrgUnitViewStore from '../../../model/store/orgUnitItemViewStore';
+import OrgUnitViewStore from '../../../model/store/orgUnitIViewStore';
 import { OrgUnitItem } from '../../../model/types/orgUnitItem';
 import { OrgUnitItemDetails } from '../OrgUnitItemDetails/OrgUnitItemDetails';
 import { OrgUnitItemShort } from '../OrgUnitItemShort/OrgUnitItemShort';
@@ -15,14 +15,14 @@ import { OrgUnitItemShort } from '../OrgUnitItemShort/OrgUnitItemShort';
 interface OrgUnitItemViewProps {
 	className?: string;
     orgUnitItem: OrgUnitItem;
-    store: OrgUnitViewStore;
+    cardStore: OrgUnitViewStore;
 }
 
 export const OrgUnitItemView = observer((props: OrgUnitItemViewProps) => {
     const {
         className,
         orgUnitItem,
-        store: {
+        cardStore: {
             isPersonsCollapsed,
             updateIsPersonsCollapsed,
             cardOpeningStatus,

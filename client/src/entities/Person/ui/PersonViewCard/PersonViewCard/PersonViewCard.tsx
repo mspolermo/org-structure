@@ -3,7 +3,7 @@ import { observer } from 'mobx-react';
 import { classNames } from '@/shared/lib/classNames/classNames';
 import { ExpandableCard } from '@/shared/ui/ExpandableCard';
 
-import PersonStore from '../../../model/store/personViewStore';
+import PersonStore from '../../../model/store/personStore';
 import { Person } from '../../../model/types/person';
 import { PersonDetalesView } from '../PersonDetalesView/PersonDetalesView';
 import { PersonShortView } from '../PersonShortView/PersonShortView';

@@ -1,13 +1,14 @@
-import { departmentStore } from "@/features/getDepartment";
+import { OrgUnitStore } from "@/entities/OrgUnitItem";
 import { searchPanelStore } from "@/widgets/Topbar";
 
-import rootStore from "../rootStore/rootStore";
+import RootStore from "../rootStore/rootStore";
+
 
 // тут хранятся все однократно вызванные сторы (не служебного назначения)
 
 class StoreProvider {
-    rootStore = rootStore;
-    departmentStore = departmentStore;
+    rootStore = new RootStore();
+    orgUnitStore = new OrgUnitStore();
     searchPanelStore = searchPanelStore;
 }
 

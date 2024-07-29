@@ -10,7 +10,7 @@ import { classNames } from '@/shared/lib/classNames/classNames';
 import { getVStack } from '@/shared/ui/Stack';
 
 import cls from './NavPanel.module.scss';
-import { aboutItem } from '../../model/types/navigation';
+import { aboutItem, NavGroupType } from '../../model/types/navigation';
 import { AnchorItem } from '../NavItems/AnchorItem/AnchorItem';
 import { FixedBtn } from '../NavItems/FixedBtn/FixedBtn';
 import { NavItem } from '../NavItems/NavItem/NavItem';
@@ -58,7 +58,7 @@ export const Navpanel = observer(({ className, localData }: NavpanelProps) => {
                     }
                 >
                     <ul>
-                        {value.groups.map((x, i) =>
+                        {value.groups.map((x: NavGroupType, i: string) =>
                             <NavItem data={x} key={i}/>
                         )}
                     </ul>

@@ -3,6 +3,7 @@ import { useCallback  } from "react";
 import { useNavigate } from "react-router-dom";
 
 import { classNames } from '@/shared/lib/classNames/classNames';
+import { formatDate } from '@/shared/lib/formDate/formDate';
 import { getColor } from '@/shared/lib/getColors/getColors';
 import { getInitials } from '@/shared/lib/getInitials/getInitials';
 import { Button } from "@/shared/ui/Button";
@@ -109,7 +110,7 @@ export const PersonFullView = observer(({ className, person, personDetales }: Pe
                             inputVariant="clear"
                             className={cls.input}
                             placeholder="Должность"
-                            value={person.birthday.toString()}
+                            value={formatDate(person.birthday.toString())}
                         />
                     </HStack>
                 </VStack>

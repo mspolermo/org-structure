@@ -1,6 +1,6 @@
 import axios from "axios";
 
-import PersonStore from "../store/personViewStore";
+import PersonStore from "../store/personStore";
 import { Person } from "../types/person";
 
 export async function fetchPerson (id:string, personStore: PersonStore) {

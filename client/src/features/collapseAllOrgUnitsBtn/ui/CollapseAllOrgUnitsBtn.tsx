@@ -13,7 +13,7 @@ interface CollapseAllOrgUnitsBtnProps {
 export const CollapseAllOrgUnitsBtn = observer((props: CollapseAllOrgUnitsBtnProps) => {
     const { className } = props;
     const { 
-        departmentStore: {
+        orgUnitStore: {
             collapseAllOrgUnitCards,
             updateCollapseAllOrgUnitCards
         }

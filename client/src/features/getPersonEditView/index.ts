@@ -1,1 +1,1 @@
-export { GetPersonEditView } from './ui/GetPersonEditView/GetPersonEditView';
+export { GetPersonEditView } from './ui/GetPersonEditView';

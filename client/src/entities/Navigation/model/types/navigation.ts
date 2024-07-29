@@ -1,4 +1,10 @@
+import { User } from "@/entities/User";
+
 // получаемые с сервера данные
+export interface UserNavType {
+    groups: NavGroupType[];
+    user: User;
+}
 
 export interface NavGroupType {
     name: NavItemType,

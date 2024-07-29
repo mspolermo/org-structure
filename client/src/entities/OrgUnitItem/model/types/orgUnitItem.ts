@@ -1,5 +1,7 @@
 import { Person } from "@/entities/Person";
 
+import OrgUnitViewStore from "../store/orgUnitIViewStore";
+
 export interface OrgUnitItem {
     id: string,
     name: string,
@@ -12,4 +14,9 @@ export interface OrgUnitItem {
     workingHours: string
     lunchBreak: string
     summary?: string
+}
+
+export interface orgUnitsCardType {
+    id: string;
+    store: OrgUnitViewStore
 }

@@ -28,7 +28,7 @@ interface SearchPanelProps {
 export const SearchPanel = observer(({ className }: SearchPanelProps) => {
 
     const navigate = useNavigate();
-    const { rootStore } = useStoreProvider();
+    const { rootStore, orgUnitStore } = useStoreProvider();
 
     const ref = useRef<HTMLInputElement>(null);
     const [isFocused, setIsFocused] = useState(document.activeElement === ref.current);
@@ -37,7 +37,7 @@ export const SearchPanel = observer(({ className }: SearchPanelProps) => {
     const [searchData, setSearchData] = useState<Person[]>([])
     const isNoResults = Boolean(!searchData.length);
 
-    const debouncedFetchData = useDebounce(() => setSearchData(fetchSearchData(inputValue)), 300); 
+    const debouncedFetchData = useDebounce(() => setSearchData(fetchSearchData(inputValue, orgUnitStore)), 300); 
     
     useEffect(() => {
         if (searchPanelStore.searchLine) {
@@ -75,7 +75,7 @@ export const SearchPanel = observer(({ className }: SearchPanelProps) => {
     }, []);
 
     const updateFocus = (newValue: number) => {
-        const arr = fetchSearchData(inputValue);
+        const arr = fetchSearchData(inputValue, orgUnitStore);
         const len = arr.length;
 
         if(len > newValue && newValue > -1) {
@@ -96,7 +96,7 @@ export const SearchPanel = observer(({ className }: SearchPanelProps) => {
         // переход на страницу поиска по нажатию на клавишу Enter
         if(event.keyCode === 13) {
             if(rootStore.focusedPersonId != "") {
-                navigate(getRouteSearch(fetchSearchData(inputValue)[rootStore.focusedCardNumber].name));
+                navigate(getRouteSearch(fetchSearchData(inputValue, orgUnitStore)[rootStore.focusedCardNumber].name));
             } else if (inputValue) {
                 navigate(getRouteSearch(inputValue));
             }
@@ -170,7 +170,7 @@ export const SearchPanel = observer(({ className }: SearchPanelProps) => {
                                 person={p}
                                 department={'Отдел 16'}
                                 onClick={() => clickHandler(p.name)}
-                                className={fetchSearchData(inputValue).length ? cls.display : cls.hidden}
+                                className={fetchSearchData(inputValue, orgUnitStore).length ? cls.display : cls.hidden}
                             />
                         )}
                     </ChangeOpacityMotion>

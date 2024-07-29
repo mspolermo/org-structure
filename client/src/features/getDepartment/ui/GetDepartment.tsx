@@ -1,15 +1,13 @@
+/* eslint-disable react-hooks/exhaustive-deps */
 import { observer } from "mobx-react";
 import { useEffect } from 'react';
 
+import { useStoreProvider } from "@/app/providers/StoreProvider";
+import { fetchOrgUnitItem, OrgUnitFullView, createOrgUnitCardStore } from "@/entities/OrgUnitItem";
 import { Loader } from "@/shared/ui/Loader";
 import { VStack } from "@/shared/ui/Stack";
 
-import { OpeningPageAnimation } from "../../anim/OpeningPageAnimation";
-import { createOrgUnitCardStore } from "../../lib/getOrgUnitCardStore";
-import { fetchDepartment } from "../../model/services/fetchDepartment";
-import departmentStore from "../../model/store/departmentStore";
-import { Department } from "../Department/Department";
-
+import { OpeningPageAnimation } from "../anim/OpeningPageAnimation";
 
 interface GetDepartmentProps {
     id: string
@@ -17,12 +15,13 @@ interface GetDepartmentProps {
 
 export const GetDepartment = observer((props: GetDepartmentProps) => {
     const {id} = props;
+    const { orgUnitStore } = useStoreProvider();
 
     useEffect( ()=> {
-        fetchDepartment(id);
+        fetchOrgUnitItem(id, orgUnitStore);
     }, [id])
 
-    const data = departmentStore.departmentsData?.case({
+    const data = orgUnitStore.mainOrgUnit?.case({
         pending: () => {
             return (
                 <VStack gap='16' max maxHeight align="center" justify="center">
@@ -42,7 +41,11 @@ export const GetDepartment = observer((props: GetDepartmentProps) => {
             return (
                 <VStack gap='16'>
                     <OpeningPageAnimation>
-                        <Department department={value} store={createOrgUnitCardStore(value.id)}/>
+                        <OrgUnitFullView
+                            orgUnitItem={value}
+                            orgUnitStore={orgUnitStore}
+                            cardStore={createOrgUnitCardStore(value.id, orgUnitStore)}
+                        />
                     </OpeningPageAnimation>
                 </VStack>
             );
@@ -50,4 +53,3 @@ export const GetDepartment = observer((props: GetDepartmentProps) => {
     })
     return data;
 });
-
