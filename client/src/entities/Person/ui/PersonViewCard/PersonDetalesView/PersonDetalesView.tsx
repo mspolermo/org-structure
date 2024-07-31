@@ -8,6 +8,7 @@ import { Pencil } from '@/shared/assets/svg-icons/button';
 import { Briefcase, GoToDetails } from '@/shared/assets/svg-icons/status';
 import { getRouteEditPerson, getRouteFavorites } from '@/shared/const/router';
 import { classNames } from '@/shared/lib/classNames/classNames';
+import { formatDate } from '@/shared/lib/formatDate/formatDate';
 import { getColor } from '@/shared/lib/getColors/getColors';
 import { getInitials } from '@/shared/lib/getInitials/getInitials';
 import { Icon } from '@/shared/ui/Icon';
@@ -88,7 +89,7 @@ export const PersonDetalesView = observer(({ className, person }: PersonDetalesV
                         </HStack>
                         <HStack gap='4' justify='between'>
                             <Text text='Дата рождения:'/>
-                            <Text text={new Date(person.birthday).getFullYear().toString()}/>
+                            <Text text={formatDate(person.birthday.toString())}/>
                         </HStack>
 
                         <HStack max gap='8' align='start'>
@@ -104,7 +105,7 @@ export const PersonDetalesView = observer(({ className, person }: PersonDetalesV
                     <VStack max gap='24'>
                         <HStack gap='4' justify='between'>
                             <Text text='Дата приема на работу:'/>
-                            <Text text={new Date(person.employmentDate).getFullYear().toString()}/>
+                            <Text text={formatDate(person.employmentDate.toString())}/>
                         </HStack>
 
                         <HStack max gap='16' align='start'>

@@ -3,7 +3,7 @@ import { useCallback  } from "react";
 import { useNavigate } from "react-router-dom";
 
 import { classNames } from '@/shared/lib/classNames/classNames';
-import { formatDate } from '@/shared/lib/formDate/formDate';
+import { formatDate } from '@/shared/lib/formatDate/formatDate';
 import { getColor } from '@/shared/lib/getColors/getColors';
 import { getInitials } from '@/shared/lib/getInitials/getInitials';
 import { Button } from "@/shared/ui/Button";
@@ -41,7 +41,7 @@ export const PersonFullView = observer(({ className, person, personDetales }: Pe
             </HStack>
             <HStack gap="8">
                 <Text text={'Дата устройства на работу:'} thin/>
-                <Text text={person.employmentDate.toString()} thin/>
+                <Text text={formatDate(person.employmentDate.toString())} thin/>
             </HStack>
         </VStack>
     )
