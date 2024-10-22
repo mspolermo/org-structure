@@ -19,13 +19,13 @@ type CardPagging = '0' | '8' | '16' | '24';
 type CardBorder = 'border-none' | 'border-round' | 'border-slightly';
 
 interface CardProps extends HTMLAttributes<HTMLDivElement> {
-  className?: string;
-  children: ReactNode;
-  variant?: CardVariant
-  max?: boolean;
-  active?: boolean;
-  padding?: CardPagging;
-  border?: CardBorder;
+    className?: string;
+    children: ReactNode;
+    variant?: CardVariant
+    max?: boolean;
+    active?: boolean;
+    padding?: CardPagging;
+    border?: CardBorder;
 }
 
 const mapPaddingToClass: Record<CardPagging, string> = {

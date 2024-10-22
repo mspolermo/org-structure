@@ -107,7 +107,7 @@ export const PersonFullView = observer(({ className, person, personDetales }: Pe
                         <Input inputVariant="clear" className={cls.input} placeholder="Почтовый адрес" value={person.email}/>
                     </HStack>
                     <HStack gap="4" max>
-                        <Text title="Дата рождения" thin />
+                        <Text title="Дата рождения" thin withoutWrap />
                         <Input
                             inputVariant="clear"
                             className={cls.input}

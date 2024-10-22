@@ -8,7 +8,7 @@ async function start() {
 
     const clientOrigin = 'http://localhost:5173'; // Порт клиента
     const extensionOrigin =
-        'chrome-extension://pogagdbencbpdbamblmemmgllkalooia'; // ИД расширения
+        'chrome-extension://kpgmkcjmbecpdinnoicgjmdokpblbceo'; // ИД расширения
 
     app.enableCors({
         origin: [clientOrigin, extensionOrigin],

@@ -11,6 +11,7 @@
  * @param thin? - Флаг, тонкий текст и заголовок (true\false)
  * @param onClick? - функция, выполняющаяся по клику на компонент
  * @param isLink? - Флаг, делающая текст и заголовок ссылкой (влияет на визуал)
+ * @param withoutWrap? - Флаг, запрещающий перенос текста на новую строку (true\false)
 */
 
 import { memo } from 'react';
@@ -37,6 +38,7 @@ export interface TextProps {
     thin? :boolean;
     onClick? : (e: React.MouseEvent<HTMLDivElement, MouseEvent>) => void;
     isLink?: boolean;
+    withoutWrap?: boolean;
 }
 
 type HeaderTagType = 'h1' | 'h2' | 'h3' | 'h4' | 'h5' | 'h6';
@@ -71,7 +73,8 @@ export const Text = memo((props: TextProps) => {
         bold,
         thin,
         onClick,
-        isLink
+        isLink,
+        withoutWrap
     } = props;
 
     const HeaderTag = mapSizeToHeaderTag[size];
@@ -86,7 +89,8 @@ export const Text = memo((props: TextProps) => {
                 {
                     [cls.bold]: bold,
                     [cls.thin]: thin,
-                    [cls.link]: isLink
+                    [cls.link]: isLink,
+                    [cls.withoutWrap]: withoutWrap,
                 }, 
                 additionalClasses)}
             id={id}
