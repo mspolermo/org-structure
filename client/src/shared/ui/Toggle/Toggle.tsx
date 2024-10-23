@@ -4,6 +4,7 @@
  * @param label - Подпись
  * @param value - Текущее значение
  * @param onChange - Функция-переключатель (что делаем при переключении)
+ * @param readonly? - Флаг, отвечающий за работу переключателя
 */
 
 import { useState, useEffect, memo } from 'react';
@@ -19,16 +20,17 @@ interface ToggleProps {
 	label: string;
     value: boolean;   
     onChange: (value: boolean) => void;
+    readonly?: boolean;
 }
 
 export const Toggle = memo((props: ToggleProps) => {
 
-    const { className, label, value, onChange } = props;
+    const { className, label, value, onChange, readonly } = props;
     const [isToggled, setIsToggled] = useState(value);
 
     useEffect(() => {
-        onChange(isToggled)
-    }, [isToggled, onChange])
+        if(!readonly) onChange(isToggled)
+    }, [isToggled, onChange, readonly])
 
     const clickHandler = () => {
         setIsToggled(!isToggled)  
@@ -37,6 +39,7 @@ export const Toggle = memo((props: ToggleProps) => {
     const mods: Mods = {
         [cls.toggledYes]: isToggled,
         [cls.toggledNo]: !isToggled,
+        [cls.readonly]: readonly,
     };
 
     return (
