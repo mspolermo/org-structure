@@ -126,6 +126,25 @@ export class PersonsService {
         return personDetales;
     }
 
+    async updatePersonDetalesById(
+        dto: CreatePersonDetalesDto,
+        personId: string,
+    ) {
+        const personDetales = await this.personDetalesRepository.findOne({
+            where: { personId },
+        });
+
+        if (!personDetales) {
+            throw new HttpException(
+                'PersonDetales not found for this personId',
+                HttpStatus.NOT_FOUND,
+            );
+        }
+
+        await personDetales.update(dto);
+        return personDetales;
+    }
+
     async updatePerson(id: string, dto: UpdatePersonDto): Promise<Person> {
         try {
             const person = await this.personRepository.findByPk(id);

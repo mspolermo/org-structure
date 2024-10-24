@@ -71,6 +71,19 @@ export class PersonsController {
         return this.personsService.getPersonDetalesById(personId);
     }
 
+    @ApiOperation({ summary: 'Обновление детализации сотрудника' })
+    @ApiResponse({ status: 200, type: PersonDetales })
+    @Patch('/detales/:personId')
+    updateDetales(
+        @Param('personId') personId: string,
+        @Body() personDetalesDto: CreatePersonDetalesDto,
+    ) {
+        return this.personsService.updatePersonDetalesById(
+            personDetalesDto,
+            personId,
+        );
+    }
+
     @Patch(':id')
     async updatePerson(
         @Param('id') id: string,
