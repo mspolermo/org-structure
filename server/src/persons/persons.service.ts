@@ -193,6 +193,20 @@ export class PersonsService {
         }
     }
 
+    async updatePersonAndDetales(
+        id: string,
+        updatePersonDto: UpdatePersonDto,
+        updatePersonDetalesDto: CreatePersonDetalesDto,
+    ): Promise<{ person: Person; personDetales: PersonDetales }> {
+        const person = await this.updatePerson(id, updatePersonDto);
+        const personDetales = await this.updatePersonDetalesById(
+            updatePersonDetalesDto,
+            id,
+        );
+
+        return { person, personDetales };
+    }
+
     async deletePerson(id: string): Promise<boolean> {
         const person = await this.personRepository.findByPk(id);
         if (!person) {

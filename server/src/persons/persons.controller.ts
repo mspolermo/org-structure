@@ -109,6 +109,32 @@ export class PersonsController {
         }
     }
 
+    @ApiOperation({ summary: 'Обновить данные сотрудника и его детализацию' })
+    @ApiResponse({
+        status: 200,
+        description: 'Данные сотрудника и его детализация обновлены',
+    })
+    @Patch('/update-all/:id')
+    async updatePersonAndDetales(
+        @Param('id') id: string,
+        @Body('person') updatePersonDto: UpdatePersonDto,
+        @Body('personDetales') updatePersonDetalesDto: CreatePersonDetalesDto,
+    ) {
+        try {
+            const result = await this.personsService.updatePersonAndDetales(
+                id,
+                updatePersonDto,
+                updatePersonDetalesDto,
+            );
+            return result;
+        } catch (error) {
+            throw new HttpException(
+                'Error updating person and person details',
+                HttpStatus.INTERNAL_SERVER_ERROR,
+            );
+        }
+    }
+
     @Delete(':id')
     async deletePerson(@Param('id') id: string) {
         try {
