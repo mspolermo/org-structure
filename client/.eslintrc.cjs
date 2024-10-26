@@ -81,6 +81,7 @@ module.exports = {
     __API_ORGUNIT__: true,
     __API_NAV__: true,
     __API_PERSON_DETAILS__: true,
-    __API_PERSON__: true
-},
+    __API_PERSON__: true,
+    __API_PERSON_WITH_DETALES_UPDATE__: true
+  },
 }

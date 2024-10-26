@@ -19,3 +19,28 @@ export interface PersonDetales {
     software: string,
     exams: string
 }
+
+export interface PersonUpdateData extends Pick<
+    Person,
+    'name' |
+    'post' |
+    'email' |
+    'phone' |
+    'location' | 
+    'isChef' | 
+    'isManager' |
+    'birthday'
+> {}
+
+export interface PersonDetalesUpdateData extends Pick<
+    PersonDetales,
+    'items'|
+    'hardware'
+    | 'software'
+    | 'exams'
+> {}
+
+export interface PersonFullUpdateData {
+    person: PersonUpdateData;
+    personDetales: PersonDetalesUpdateData;
+}

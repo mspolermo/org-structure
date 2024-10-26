@@ -24,9 +24,12 @@ interface ToggleProps {
 }
 
 export const Toggle = memo((props: ToggleProps) => {
-
     const { className, label, value, onChange, readonly } = props;
     const [isToggled, setIsToggled] = useState(value);
+
+    useEffect(() => {
+        setIsToggled(value);
+    }, [value]);
 
     useEffect(() => {
         if(!readonly) onChange(isToggled)

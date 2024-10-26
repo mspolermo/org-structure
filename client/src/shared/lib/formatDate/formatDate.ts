@@ -21,3 +21,18 @@ export function formatDate(dateString: string): string {
 
     return formattedDate;
 }
+
+/**
+ * Функция преобразования даты из формата "день/месяц/год" в ISO
+ * @param dateString - строка с датой в формате "день/месяц/год"
+ * @returns строка с датой в формате ISO
+ */
+export function formatDateToISO(dateString: string): string {
+    const [day, month, year] = dateString.split('/').map(Number); // Разделяем строку и преобразуем в числа
+
+    // Создаем объект Date, указывая месяц (месяцы начинаются с 0)
+    const date = new Date(Date.UTC(year, month - 1, day)); 
+
+    // Форматируем дату в строку ISO
+    return date.toISOString(); // Возвращаем в формате ISO
+}
