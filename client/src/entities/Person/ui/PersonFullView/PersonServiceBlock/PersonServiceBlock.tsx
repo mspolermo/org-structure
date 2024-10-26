@@ -8,12 +8,12 @@ import { Text } from "@/shared/ui/Text";
 import cls from './PersonServiceBlock.module.scss';
 import { Person } from '../../../model/types/person';
 
-interface PersonServiceBlockProps {
+interface Props {
 	className?: string;
     person: Person;
 }
 
-export const PersonServiceBlock = observer(({ className, person }: PersonServiceBlockProps) => {
+export const PersonServiceBlock = observer(({ className, person }: Props) => {
 
     const { id, table, employmentDate} = person
 

@@ -6,7 +6,7 @@ import { Person } from '@/entities/Person/model/types/person';
 import { Star2 } from '@/shared/assets/svg-icons/action';
 import { Pencil } from '@/shared/assets/svg-icons/button';
 import { Briefcase, GoToDetails } from '@/shared/assets/svg-icons/status';
-import { getRouteEditPerson, getRouteFavorites } from '@/shared/const/router';
+import { getRouteEditPerson, getRouteFavorites, getRouteViewPerson } from '@/shared/const/router';
 import { classNames } from '@/shared/lib/classNames/classNames';
 import { formatDate } from '@/shared/lib/formatDate/formatDate';
 import { getColor } from '@/shared/lib/getColors/getColors';
@@ -58,7 +58,7 @@ export const PersonDetalesView = observer(({ className, person }: PersonDetalesV
                                 borderType='soft'
                                 stroke={'var(--icon-color)'}
                                 clickable
-                                onClick={()=> {}}
+                                onClick={()=> navigate(getRouteViewPerson(id))}
                             />
                         </Tooltip> 
                         <Tooltip text='Комплекты и приложения'>

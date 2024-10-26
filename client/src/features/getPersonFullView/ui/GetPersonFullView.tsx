@@ -6,13 +6,14 @@ import { VStack } from "@/shared/ui/Stack";
 
 import { usePersonData } from "../model/usePersonData";
 
-interface GetPersonEditViewProps {
+interface Props {
     id: string
     personStore: PersonStore
+    type: 'edit' | 'view'
 }
 
-export const GetPersonEditView = observer((props: GetPersonEditViewProps) => {
-    const {id, personStore} = props;
+export const GetPersonFullView = observer((props: Props) => {
+    const {id, personStore, type} = props;
     
     const { person, personDetales } = usePersonData(id, personStore);
 
@@ -24,6 +25,6 @@ export const GetPersonEditView = observer((props: GetPersonEditViewProps) => {
         )
     }
 
-    return <PersonFullView person={person} personDetales={personDetales}/>
+    return <PersonFullView person={person} personDetales={personDetales} type={type} />
 
 });

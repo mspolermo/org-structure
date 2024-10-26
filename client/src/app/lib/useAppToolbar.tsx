@@ -15,6 +15,7 @@ export function useAppToolbar() {
         [AppRoutes.DEPARTMENT]: <Toolbar collapseAllOrgUnitsBtn/>,
         [AppRoutes.ABOUT]: <Toolbar />,
         [AppRoutes.EDIT_PERSON]: <Toolbar scrollToTopBtn={false} toPreviousPageBtn/>,
+        [AppRoutes.VIEW_PERSON]: <Toolbar scrollToTopBtn={false} toPreviousPageBtn/>,
         [AppRoutes.EDIT_ORGUNIT]: <Toolbar scrollToTopBtn={false} toPreviousPageBtn/>
     };
 

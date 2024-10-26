@@ -7,6 +7,7 @@ export enum AppRoutes {
     ABOUT = 'about',
     DEPARTMENT = 'department',
     EDIT_PERSON = 'edit_person',
+    VIEW_PERSON = 'view_person',
     EDIT_ORGUNIT = 'edit_orgunit',
     FAVORITES = 'favorites',
     SETTINGS = 'settings',
@@ -19,6 +20,7 @@ export const getRouteMain = () => '/';
 export const getRouteAbout = () => '/about';
 export const getRouteDepartment = (id:string) => `/department/${id}`;
 export const getRouteEditPerson = (id:string) => `/edit/person/${id}`;
+export const getRouteViewPerson = (id:string) => `/view/person/${id}`;
 export const getRouteEditOrgUnit = (id:string) => `/edit/orgunit/${id}`;
 export const getRouteFavorites = () => '/favorites';
 export const getRouteSettings = () => '/settings';
@@ -32,6 +34,7 @@ export const AppRouteByPathPattern: Record<string, AppRoutes> = {
     [getRouteAbout()]: AppRoutes.ABOUT,
     [getRouteDepartment(':id')]: AppRoutes.DEPARTMENT,
     [getRouteEditPerson(':id')]: AppRoutes.EDIT_PERSON,
+    [getRouteViewPerson(':id')]: AppRoutes.VIEW_PERSON,
     [getRouteEditOrgUnit(':id')]: AppRoutes.EDIT_ORGUNIT,
     [getRouteFavorites()]: AppRoutes.FAVORITES,
     [getRouteSettings()]: AppRoutes.SETTINGS,

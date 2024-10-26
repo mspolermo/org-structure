@@ -10,7 +10,7 @@ import { Text } from "@/shared/ui/Text";
 
 import cls from './PersonDetalesBlock.module.scss';
 
-interface PersonDetalesBlockProps {
+interface Props {
 	className?: string;
     isEdit: boolean;
     isCancelled: boolean;
@@ -18,7 +18,7 @@ interface PersonDetalesBlockProps {
     setUpdatedPersonDetales: React.Dispatch<React.SetStateAction<PersonDetalesUpdateData | null>>
 }
 
-export const PersonDetalesBlock = observer((props: PersonDetalesBlockProps) => {
+export const PersonDetalesBlock = observer((props: Props) => {
 
     const { className, isEdit, isCancelled, personDetales, setUpdatedPersonDetales } = props
 

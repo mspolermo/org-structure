@@ -1,4 +1,5 @@
 import axios from "axios";
+
 import { PersonFullUpdateData } from "../types/person";
 
 export async function updatePersonWithDetales (id:string, personWithDetales: PersonFullUpdateData) {

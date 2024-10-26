@@ -12,6 +12,7 @@ import { MainPage } from '@/pages/MainPage';
 import { NotFoundPage } from '@/pages/NotFoundPage';
 import { SearchPage } from '@/pages/SearchPage';
 import { SettingsPage } from '@/pages/SettingsPage';
+import { ViewPersonPage } from '@/pages/ViewPersonPage';
 import {
     AppRoutes,
     getRouteMain,
@@ -23,6 +24,7 @@ import {
     getRouteSettings,
     getRouteSearch,
     getRouteEditOrgUnit,
+    getRouteViewPerson,
 } from '@/shared/const/router';
 import { AppRoutesProps } from '@/shared/types/router';
 
@@ -43,6 +45,11 @@ export const RouteConfig: Record<AppRoutes, AppRoutesProps> = {
     [AppRoutes.EDIT_PERSON]: {
         path: getRouteEditPerson(':id'),
         element: <EditPersonPage />,
+        authOnly: true
+    },
+    [AppRoutes.VIEW_PERSON]: {
+        path: getRouteViewPerson(':id'),
+        element: <ViewPersonPage />,
         authOnly: true
     },
     [AppRoutes.EDIT_ORGUNIT]: {

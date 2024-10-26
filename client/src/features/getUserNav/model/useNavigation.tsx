@@ -20,6 +20,7 @@ export function useAppNavpanel() {
         [AppRoutes.ABOUT]: <Navpanel localData={aboutList} />,
         [AppRoutes.DEPARTMENT]: <Navpanel/>,
         [AppRoutes.EDIT_PERSON]: <Navpanel/>,
+        [AppRoutes.VIEW_PERSON]: <Navpanel/>,
         [AppRoutes.EDIT_ORGUNIT]: <Navpanel/>,
         [AppRoutes.FAVORITES]: <Navpanel/>,
         [AppRoutes.SETTINGS]: <Navpanel/>,
