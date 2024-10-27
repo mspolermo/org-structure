@@ -20,3 +20,12 @@ export interface orgUnitsCardType {
     id: string;
     store: OrgUnitViewStore
 }
+
+export interface OrgUnitUpdateData extends Pick<
+OrgUnitItem,
+    'name' |
+    'description' |
+    'workingHours' |
+    'lunchBreak' |
+    'summary'
+> {}

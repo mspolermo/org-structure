@@ -3,6 +3,7 @@ import { InjectModel } from '@nestjs/sequelize';
 import { OrgUnit } from './org-unit.model';
 import { CreateOrgUnitDto } from './dto/create-orgUnit.dto';
 import { Person } from 'src/persons/persons.model';
+import { UpdateOrgUnitDto } from './dto/update-orgUnit.dto';
 
 @Injectable()
 export class OrgUnitService {
@@ -397,5 +398,47 @@ export class OrgUnitService {
                 allowDeveloperTools: true,
             },
         };
+    }
+
+    async updateOrgUnit(id: string, dto: UpdateOrgUnitDto) {
+        const orgUnit = await this.orgUnitRepository.findByPk(id);
+
+        if (!orgUnit) {
+            throw new HttpException(
+                'ОргЮнит с данным ID не найден',
+                HttpStatus.NOT_FOUND,
+            );
+        }
+
+        let nestingLevel = orgUnit.nestingLevel;
+
+        if (
+            dto.parentOrgUnitId &&
+            dto.parentOrgUnitId !== orgUnit.parentOrgUnitId
+        ) {
+            const parentOrgUnit = await this.orgUnitRepository.findOne({
+                where: { id: dto.parentOrgUnitId },
+            });
+
+            if (!parentOrgUnit) {
+                throw new HttpException(
+                    'Parent OrgUnit with the given ID not found',
+                    HttpStatus.BAD_REQUEST,
+                );
+            }
+
+            nestingLevel = parentOrgUnit.nestingLevel + 1;
+        }
+
+        try {
+            await orgUnit.update({
+                ...dto,
+                nestingLevel,
+            });
+            return orgUnit;
+        } catch (error) {
+            console.error('Error updating OrgUnit:', error);
+            throw new HttpException(error.message, HttpStatus.BAD_REQUEST);
+        }
     }
 }

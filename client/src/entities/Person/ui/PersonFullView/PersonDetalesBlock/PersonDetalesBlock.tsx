@@ -56,8 +56,7 @@ export const PersonDetalesBlock = observer((props: Props) => {
                     <HStack gap="8" max>
                         <Text title={'Оборудование:'} thin className={cls.text}/>
                         <Input
-                            inputVariant="clear"
-                            className={cls.input}
+                            inputVariant="bordered"
                             placeholder="Оборудование"
                             value={items}
                             onChange={setItems}
@@ -67,8 +66,7 @@ export const PersonDetalesBlock = observer((props: Props) => {
                     <HStack gap="8" max>
                         <Text title={'Техника:'} thin className={cls.text}/>
                         <Input
-                            inputVariant="clear"
-                            className={cls.input}
+                            inputVariant="bordered"
                             placeholder="Техника"
                             value={hardware}
                             onChange={setHardware}
@@ -78,8 +76,7 @@ export const PersonDetalesBlock = observer((props: Props) => {
                     <HStack gap="8" max>
                         <Text title={'Програмное обеспечение:'} thin className={cls.text} withoutWrap/>
                         <Input
-                            inputVariant="clear"
-                            className={cls.input}
+                            inputVariant="bordered"
                             placeholder="Программное обеспечение"
                             value={software}
                             onChange={setSoftware}
@@ -89,8 +86,7 @@ export const PersonDetalesBlock = observer((props: Props) => {
                     <HStack gap="8" max>
                         <Text title={'Пройденные курсы:'} thin className={cls.text} withoutWrap/>
                         <Input
-                            inputVariant="clear"
-                            className={cls.input}
+                            inputVariant="bordered"
                             placeholder="Пройденные курсы"
                             value={exams}
                             onChange={setExams}

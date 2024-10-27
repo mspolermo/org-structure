@@ -31,7 +31,7 @@ interface InputTextAreaProps extends HTMLInputTeaxtAreaProps {
 
 interface InputProps extends InputTextAreaProps {
     isTextArea?: false;
-	inputVariant?: 'normal' | 'clear';
+	inputVariant?: 'normal' | 'clear' | 'bordered';
 }
 
 interface TextAreaProps extends InputTextAreaProps {

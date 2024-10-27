@@ -85,8 +85,7 @@ export const PersonInfoBlock = observer((props: Props) => {
                         <HStack gap="4" max>
                             <Text title={'Имя:'} thin className={cls.text}/>
                             <Input 
-                                inputVariant="clear"
-                                className={cls.input}
+                                inputVariant="bordered"
                                 placeholder="ФИО сотрудника"
                                 value={name}
                                 onChange={setName}
@@ -96,8 +95,7 @@ export const PersonInfoBlock = observer((props: Props) => {
                         <HStack gap="4" max>
                             <Text title="Телефон:" thin className={cls.text}/>
                             <Input
-                                inputVariant="clear"
-                                className={cls.input}
+                                inputVariant="bordered"
                                 placeholder="Номер телефона"
                                 value={phone}
                                 onChange={setPhone}
@@ -107,8 +105,7 @@ export const PersonInfoBlock = observer((props: Props) => {
                         <HStack gap="4" max>
                             <Text title="Расположение:" thin className={cls.text}/>
                             <Input
-                                inputVariant="clear"
-                                className={cls.input}
+                                inputVariant="bordered"
                                 placeholder="Расположение"
                                 value={location}
                                 onChange={setLocation}
@@ -118,8 +115,7 @@ export const PersonInfoBlock = observer((props: Props) => {
                         <HStack gap="4" max>
                             <Text title="Должность:" thin className={cls.text}/>
                             <Input
-                                inputVariant="clear"
-                                className={cls.input}
+                                inputVariant="bordered"
                                 placeholder="Должность"
                                 value={post}
                                 onChange={setPost}
@@ -129,8 +125,7 @@ export const PersonInfoBlock = observer((props: Props) => {
                         <HStack gap="4" max>
                             <Text title="Email:" thin className={cls.text}/>
                             <Input
-                                inputVariant="clear"
-                                className={cls.input}
+                                inputVariant="bordered"
                                 placeholder="Почтовый адрес"
                                 value={email}
                                 onChange={setEmail}
@@ -140,8 +135,7 @@ export const PersonInfoBlock = observer((props: Props) => {
                         <HStack gap="4" max>
                             <Text title="Дата рождения:" thin withoutWrap className={cls.text}/>
                             <Input
-                                inputVariant="clear"
-                                className={cls.input}
+                                inputVariant="bordered"
                                 placeholder="Дата рождения"
                                 value={birthday}
                                 onChange={setBirthday}

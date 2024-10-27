@@ -1,4 +1,4 @@
-import { ReactElement, useLayoutEffect } from 'react';
+import { ReactElement, useEffect, useLayoutEffect } from 'react';
 
 import { useStoreProvider } from '@/app/providers/StoreProvider';
 import { fetchUserNav, Navpanel } from '@/entities/Navigation';
@@ -9,9 +9,14 @@ import { aboutList } from '../const/aboutList';
 
 export function useAppNavpanel() {
     const {rootStore} = useStoreProvider();
+
     useLayoutEffect( ()=> {
         if (!rootStore.userNavData) fetchUserNav(rootStore);
     }, [rootStore])
+
+    useEffect( ()=> {
+        fetchUserNav(rootStore);
+    }, [rootStore, rootStore.isNavChange])
 
     const appRoute = useRouteChange();
 

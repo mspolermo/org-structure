@@ -58,7 +58,7 @@ export const Navpanel = observer(({ className, localData }: NavpanelProps) => {
                     }
                 >
                     <ul>
-                        {value.groups.map((x: NavGroupType, i: string) =>
+                        {value.groups.map((x: NavGroupType, i: number) =>
                             <NavItem data={x} key={i}/>
                         )}
                     </ul>

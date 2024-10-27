@@ -20,18 +20,20 @@ export const PersonServiceBlock = observer(({ className, person }: Props) => {
     return (
         <VStack gap="8" max className={classNames(cls.PersonServiceBlock, {}, [className])}>
             <Text title="Служебная информация" size="xl"/>
-            <HStack gap="8">
-                <Text text={'GUID:'} thin/>
-                <Text text={id} thin/>
-            </HStack>
-            <HStack gap="8">
-                <Text text={'Табельный номер сотрудника:'} thin/>
-                <Text text={table} thin/>
-            </HStack>
-            <HStack gap="8">
-                <Text text={'Дата устройства на работу:'} thin/>
-                <Text text={formatDate(employmentDate.toString())} thin/>
-            </HStack>
+            <VStack gap="4" className={cls.innerBlock}>
+                <HStack gap="8">
+                    <Text text={'GUID:'} thin/>
+                    <Text text={id} thin/>
+                </HStack>
+                <HStack gap="8">
+                    <Text text={'Табельный номер сотрудника:'} thin/>
+                    <Text text={table} thin/>
+                </HStack>
+                <HStack gap="8">
+                    <Text text={'Дата устройства на работу:'} thin/>
+                    <Text text={formatDate(employmentDate.toString())} thin/>
+                </HStack>
+            </VStack>
         </VStack>
     );
 });

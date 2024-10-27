@@ -1,8 +1,9 @@
-import { Body, Controller, Get, Param, Post } from '@nestjs/common';
+import { Body, Controller, Get, Param, Patch, Post } from '@nestjs/common';
 import { OrgUnitService } from './org-unit.service';
 import { CreateOrgUnitDto } from './dto/create-orgUnit.dto';
 import { ApiOperation, ApiResponse, ApiTags } from '@nestjs/swagger';
 import { OrgUnit } from './org-unit.model';
+import { UpdateOrgUnitDto } from './dto/update-orgUnit.dto';
 
 @ApiTags('Оргюниты')
 @Controller('org-unit')
@@ -36,5 +37,15 @@ export class OrgUnitController {
     @Get('/:id')
     getById(@Param('id') id: string) {
         return this.orgUnitService.getOrgUnitById(id);
+    }
+
+    @Patch(':id')
+    @ApiOperation({ summary: 'Обновление организационного подразделения' })
+    @ApiResponse({ status: 200, type: OrgUnit })
+    async updateOrgUnit(
+        @Param('id') id: string,
+        @Body() updateOrgUnitDto: UpdateOrgUnitDto,
+    ) {
+        return this.orgUnitService.updateOrgUnit(id, updateOrgUnitDto);
     }
 }

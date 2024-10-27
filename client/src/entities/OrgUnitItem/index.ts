@@ -8,3 +8,4 @@ export { createOrgUnitCardStore } from './model/lib/getOrgUnitCardStore';
 
 export { OrgUnitItemView } from './ui/OrgUnitViewCard/OrgUnitItemView/OrgUnitItemView';
 export { OrgUnitFullView } from './ui/OrgUnitFullView/ui/OrgUnitFullView';
+export { OrgUnitEditView } from './ui/OrgUnitEditView/OrgUnitEditView';

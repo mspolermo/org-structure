@@ -1,15 +1,15 @@
 import { observer } from 'mobx-react';
 import { useCallback, useState  } from "react";
+import { useNavigate } from 'react-router-dom';
 
 import { Button } from "@/shared/ui/Button";
 import { HStack, VStack } from "@/shared/ui/Stack";
 
-import { Person, PersonDetales, PersonDetalesUpdateData, PersonUpdateData } from '../../model/types/person';
-import { updatePersonWithDetales } from '../../model/services/updatePersonWithDetales';
-import { PersonServiceBlock } from './PersonServiceBlock/PersonServiceBlock';
 import { PersonDetalesBlock } from './PersonDetalesBlock/PersonDetalesBlock';
 import { PersonInfoBlock } from './PersonInfoBlock/PersonInfoBlock';
-import { useNavigate } from 'react-router-dom';
+import { PersonServiceBlock } from './PersonServiceBlock/PersonServiceBlock';
+import { updatePersonWithDetales } from '../../model/services/updatePersonWithDetales';
+import { Person, PersonDetales, PersonDetalesUpdateData, PersonUpdateData } from '../../model/types/person';
 
 interface Props {
 	className?: string;
@@ -40,14 +40,14 @@ export const PersonFullView = observer(({ className, person, personDetales, type
         })
 
         setIsEdit(false)
-    }, [updatedPerson, updatedPersonDetales]);
+    }, [person.id, updatedPerson, updatedPersonDetales]);
 
     const onCancelHandler = useCallback(() => {
         setUpdatedPerson(person);
         setUpdatedPersonDetales(personDetales);
         setIsEdit(false)
         setIsCanceld(prev => !prev)
-    }, []);
+    }, [person, personDetales]);
 
     return (
         <VStack gap="16" max className={className}>
