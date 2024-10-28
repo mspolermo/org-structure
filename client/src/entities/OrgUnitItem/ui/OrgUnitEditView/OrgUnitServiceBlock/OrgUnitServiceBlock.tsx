@@ -38,12 +38,12 @@ export const OrgUnitServiceBlock = observer(({ className, orgUnit }: Props) => {
                     <Text text={persons.length.toString()} thin/>
                 </HStack>
 
-                <HStack gap="4" max align='start'>
+                <HStack gap="8" max align='start'>
                     <Text text="Менеджеры подразделения:" thin className={cls.text}/>
-                    <VStack gap='8'>
+                    <HStack gap="16">
                         {managers.length === 0 &&<Text text="Не назначены" thin/>}
-                        {managers?.map(manager => <Text text={manager.name} thin/>)}
-                    </VStack>
+                        {managers?.map((manager, i) => <Text key={i} text={manager.name} thin className={cls.manager}/>)}
+                    </HStack>
                 </HStack>
 
             </VStack>

@@ -2,14 +2,14 @@ import { observer } from 'mobx-react';
 import { useCallback, useState  } from "react";
 import { useNavigate } from 'react-router-dom';
 
+import { useStoreProvider } from '@/app/providers/StoreProvider';
 import { Button } from "@/shared/ui/Button";
 import { HStack, VStack } from "@/shared/ui/Stack";
 
 import { OrgUnitInfoBlock } from './OrgUnitInfoBlock/OrgUnitInfoBlock';
 import { OrgUnitServiceBlock } from './OrgUnitServiceBlock/OrgUnitServiceBlock';
-import { OrgUnitItem, OrgUnitUpdateData } from '../../model/types/orgUnitItem';
 import { updateOrgUnitItem } from '../../model/services/updateOrgUnitItem';
-import { useStoreProvider } from '@/app/providers/StoreProvider';
+import { OrgUnitItem, OrgUnitUpdateData } from '../../model/types/orgUnitItem';
 
 
 interface Props {
@@ -36,7 +36,7 @@ export const OrgUnitEditView = observer(({ className, orgUnit }: Props) => {
         await updateOrgUnitItem(orgUnit.id, {...updatedOrgUnit})
         rootStore.updateNavChanged(!rootStore.isNavChange)
         setIsEdit(false)
-    }, [orgUnit.id, updatedOrgUnit]);
+    }, [orgUnit.id, rootStore, updatedOrgUnit]);
 
     const onCancelHandler = useCallback(() => {
         setUpdatedOrgUnit(orgUnit);

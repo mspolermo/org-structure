@@ -8,6 +8,7 @@ import { CreatePersonDetalesDto } from './dto/create-person-detales.dto';
 import { PersonDetales } from './person-detales.model';
 import { OrgUnit } from 'src/org-unit/org-unit.model';
 import { UpdatePersonDto } from './dto/update-person.dto';
+import { Op } from 'sequelize';
 
 const generateRandomNumber = (length: number): string => {
     //TODO вынести в хелперы
@@ -172,6 +173,17 @@ export class PersonsService {
 
                 // Если сотрудник теперь начальник, устанавливаем его как chefId
                 if (dto.isChef) {
+                    // Обновляем всех сотрудников в этом OrgUnit, чтобы снять с них флаг isChef
+                    await this.personRepository.update(
+                        { isChef: false },
+                        {
+                            where: {
+                                orgUnitId: person.orgUnitId,
+                                id: { [Op.ne]: id },
+                            },
+                        },
+                    );
+
                     orgUnit.chefId = person.id;
                 } else {
                     // Если сотрудник больше не начальник, удаляем его из chefId
