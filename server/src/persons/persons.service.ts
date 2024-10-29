@@ -227,4 +227,35 @@ export class PersonsService {
         await person.destroy();
         return true;
     }
+
+    async searchPersons(searchCriteria: {
+        name?: string;
+        phone?: string;
+        location?: string;
+    }) {
+        const whereClause: any = {};
+
+        if (searchCriteria.name) {
+            whereClause[Op.or] = [
+                { name: { [Op.iLike]: `%${searchCriteria.name}%` } },
+            ];
+        }
+
+        if (searchCriteria.phone) {
+            whereClause.phone = { [Op.iLike]: `%${searchCriteria.phone}%` };
+        }
+
+        if (searchCriteria.location) {
+            whereClause.location = {
+                [Op.iLike]: `%${searchCriteria.location}%`,
+            };
+        }
+
+        const persons = await this.personRepository.findAll({
+            where: whereClause,
+            include: [{ model: OrgUnit }], // Если нужно включать данные об оргюнитах
+        });
+
+        return persons;
+    }
 }

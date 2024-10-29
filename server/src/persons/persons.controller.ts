@@ -153,4 +153,15 @@ export class PersonsController {
             );
         }
     }
+
+    @ApiOperation({
+        summary: 'Поиск сотрудников по имени, телефону или адресу',
+    })
+    @ApiResponse({ status: 200, type: [Person] })
+    @Post('/search')
+    async searchPersons(
+        @Body() criteria: { name?: string; phone?: string; location?: string },
+    ) {
+        return this.personsService.searchPersons(criteria);
+    }
 }
