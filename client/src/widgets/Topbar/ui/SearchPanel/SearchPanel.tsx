@@ -16,7 +16,7 @@ import { VStack } from '@/shared/ui/Stack';
 import cls from './SearchPanel.module.scss';
 import { ChangeOpacityMotion } from '../../anim/OpacityAnimation';
 import { ChangeSearchMotion } from '../../anim/SearchPanelAnimation';
-import { fetchSearchData } from '../../lib/fetchSearchData';
+import { fetchSearchData, getSearchData } from '../../lib/fetchSearchData';
 import searchPanelStore from '../../model/store/searchPanelStore';
 
 interface SearchPanelProps {
@@ -37,7 +37,12 @@ export const SearchPanel = observer(({ className }: SearchPanelProps) => {
     const [searchData, setSearchData] = useState<Person[]>([])
     const isNoResults = Boolean(!searchData.length);
 
-    const debouncedFetchData = useDebounce(() => setSearchData(fetchSearchData(inputValue, orgUnitStore)), 300); 
+    const debouncedFetchData = useDebounce(async () => {
+        const data = await getSearchData(inputValue);
+        setSearchData(data);
+        console.log(data)
+    }, 300);
+    //const debouncedFetchData = useDebounce(() => setSearchData(fetchSearchData(inputValue, orgUnitStore)), 300); 
     
     useEffect(() => {
         if (searchPanelStore.searchLine) {
@@ -170,7 +175,7 @@ export const SearchPanel = observer(({ className }: SearchPanelProps) => {
                                 person={p}
                                 department={'Отдел 16'}
                                 onClick={() => clickHandler(p.name)}
-                                className={fetchSearchData(inputValue, orgUnitStore).length ? cls.display : cls.hidden}
+                                className={searchData.length ? cls.display : cls.hidden}
                             />
                         )}
                     </ChangeOpacityMotion>
