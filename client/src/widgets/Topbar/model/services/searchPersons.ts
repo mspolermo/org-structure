@@ -9,7 +9,7 @@ export async function searchPersons(name?: string, phone?: string, location?: st
             phone,
             location
         });
-console.log(response.data)
+
         return response; // Возвращаем полный ответ
     } catch (e) {
         console.error('Ошибка поиска персон', e);

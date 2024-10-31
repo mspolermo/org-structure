@@ -16,7 +16,7 @@ import { VStack } from '@/shared/ui/Stack';
 import cls from './SearchPanel.module.scss';
 import { ChangeOpacityMotion } from '../../anim/OpacityAnimation';
 import { ChangeSearchMotion } from '../../anim/SearchPanelAnimation';
-import { fetchSearchData, getSearchData } from '../../lib/fetchSearchData';
+import { fetchSearchData } from '../../lib/fetchSearchData';
 import searchPanelStore from '../../model/store/searchPanelStore';
 
 interface SearchPanelProps {
@@ -28,7 +28,7 @@ interface SearchPanelProps {
 export const SearchPanel = observer(({ className }: SearchPanelProps) => {
 
     const navigate = useNavigate();
-    const { rootStore, orgUnitStore } = useStoreProvider();
+    const { rootStore } = useStoreProvider();
 
     const ref = useRef<HTMLInputElement>(null);
     const [isFocused, setIsFocused] = useState(document.activeElement === ref.current);
@@ -38,11 +38,9 @@ export const SearchPanel = observer(({ className }: SearchPanelProps) => {
     const isNoResults = Boolean(!searchData.length);
 
     const debouncedFetchData = useDebounce(async () => {
-        const data = await getSearchData(inputValue);
+        const data = await fetchSearchData(inputValue);
         setSearchData(data);
-        console.log(data)
     }, 300);
-    //const debouncedFetchData = useDebounce(() => setSearchData(fetchSearchData(inputValue, orgUnitStore)), 300); 
     
     useEffect(() => {
         if (searchPanelStore.searchLine) {
@@ -55,7 +53,10 @@ export const SearchPanel = observer(({ className }: SearchPanelProps) => {
     }, [searchPanelStore.searchLine]);
 
     useEffect(() => {
-        debouncedFetchData()
+        if (inputValue.length > 0) {
+            setSearchData([])
+            debouncedFetchData()
+        }
     // eslint-disable-next-line react-hooks/exhaustive-deps
     },[inputValue]);
 
@@ -76,12 +77,14 @@ export const SearchPanel = observer(({ className }: SearchPanelProps) => {
         rootStore.updateFocusedCardNumber(-1);
         rootStore.updateFocusedPersonId("");  
     // сброс фокуса на карточке при нажатии на строку поиска
-    // eslint-disable-next-line react-hooks/exhaustive-deps
-    }, []);
+    }, [rootStore]);
 
-    const updateFocus = (newValue: number) => {
-        const arr = fetchSearchData(inputValue, orgUnitStore);
+    const updateFocus = useCallback((newValue: number) => {
+        console.log(newValue)
+        const arr = searchData;
         const len = arr.length;
+
+        if (len == 0) return
 
         if(len > newValue && newValue > -1) {
             rootStore.updateFocusedCardNumber(newValue);
@@ -95,13 +98,13 @@ export const SearchPanel = observer(({ className }: SearchPanelProps) => {
             rootStore.updateFocusedCardNumber(0);
             rootStore.updateFocusedPersonId(arr[0].id);  
         }        
-    }
+    }, [rootStore, searchData])
 
     const keyDownHandler = useCallback((event: {keyCode: number}) => {
         // переход на страницу поиска по нажатию на клавишу Enter
         if(event.keyCode === 13) {
             if(rootStore.focusedPersonId != "") {
-                navigate(getRouteSearch(fetchSearchData(inputValue, orgUnitStore)[rootStore.focusedCardNumber].name));
+                navigate(getRouteSearch(searchData[rootStore.focusedCardNumber].name));
             } else if (inputValue) {
                 navigate(getRouteSearch(inputValue));
             }
@@ -119,17 +122,14 @@ export const SearchPanel = observer(({ className }: SearchPanelProps) => {
         if(event.keyCode === 40) {
             updateFocus(rootStore.focusedCardNumber + 1);
         }
-    // eslint-disable-next-line react-hooks/exhaustive-deps
-    }, [inputValue, navigate]);
 
-    useEffect(() => {}, [rootStore.focusedPersonId]);
+    }, [inputValue, navigate, rootStore.focusedCardNumber, rootStore.focusedPersonId, searchData, updateFocus]);
 
     useEffect(() => {
         rootStore.updateFocusedCardNumber(-1);
         rootStore.updateFocusedPersonId("");  
     // сброс фокуса на карточке при изменении inputValue
-    // eslint-disable-next-line react-hooks/exhaustive-deps
-    }, [inputValue]);
+    }, [inputValue, rootStore]);
 
     return (
         <div className={classNames(cls.SearchPanel, {}, [className])}>
