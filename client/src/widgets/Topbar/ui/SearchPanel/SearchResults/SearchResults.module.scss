@@ -1,0 +1,26 @@
+.SearchResults {
+    position: absolute;
+    z-index: var(--overlay-z-index);
+    font: var(--font-s);
+    width: var(--sidebar-width);
+    background-color: var(--additional-bg-color);
+    border-right: 1px solid var(--divider-color);
+    border-bottom: 1px solid var(--divider-color);
+    white-space: nowrap;
+    top: 100%;
+    margin-top: 1px;
+    left: 0;
+}
+
+.loader {
+    display: flex;
+    align-items: center;
+}
+
+.hidden {
+    opacity: 0;
+}
+
+.display {
+    opacity: 1;
+}

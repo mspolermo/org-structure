@@ -3,29 +3,24 @@ import { useState, useEffect, useRef, useCallback } from 'react';
 import { useNavigate } from 'react-router-dom';
 
 import { useStoreProvider } from '@/app/providers/StoreProvider';
-import { Person, PersonSearchCard } from '@/entities/Person';
+import { Person } from '@/entities/Person';
 import { CrossInsideCircle } from '@/shared/assets/svg-icons/status';
 import { getRouteSearch } from "@/shared/const/router"
 import { classNames } from '@/shared/lib/classNames/classNames';
 import { useDebounce } from '@/shared/lib/hooks/useDebounce/useDebounce';
 import { Icon } from '@/shared/ui/Icon';
 import { Input } from '@/shared/ui/Input';
-import { Loader } from '@/shared/ui/Loader';
-import { VStack } from '@/shared/ui/Stack';
 
 import cls from './SearchPanel.module.scss';
-import { ChangeOpacityMotion } from '../../anim/OpacityAnimation';
-import { ChangeSearchMotion } from '../../anim/SearchPanelAnimation';
+import { SearchResults } from './SearchResults/SearchResults';
 import { fetchSearchData } from '../../lib/fetchSearchData';
 import searchPanelStore from '../../model/store/searchPanelStore';
 
-interface SearchPanelProps {
+interface Props {
 	className?: string;
 }
 
-// TODO добавить анимированное открытие\закрытие, навигацию по элементам в открытом меню по нажатию стрелок на клавиатуре
-
-export const SearchPanel = observer(({ className }: SearchPanelProps) => {
+export const SearchPanel = observer(({ className }: Props) => {
 
     const navigate = useNavigate();
     const { rootStore } = useStoreProvider();
@@ -35,7 +30,6 @@ export const SearchPanel = observer(({ className }: SearchPanelProps) => {
     
     const [inputValue, setInputValue] = useState('');
     const [searchData, setSearchData] = useState<Person[]>([])
-    const isNoResults = Boolean(!searchData.length);
 
     const debouncedFetchData = useDebounce(async () => {
         const data = await fetchSearchData(inputValue);
@@ -66,12 +60,6 @@ export const SearchPanel = observer(({ className }: SearchPanelProps) => {
         }
         // очистка введённого текста в поле поиска, в случае если элемент не в фокусе
     }, [isFocused]);
-
-    const clickHandler = useCallback((name: string) => {
-        navigate(getRouteSearch(name));
-        setSearchData([]);
-        setInputValue('');
-    }, [navigate]);
 
     const clickInputHandler = useCallback(() => {
         rootStore.updateFocusedCardNumber(-1);
@@ -148,52 +136,14 @@ export const SearchPanel = observer(({ className }: SearchPanelProps) => {
                     onClick={clickInputHandler}
                 />
             }
-            <VStack
-                id='block'
-                align='center'
-                justify='center'
-                max
-                className={cls.suggester}
-                onKeyDown={keyDownHandler}
-            >  
-                <ChangeSearchMotion 
-                    reanimate={searchData.length} 
-                    flag={inputValue.length == 0}
-                    duration={0.5} 
-                    initialHeight={'80px'}
-                    endHeight={'auto'}
-                >
-                    <ChangeOpacityMotion 
-                        reanimate={searchData.length} 
-                        initial={0} 
-                        end={1} 
-                        duration={2}
-                    >
-                        {searchData.map(p => 
-                            <PersonSearchCard
-                                key={p.id}
-                                person={p}
-                                department={'Отдел 16'}
-                                onClick={() => clickHandler(p.name)}
-                                className={searchData.length ? cls.display : cls.hidden}
-                            />
-                        )}
-                    </ChangeOpacityMotion>
-                </ChangeSearchMotion>
 
-                {isNoResults && 
-                <ChangeSearchMotion 
-                    reanimate={inputValue.length == 0 ? "true" : "false"} 
-                    duration={0.5} 
-                    initialHeight={inputValue.length == 0 ? 'auto' : '0'}
-                    endHeight={inputValue.length == 0 ? '0' : 'auto'}
-                    loader
-                >
-                    <Loader className={inputValue.length == 0 ? cls.hidden : cls.loader}/>
-                </ChangeSearchMotion>
-                }
-            </VStack>
-            
+            <SearchResults 
+                inputValue={inputValue}
+                searchData={searchData}
+                setInputValue={setInputValue}
+                setSearchData={setSearchData}
+                keyDownHandler={keyDownHandler}
+            />
 
             {inputValue && 
                 <Icon
