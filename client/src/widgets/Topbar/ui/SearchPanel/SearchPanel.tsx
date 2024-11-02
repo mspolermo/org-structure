@@ -3,7 +3,7 @@ import { useState, useEffect, useRef, useCallback } from 'react';
 import { useNavigate } from 'react-router-dom';
 
 import { useStoreProvider } from '@/app/providers/StoreProvider';
-import { Person } from '@/entities/Person';
+import { PersonSearched } from '@/entities/Person';
 import { CrossInsideCircle } from '@/shared/assets/svg-icons/status';
 import { getRouteSearch } from "@/shared/const/router"
 import { classNames } from '@/shared/lib/classNames/classNames';
@@ -29,7 +29,7 @@ export const SearchPanel = observer(({ className }: Props) => {
     const [isFocused, setIsFocused] = useState(document.activeElement === ref.current);
     
     const [inputValue, setInputValue] = useState('');
-    const [searchData, setSearchData] = useState<Person[]>([])
+    const [searchData, setSearchData] = useState<PersonSearched[]>([])
 
     const debouncedFetchData = useDebounce(async () => {
         const data = await fetchSearchData(inputValue);

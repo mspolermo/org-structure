@@ -1,9 +1,9 @@
-import { Person } from "@/entities/Person";
+import { PersonSearched } from "@/entities/Person";
 
 import { searchPersons } from "../model/services/searchPersons";
 
 
-export async function fetchSearchData(inputValue: string): Promise<Person[] | []> {
+export async function fetchSearchData(inputValue: string): Promise<PersonSearched[] | []> {
     const response = await searchPersons(inputValue);
 
     // Проверяем, существует ли ответ и его статус

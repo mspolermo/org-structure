@@ -2,7 +2,7 @@ import { observer } from 'mobx-react';
 import { useCallback } from 'react';
 import { useNavigate } from 'react-router-dom';
 
-import { Person, PersonSearchCard } from '@/entities/Person';
+import { PersonSearchCard, PersonSearched } from '@/entities/Person';
 import { getRouteSearch } from "@/shared/const/router"
 import { classNames } from '@/shared/lib/classNames/classNames';
 import { Loader } from '@/shared/ui/Loader';
@@ -14,9 +14,9 @@ import cls from './SearchResults.module.scss';
 
 interface Props {
 	className?: string;
-    searchData: Person[];
+    searchData: PersonSearched[];
     inputValue: string;
-    setSearchData: React.Dispatch<React.SetStateAction<Person[]>>
+    setSearchData: React.Dispatch<React.SetStateAction<PersonSearched[]>>
     setInputValue: React.Dispatch<React.SetStateAction<string>>
     keyDownHandler: (event: {
         keyCode: number;
@@ -60,8 +60,7 @@ export const SearchResults = observer((props: Props) => {
                     {searchData.map(p => 
                         <PersonSearchCard
                             key={p.id}
-                            person={p}
-                            department={'Отдел 16'}
+                            personSearched={p}
                             onClick={() => clickHandler(p.name)}
                             className={searchData.length ? cls.display : cls.hidden}
                         />

@@ -1,7 +1,7 @@
 import PersonStore from './model/store/personStore';
 
 export { PersonStore };
-export type { Person, PersonDetales } from './model/types/person';
+export type { Person, PersonDetales, PersonSearched } from './model/types/person';
 export { fetchPerson } from './model/services/fetchPerson';
 export { fetchPersonDetales } from './model/services/fetchPersonDetales';
 

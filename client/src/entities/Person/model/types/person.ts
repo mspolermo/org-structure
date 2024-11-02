@@ -1,3 +1,5 @@
+import { OrgUnitItem } from "@/entities/OrgUnitItem";
+
 export interface Person {
     id: string,
     name: string,
@@ -43,4 +45,8 @@ export interface PersonDetalesUpdateData extends Pick<
 export interface PersonFullUpdateData {
     person: PersonUpdateData;
     personDetales: PersonDetalesUpdateData;
+}
+
+export interface PersonSearched extends Person {
+    orgUnit: OrgUnitItem
 }

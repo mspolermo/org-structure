@@ -8,21 +8,20 @@ import { HStack, VStack } from '@/shared/ui/Stack';
 import { Text } from '@/shared/ui/Text';
 
 import cls from './PersonSearchCard.module.scss';
-import { Person } from '../../model/types/person';
+import { PersonSearched } from '../../model/types/person';
 
 interface PersonSearchCardProps {
     className?: string;
-    person: Person;
-    department: string;
+    personSearched: PersonSearched;
     onClick: () => void;
 }
 
-export const PersonSearchCard = memo(({ className, person, department, onClick }: PersonSearchCardProps) => {
+export const PersonSearchCard = memo(({ className, personSearched, onClick }: PersonSearchCardProps) => {
     
     const { rootStore } = useStoreProvider();
 
     const mods: Mods = {
-        [cls.focused]: person.id == rootStore.focusedPersonId
+        [cls.focused]: personSearched.id == rootStore.focusedPersonId
     };
 
     return (
@@ -35,14 +34,14 @@ export const PersonSearchCard = memo(({ className, person, department, onClick }
                 align='center'
                 justify='center'
                 className={cls.ava}
-                style={{'backgroundColor': getColor(person.id)}}
+                style={{'backgroundColor': getColor(personSearched.id)}}
             >
-                {getInitials(person.name)}
+                {getInitials(personSearched.name)}
             </VStack>
             <VStack max className={cls.textWrapper}>
-                <Text text={person.name} size='xs'  />
-                <Text text={person.post} size='xxs'/>
-                <Text text={department} size='xxs'/>
+                <Text text={personSearched.name} size='xs'  />
+                <Text text={personSearched.post} size='xxs'/>
+                <Text text={personSearched.orgUnit.name} size='xxs'/>
             </VStack>
         </HStack>
     )}
