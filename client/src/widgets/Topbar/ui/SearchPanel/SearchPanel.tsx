@@ -5,7 +5,7 @@ import { useNavigate } from 'react-router-dom';
 import { useStoreProvider } from '@/app/providers/StoreProvider';
 import { PersonSearched } from '@/entities/Person';
 import { CrossInsideCircle } from '@/shared/assets/svg-icons/status';
-import { getRouteSearch } from "@/shared/const/router"
+import { getRouteSearch, getRouteViewPerson } from "@/shared/const/router"
 import { classNames } from '@/shared/lib/classNames/classNames';
 import { useDebounce } from '@/shared/lib/hooks/useDebounce/useDebounce';
 import { Icon } from '@/shared/ui/Icon';
@@ -30,10 +30,13 @@ export const SearchPanel = observer(({ className }: Props) => {
     
     const [inputValue, setInputValue] = useState('');
     const [searchData, setSearchData] = useState<PersonSearched[]>([])
+    const [isLoading, setIsLoading] = useState(true)
 
     const debouncedFetchData = useDebounce(async () => {
+        setIsLoading(true);
         const data = await fetchSearchData(inputValue);
         setSearchData(data);
+        setIsLoading(false);
     }, 300);
     
     useEffect(() => {
@@ -48,6 +51,7 @@ export const SearchPanel = observer(({ className }: Props) => {
 
     useEffect(() => {
         if (inputValue.length > 0) {
+            setIsLoading(true);
             setSearchData([])
             debouncedFetchData()
         }
@@ -56,7 +60,7 @@ export const SearchPanel = observer(({ className }: Props) => {
 
     useEffect(() => {
         if (!isFocused) {
-            setInputValue('');
+            setTimeout( () => setInputValue(''), 100);
         }
         // очистка введённого текста в поле поиска, в случае если элемент не в фокусе
     }, [isFocused]);
@@ -92,7 +96,7 @@ export const SearchPanel = observer(({ className }: Props) => {
         // переход на страницу поиска по нажатию на клавишу Enter
         if(event.keyCode === 13) {
             if(rootStore.focusedPersonId != "") {
-                navigate(getRouteSearch(searchData[rootStore.focusedCardNumber].name));
+                navigate(getRouteViewPerson(searchData[rootStore.focusedCardNumber].id));
             } else if (inputValue) {
                 navigate(getRouteSearch(inputValue));
             }
@@ -140,6 +144,7 @@ export const SearchPanel = observer(({ className }: Props) => {
             <SearchResults 
                 inputValue={inputValue}
                 searchData={searchData}
+                isLoading={isLoading}
                 setInputValue={setInputValue}
                 setSearchData={setSearchData}
                 keyDownHandler={keyDownHandler}

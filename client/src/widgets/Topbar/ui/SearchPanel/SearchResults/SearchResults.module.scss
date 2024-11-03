@@ -24,3 +24,10 @@
 .display {
     opacity: 1;
 }
+
+.more {
+    padding: 8px;
+    & :hover {
+        text-decoration: underline ;
+    }
+}
