@@ -7,7 +7,7 @@ import { getRouteSearch, getRouteViewPerson } from "@/shared/const/router"
 import { classNames } from '@/shared/lib/classNames/classNames';
 import { Button } from '@/shared/ui/Button';
 import { Loader } from '@/shared/ui/Loader';
-import { VStack } from '@/shared/ui/Stack';
+import { HStack, VStack } from '@/shared/ui/Stack';
 import { Text } from '@/shared/ui/Text';
 import { ChangeOpacityMotion } from '@/widgets/Topbar/anim/OpacityAnimation';
 import { ChangeSearchMotion } from '@/widgets/Topbar/anim/SearchPanelAnimation';
@@ -21,9 +21,7 @@ interface Props {
     isLoading: boolean;
     setSearchData: React.Dispatch<React.SetStateAction<PersonSearched[]>>
     setInputValue: React.Dispatch<React.SetStateAction<string>>
-    keyDownHandler: (event: {
-        keyCode: number;
-    }) => void
+    keyDownHandler: (event: { keyCode: number; }) => void
 }
 
 export const SearchResults = observer((props: Props) => {
@@ -39,8 +37,6 @@ export const SearchResults = observer((props: Props) => {
     }, [navigate, setInputValue, setSearchData]);
 
     const buttonClickHandler = useCallback(() => {
-        console.log("Current inputValue:", inputValue);
-
         if (inputValue) {
             navigate(getRouteSearch(inputValue));
             setSearchData([]);
@@ -82,9 +78,11 @@ export const SearchResults = observer((props: Props) => {
                             />
                         ))}
                         {searchData.length > 5 && 
-                        <Button variant='clear' onClick={buttonClickHandler}>
-                            <Text text='Показать все результаты...' className={cls.more} size='s'/>
-                        </Button>
+                            <HStack max align='center' justify='center'>
+                                <Button variant='clear' onClick={buttonClickHandler}>
+                                    <Text text='Показать все результаты...' className={cls.more} size='s'/>
+                                </Button>
+                            </HStack>
                         }
                     </ChangeOpacityMotion>
                 </ChangeSearchMotion>
@@ -97,20 +95,22 @@ export const SearchResults = observer((props: Props) => {
                     initialHeight={inputValue.length == 0 ? 'auto' : '0'}
                     endHeight={inputValue.length == 0 ? '0' : 'auto'}
                 >
-                    <Text text='Ничего не найдено' className={!isNoResults? cls.hidden : cls.loader}/>
+                    <HStack max align='center' justify='center'>
+                        <Text text='Ничего не найдено' className={cls.notFound}/>
+                    </HStack>
                 </ChangeSearchMotion>
             }
 
             {isLoading && 
-            <ChangeSearchMotion 
-                reanimate={inputValue.length == 0 ? "true" : "false"} 
-                duration={0.5} 
-                initialHeight={inputValue.length == 0 ? 'auto' : '0'}
-                endHeight={inputValue.length == 0 ? '0' : 'auto'}
-                loader
-            >
-                <Loader className={inputValue.length == 0 ? cls.hidden : cls.loader}/>
-            </ChangeSearchMotion>
+                <ChangeSearchMotion 
+                    reanimate={inputValue.length == 0 ? "true" : "false"} 
+                    duration={0.5} 
+                    initialHeight={inputValue.length == 0 ? 'auto' : '0'}
+                    endHeight={inputValue.length == 0 ? '0' : 'auto'}
+                    loader
+                >
+                    <Loader className={inputValue.length == 0 ? cls.hidden : cls.loader}/>
+                </ChangeSearchMotion>
             }
         </VStack>
     );

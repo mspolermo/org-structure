@@ -50,3 +50,9 @@ export interface PersonFullUpdateData {
 export interface PersonSearched extends Person {
     orgUnit: OrgUnitItem
 }
+
+export interface PersonSearhRequest {
+    name?: string,
+    phone?: string,
+    location?: string
+}

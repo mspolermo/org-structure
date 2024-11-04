@@ -30,12 +30,12 @@ export const PersonShortView = memo(({ className, person, isOpen, setIsOpen }: P
             <Text text={person.name} size='s' className={indent}/>
 
             {(isOpen && person.phone)
-                ? <UseSearch text={person.phone} size='s'/>
+                ? <UseSearch text={person.phone} size='s' searchData={`phone:${person.phone}`} />
                 : <Text text={person.phone|| '-'} size='s'/>
             }
 
             {(isOpen && person.location)
-                ? <UseSearch text={person.location} size='s'/>
+                ? <UseSearch text={person.location} searchData={`location:${person.location}`} size='s'/>
                 : <Text text={person.location || '-'} size='s'/>
             }
 
