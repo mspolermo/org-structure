@@ -5,7 +5,7 @@
 import { Navigate, useLocation } from 'react-router-dom';
 
 import { useStoreProvider } from '@/app/providers/StoreProvider';
-import { getRouteMain } from '@/shared/const/router';
+import { getRouteAuth } from '@/shared/const/router';
 
 
 interface RequireAuthProps {
@@ -20,7 +20,7 @@ export function RequireAuth({ children }: RequireAuthProps) {
 
     if (!auth) {
         return (
-            <Navigate to={getRouteMain()} state={{ from: location }} replace />
+            <Navigate to={getRouteAuth()} state={{ from: location }} replace />
         );
     }
 

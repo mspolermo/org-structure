@@ -3,6 +3,7 @@
 */
 
 import { AboutPage } from '@/pages/AboutPage';
+import { AuthorizationPage } from '@/pages/AuthorizationPage';
 import { DepartmentPage } from '@/pages/DepartmentPage';
 import EditOrgUnitPage from '@/pages/EditOrgUnitPage/ui/EditOrgUnitPage';
 import { EditPersonPage } from '@/pages/EditPersonPage';
@@ -25,6 +26,7 @@ import {
     getRouteSearch,
     getRouteEditOrgUnit,
     getRouteViewPerson,
+    getRouteAuth,
 } from '@/shared/const/router';
 import { AppRoutesProps } from '@/shared/types/router';
 
@@ -32,6 +34,7 @@ export const RouteConfig: Record<AppRoutes, AppRoutesProps> = {
     [AppRoutes.MAIN]: {
         path: getRouteMain(),
         element: <MainPage />,
+        authOnly: true
     },
     [AppRoutes.ABOUT]: {
         path: getRouteAbout(),
@@ -78,5 +81,9 @@ export const RouteConfig: Record<AppRoutes, AppRoutesProps> = {
     [AppRoutes.FORBIDDEN]: {
         path: getRouteForbidden(),
         element: <ForbiddenPage />,
+    },
+    [AppRoutes.AUTHORIZATION]: {
+        path: getRouteAuth(),
+        element: <AuthorizationPage />
     },
 };
