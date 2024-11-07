@@ -9,7 +9,7 @@ import { classNames } from '@/shared/lib/classNames/classNames';
 import { getHStack } from '@/shared/ui/Stack';
 
 import cls from './Topbar.module.scss';
-import { ActionPanel } from '../ActionPanel/ActionPanel/ActionPanel';
+import { ActionPanel } from '../ActionPanel/ActionPanel';
 import { SearchPanel } from '../SearchPanel/SearchPanel';
 
 interface TopbarProps {

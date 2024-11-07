@@ -1,6 +1,8 @@
-import { memo, useCallback } from 'react';
+import { observer } from 'mobx-react';
+import { useCallback } from 'react';
 import { useNavigate } from 'react-router-dom';
 
+import { useStoreProvider } from '@/app/providers/StoreProvider';
 import {  Demands } from '@/shared/assets/svg-icons/action';
 import { getRouteMain } from '@/shared/const/router';
 import { classNames } from '@/shared/lib/classNames/classNames';
@@ -14,10 +16,13 @@ interface ToMainPageButtonProps {
 	className?: string;
 }
 
-export const ToMainPageButton = memo(({ className }: ToMainPageButtonProps) => {
+export const ToMainPageButton = observer(({ className }: ToMainPageButtonProps) => {
     const navigate = useNavigate();
+    const { rootStore } = useStoreProvider();
 
     const clickHandler = useCallback(() => navigate(getRouteMain()), [navigate]);
+
+    if (!rootStore.auth) return null;
 
     return (
         <HStack
