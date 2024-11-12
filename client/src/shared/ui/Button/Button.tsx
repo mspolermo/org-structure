@@ -18,7 +18,7 @@ export type ButtonVariant = 'clear' | 'normal' | 'outline' | 'outline-inverted';
 
 export type ButtonSize = 'xs' | 's' | 'm' | 'l' | 'xl'; 
 
-interface ButtonProps extends ButtonHTMLAttributes<HTMLButtonElement> {
+export interface ButtonProps extends ButtonHTMLAttributes<HTMLButtonElement> {
     className?: string;
     variant?: ButtonVariant;
     square?: boolean;
