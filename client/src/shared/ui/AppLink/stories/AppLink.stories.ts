@@ -1,25 +1,25 @@
 import type { Meta, StoryObj } from '@storybook/react';
 import { fn } from '@storybook/test';
 
-import { Button, ButtonProps } from '../Button';
+import { AppLink, AppLinkProps } from '../AppLink';
 
 const meta = {
-    title: 'Button',
-    component: Button,
+    title: 'AppLink',
+    component: AppLink,
     parameters: {
         layout: 'centered',
     },
     tags: ['autodocs'],
     args: { onClick: fn() },
-} satisfies Meta<ButtonProps>;
+} satisfies Meta<AppLinkProps>;
 
 export default meta;
 type Story = StoryObj<typeof meta>;
 
 export const Primary: Story = {
     args: {
-        variant: 'normal',
-        size: 'm',
-        children: 'Кнопка'
+        variant: 'primary',
+        children: 'Ссылка',
+        to: '/test',
     },
 };
