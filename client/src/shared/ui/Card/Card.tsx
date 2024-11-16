@@ -18,7 +18,7 @@ export type CardVariant = 'normal' | 'outlined-bottom' | 'chosen';
 type CardPagging = '0' | '8' | '16' | '24';
 type CardBorder = 'border-none' | 'border-round' | 'border-slightly';
 
-interface CardProps extends HTMLAttributes<HTMLDivElement> {
+export interface CardProps extends HTMLAttributes<HTMLDivElement> {
     className?: string;
     children: ReactNode;
     variant?: CardVariant
