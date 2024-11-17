@@ -39,7 +39,7 @@ interface ExpandableCardWithBtnProps extends ExpandableCardBaseProps {
     icons: clickableIconProps [];
 }
 
-type ExpandableCardProps = ExpandableCardWithoutBtnProps | ExpandableCardWithBtnProps;
+export type ExpandableCardProps = ExpandableCardWithoutBtnProps | ExpandableCardWithBtnProps;
 
 export const ExpandableCard = memo((props: ExpandableCardProps) => {
     const {
