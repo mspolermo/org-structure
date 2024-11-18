@@ -30,22 +30,23 @@ const borderClasses: Record<borderType, string> = {
 };
 
 interface IconBaseProps extends SvgProps {
-  className?: string;
-  Svg: React.VFC<React.SVGProps<SVGSVGElement>>;
-  borderType?: borderType;
-  color?: colorType;
+    className?: string;
+    Svg: React.VFC<React.SVGProps<SVGSVGElement>>;
+    borderType?: borderType;
+    color?: colorType;
 }
 
 interface NonClickableIconProps extends IconBaseProps {
-  clickable?: false;
+    clickable?: false;
+    onClick?: never;
 }
 
-export interface clickableIconProps extends IconBaseProps {
-  clickable?: true;
-  onClick: (e: React.MouseEvent<HTMLButtonElement, MouseEvent>) => void;
+export interface ClickableIconProps extends IconBaseProps {
+    clickable?: true;
+    onClick: (e: React.MouseEvent<HTMLButtonElement, MouseEvent>) => void;
 }
 
-type IconProps = NonClickableIconProps | clickableIconProps;
+export type IconProps = NonClickableIconProps | ClickableIconProps;
 
 export const Icon = memo((props: IconProps) => {
     const {
