@@ -39,7 +39,7 @@ interface TextAreaProps extends InputTextAreaProps {
     textareaVaraint?: 'big' | 'autosize';
 }
 
-type InputCommonProps = InputProps | TextAreaProps;
+export type InputCommonProps = InputProps | TextAreaProps;
 
 export const Input = React.forwardRef((props: InputCommonProps, ref:React.ForwardedRef<HTMLInputElement>) => {
     const {
