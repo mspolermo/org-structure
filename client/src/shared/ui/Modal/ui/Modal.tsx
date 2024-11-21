@@ -20,7 +20,7 @@ import cls from './Modal.module.scss';
 import { Icon } from '../../Icon';
 import { ChangeScaleMotion } from '../anim/Animation';
 
-interface ModalProps {
+export interface ModalProps {
 	className?: string;
 	children: ReactNode;
 	isOpen: boolean;
