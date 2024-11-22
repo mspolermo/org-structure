@@ -24,7 +24,7 @@ export interface DropdownItem {
     href?: string;
 }
 
-interface DropdownProps {
+export interface DropdownProps {
     className?: string;
     items: DropdownItem[];
     trigger: ReactNode;
