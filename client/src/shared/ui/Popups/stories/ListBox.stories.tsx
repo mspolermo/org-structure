@@ -1,37 +1,35 @@
 import type { Meta, StoryObj } from '@storybook/react';
+import { fn } from '@storybook/test';
 
-import { Dropdown, DropdownItem, DropdownProps } from '../ui/Dropdown/Dropdown';
+import { ListBox, ListBoxItem, ListBoxProps } from '../ui/ListBox/ListBox';
 
-const items: DropdownItem[] = [
+const items: ListBoxItem<string>[] = [
     {
         disabled: false,
         content: (<div>1</div>),
-        onClick: () => console.log('1'),
-        href: '#',
+        value: '1'
     },
     {
         disabled: false,
         content: (<div>2</div>),
-        onClick: () => console.log('2'),
-        href: '#',
+        value: '2'
     },
     {
         disabled: true,
         content: (<div>3</div>),
-        onClick: () => console.log('3'),
-        href: '#',
+        value: '3'
     },
 ]
 
 const meta = {
-    title: 'Dropdown',
-    component: Dropdown,
+    title: 'ListBox',
+    component: ListBox,
     parameters: {
         layout: 'centered',
     },
     tags: ['autodocs'],
     args: { },
-} satisfies Meta<DropdownProps>;
+} satisfies Meta<ListBoxProps<string>>;
 
 export default meta;
 type Story = StoryObj<typeof meta>;
@@ -39,6 +37,8 @@ type Story = StoryObj<typeof meta>;
 export const Primary: Story = {
     args: {
         items: items,
-        trigger: (<div>Кнопка</div>),
+        value: '2',
+        defaultValue: 'Выберите значение',
+        onChange: fn(),
     },
 };
