@@ -15,7 +15,7 @@ import cls from './Popover.module.scss';
 import { mapDirectionClass } from '../../styles/consts';
 import popupCls from '../../styles/popup.module.scss';
 
-interface PopoverProps {
+export interface PopoverProps {
     className?: string;
     trigger: ReactNode;
     direction?: DropdownDirection;
