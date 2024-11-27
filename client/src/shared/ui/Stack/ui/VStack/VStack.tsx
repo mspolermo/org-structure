@@ -12,7 +12,7 @@
 import { FlexProps } from '../../types/stack';
 import { Flex } from '../Flex/Flex';
 
-type VStackProps = Omit<FlexProps, 'direction'>;
+export type VStackProps = Omit<FlexProps, 'direction'>;
 
 export const VStack = (props: VStackProps) => {
     const { align = 'start' } = props;
