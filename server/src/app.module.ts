@@ -12,6 +12,7 @@ import { UserRoles } from './roles/user-roles.model';
 import { PersonDetales } from './persons/person-detales.model';
 import { OrgUnitModule } from './org-unit/org-unit.module';
 import { OrgUnit } from './org-unit/org-unit.model';
+import { AuthModule } from './auth/auth.module';
 
 @Module({
     controllers: [],
@@ -34,6 +35,7 @@ import { OrgUnit } from './org-unit/org-unit.model';
         PersonsModule,
         UsersModule,
         RolesModule,
+        AuthModule,
     ],
 })
 export class AppModule {}
