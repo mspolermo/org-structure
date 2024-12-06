@@ -20,7 +20,6 @@ export class UsersController {
 
     @ApiOperation({ summary: 'Получение всех пользователей' })
     @ApiResponse({ status: 200, type: [User] })
-    @UseGuards(JwtAuthGuard)
     @Get()
     getAll() {
         return this.usersService.getAllUsers();
@@ -28,6 +27,7 @@ export class UsersController {
 
     @ApiOperation({ summary: 'Получить пользователя по email' })
     @ApiResponse({ status: 200, type: User })
+    @UseGuards(JwtAuthGuard)
     @Get('/mail/:email')
     getByEmail(@Param('email') email: string) {
         return this.usersService.getUserByEmail(email);

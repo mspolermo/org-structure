@@ -1,5 +1,6 @@
-import { memo, useState } from "react";
+import { memo, useCallback, useState } from "react";
 
+import { authLogin } from "@/entities/User";
 import { Button } from "@/shared/ui/Button";
 import { Card } from "@/shared/ui/Card";
 import { Input } from "@/shared/ui/Input";
@@ -8,8 +9,16 @@ import { Text } from "@/shared/ui/Text";
 
 const GetAuth = memo(() => {
 
-    const [login, setLogin] = useState('')
+    const [email, setEmail] = useState('')
     const [password, setPassword] = useState('')
+
+    const onSaveHandler = useCallback(async () => {
+        await authLogin ({
+            email,
+            password,
+        })
+
+    }, [email, password]);
 
     return (
         <Card border='border-slightly' padding='24' max>
@@ -22,8 +31,8 @@ const GetAuth = memo(() => {
                     <Input 
                         inputVariant="bordered"
                         placeholder="Введите email"
-                        value={login}
-                        onChange={setLogin}
+                        value={email}
+                        onChange={setEmail}
                     />
                 </HStack>
 
@@ -37,7 +46,7 @@ const GetAuth = memo(() => {
                     />
                 </HStack>
 
-                <Button>Войти</Button>
+                <Button onClick={onSaveHandler}>Войти</Button>
             </VStack>
         </Card>
     );
