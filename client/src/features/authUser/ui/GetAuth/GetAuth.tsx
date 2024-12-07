@@ -13,11 +13,11 @@ const GetAuth = memo(() => {
     const [password, setPassword] = useState('')
 
     const onSaveHandler = useCallback(async () => {
-        await authLogin ({
+        const response = await authLogin ({
             email,
             password,
         })
-
+        console.log(response)
     }, [email, password]);
 
     return (

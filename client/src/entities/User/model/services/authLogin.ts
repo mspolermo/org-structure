@@ -8,8 +8,7 @@ export async function authLogin (authData: UserAuthData) {
 
     try {
         const response = axios.post(__API_LOGIN__, authData);
-        console.log(response);
-
+        return Promise.resolve(response.then(n => n.data))
     } catch (e) {
         console.error(e);
     }
