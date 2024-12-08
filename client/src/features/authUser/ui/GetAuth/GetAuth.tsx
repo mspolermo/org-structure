@@ -1,5 +1,7 @@
+import { observer } from "mobx-react";
 import { memo, useCallback, useState } from "react";
 
+import { useStoreProvider } from "@/app/providers/StoreProvider";
 import { authLogin } from "@/entities/User";
 import { Button } from "@/shared/ui/Button";
 import { Card } from "@/shared/ui/Card";
@@ -7,7 +9,8 @@ import { Input } from "@/shared/ui/Input";
 import { HStack, VStack } from "@/shared/ui/Stack";
 import { Text } from "@/shared/ui/Text";
 
-const GetAuth = memo(() => {
+const GetAuth = observer(() => {
+    const { rootStore }= useStoreProvider();
 
     const [email, setEmail] = useState('')
     const [password, setPassword] = useState('')
@@ -16,9 +19,9 @@ const GetAuth = memo(() => {
         const response = await authLogin ({
             email,
             password,
-        })
+        }, rootStore)
         console.log(response)
-    }, [email, password]);
+    }, [email, password, rootStore]);
 
     return (
         <Card border='border-slightly' padding='24' max>

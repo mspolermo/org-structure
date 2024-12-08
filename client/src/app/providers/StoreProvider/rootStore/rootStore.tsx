@@ -15,6 +15,7 @@ class RootStore {
     
     constructor() {
         makeAutoObservable(this)
+        this.auth = null;
     }
 
     @observable 
@@ -24,18 +25,18 @@ class RootStore {
 
         userNavData?: IPromiseBasedObservable<UserNavType>
         user?: User;
-        auth?: boolean;
+        auth: string | null;
         isNavChange: boolean = false;
 
         focusedCardNumber: number = -1;
         focusedPersonId: string = "";
 
     @action
-        updateAuth( value?: boolean) {   
-            if (value !== undefined) {
+        updateAuth( value: string | null) {   
+            if (value) {
                 this.auth = value
             } else {
-                this.auth = Boolean(this.user?.fullName)                
+                this.auth = null             
             }
         }
 
