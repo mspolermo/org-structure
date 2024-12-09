@@ -26,7 +26,7 @@ export const Navpanel = observer(({ className, localData }: NavpanelProps) => {
 
     useEffect(() => {
         // ожидание окончания загрузки данных fetchUserNav
-        rootStore.updateAuth()
+        //rootStore.updateAuth()
     }, [rootStore, rootStore.userNavData?.state])
 
 

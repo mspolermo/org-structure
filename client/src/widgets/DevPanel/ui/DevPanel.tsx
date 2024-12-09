@@ -1,5 +1,6 @@
 import { observer } from "mobx-react";
-import { useMemo } from 'react';
+import { useCallback, useMemo } from 'react';
+import { useNavigate } from "react-router-dom";
 
 import { BugButton } from "@/app/providers/ErrorBoundary";
 import { useStoreProvider } from "@/app/providers/StoreProvider";
@@ -14,7 +15,8 @@ import {
     getRouteNotFound,
     getRouteSettings,
     getRouteSearch,
-    getRouteEditOrgUnit
+    getRouteEditOrgUnit,
+    getRouteAuth
 } from "@/shared/const/router";
 import { classNames } from '@/shared/lib/classNames/classNames';
 import { AppLink } from "@/shared/ui/AppLink";
@@ -27,12 +29,18 @@ import cls from './DevPanel.module.scss';
 export const DevPanel = observer(() => {
     const { rootStore } = useStoreProvider();
     const isOpen = rootStore.devMode;
+    const navigate = useNavigate();
+    const forwardToAuth = useCallback(()=> navigate(getRouteAuth()), [navigate]);
+    const logOut = useCallback(()=> {
+        rootStore.updateAuth(null) 
+        navigate(getRouteAuth())
+    }, [navigate, rootStore]);
 
     const itemsForDropDown = useMemo(() => [
 
         {
             content: rootStore.auth ? 'Выйти' : 'Войти',
-            onClick: () => rootStore.updateAuth(!rootStore.auth),
+            onClick: rootStore.auth ? logOut : forwardToAuth,
         }
     // eslint-disable-next-line react-hooks/exhaustive-deps
     ], [rootStore.auth]);
