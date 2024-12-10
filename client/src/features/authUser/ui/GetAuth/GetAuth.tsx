@@ -1,5 +1,5 @@
 import { observer } from "mobx-react";
-import { useCallback, useEffect, useState } from "react";
+import { useCallback, useState } from "react";
 import { useNavigate } from "react-router-dom";
 
 import { useStoreProvider } from "@/app/providers/StoreProvider";
@@ -17,21 +17,21 @@ const GetAuth = observer(() => {
 
     const [email, setEmail] = useState('')
     const [password, setPassword] = useState('')
+    const [error, setError] = useState<string | null>(null)
 
     const onSaveHandler = useCallback(async () => {
-        const response = await authLogin ({
-            email,
-            password,
-        }, rootStore)
-        navigate(getRouteMain())
-        console.log(response)
-    }, [email, navigate, password, rootStore]);
-
-    useEffect(() => {
-        if (rootStore.auth) {
-            navigate(getRouteMain())
+        try {
+            await authLogin({
+                email,
+                password,
+            }, rootStore);
+            setError(null)
+            navigate(getRouteMain());
+        } catch (error) {
+            console.error('Ошибка при авторизации:', error);
+            setError('Ошибка авторизации: проверьте введённые данные.');
         }
-    }, [navigate, rootStore.auth])
+    }, [email, navigate, password, rootStore]);
 
     return (
         <Card border='border-slightly' padding='24' max>
@@ -58,6 +58,8 @@ const GetAuth = observer(() => {
                         onChange={setPassword}
                     />
                 </HStack>
+
+                {error && <Text title={error} variant='error' />}
 
                 <Button onClick={onSaveHandler}>Войти</Button>
             </VStack>
