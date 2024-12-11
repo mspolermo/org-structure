@@ -3,7 +3,8 @@ import { useEffect, useState, useCallback } from 'react';
 import { useNavigate } from 'react-router-dom';
 
 import { useStoreProvider } from '@/app/providers/StoreProvider';
-import {  User } from '@/shared/assets/svg-icons/action';
+import { User } from '@/entities/User';
+import {  User as UserSvg} from '@/shared/assets/svg-icons/action';
 import { getRouteEditPerson } from '@/shared/const/router';
 import { classNames } from '@/shared/lib/classNames/classNames';
 import { Icon } from '@/shared/ui/Icon';
@@ -17,19 +18,21 @@ interface UserButtonProps {
 }
 
 export const UserButton = observer(({ className }: UserButtonProps) => {
-    const [userName, setUserName] = useState('NONE'); 
+    const [userData, setUserData] = useState<User>(); 
     const { rootStore } = useStoreProvider();
     const navigate = useNavigate();
 
     useEffect(() => {
         // ожидание окончания загрузки данных fetchUserNav
-        const data = rootStore.user?.shortName;
+        const data = rootStore.user;
         if ( data && data !== undefined) {
-            setUserName(data)
+            setUserData(data)
         }
     }, [rootStore, rootStore.userNavData?.state])
 
-    const clickHandler = useCallback(() => navigate(getRouteEditPerson('unexisted')), [navigate]);
+    const clickHandler = useCallback(() => {
+        if (userData?.id) navigate(getRouteEditPerson(userData?.id)
+        )}, [navigate, userData?.id]);
 
     if (!rootStore.auth) return null;
     return (
@@ -40,11 +43,11 @@ export const UserButton = observer(({ className }: UserButtonProps) => {
         >
             
             <Icon
-                Svg={User}
+                Svg={UserSvg}
                 className={cls.icon}
             />
 
-            <Text title={userName} size='xs' bold className={cls.title}/>
+            <Text title={userData?.name} size='xs' bold className={cls.title}/>
 
         </HStack>
     );

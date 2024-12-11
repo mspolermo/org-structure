@@ -11,12 +11,12 @@ export function useAppNavpanel() {
     const {rootStore} = useStoreProvider();
 
     useLayoutEffect( ()=> {
-        if (!rootStore.userNavData) fetchUserNav(rootStore);
+        if (!rootStore.userNavData && rootStore.auth) fetchUserNav(rootStore, rootStore.auth);
     }, [rootStore])
 
     useEffect( ()=> {
-        fetchUserNav(rootStore);
-    }, [rootStore, rootStore.isNavChange])
+        if (rootStore.auth) fetchUserNav(rootStore, rootStore.auth);
+    }, [rootStore, rootStore.isNavChange, rootStore.auth])
 
     const appRoute = useRouteChange();
 

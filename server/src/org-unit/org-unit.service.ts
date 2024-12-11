@@ -1,13 +1,21 @@
-import { HttpException, HttpStatus, Injectable } from '@nestjs/common';
+import {
+    HttpException,
+    HttpStatus,
+    Injectable,
+    NotFoundException,
+} from '@nestjs/common';
 import { InjectModel } from '@nestjs/sequelize';
 import { OrgUnit } from './org-unit.model';
 import { CreateOrgUnitDto } from './dto/create-orgUnit.dto';
 import { Person } from 'src/persons/persons.model';
 import { UpdateOrgUnitDto } from './dto/update-orgUnit.dto';
+import { User } from 'src/users/users.model';
+import { PersonsService } from 'src/persons/persons.service';
 
 @Injectable()
 export class OrgUnitService {
     constructor(
+        private readonly personsService: PersonsService,
         @InjectModel(OrgUnit) private orgUnitRepository: typeof OrgUnit,
     ) {}
 
@@ -356,7 +364,7 @@ export class OrgUnitService {
         return orgUnit;
     }
 
-    async getOrgUnitsNavigation() {
+    async getOrgUnitsNavigation(user: User) {
         const parentOrgUnits = await this.orgUnitRepository.findAll({
             where: {
                 nestingLevel: 0,
@@ -387,14 +395,23 @@ export class OrgUnitService {
                 isLink: true,
             })),
         }));
-        // TODO: добавить пользователя
+
+        // Получение персоны по email пользователя
+        const person = await this.personsService.getPersonByEmail(user.email);
+
+        //TODO: исправить на нормальную ошибку и добавить allowDeveloperTools использование
+        if (!person) {
+            throw new NotFoundException(
+                `Person with email ${user.email} not found`,
+            );
+        }
 
         return {
             groups: result,
             user: {
-                id: '0',
-                fullName: 'Админов Админ Админович',
-                shortName: 'Админов А.А.',
+                id: person.id,
+                name: person.name,
+                email: user.email,
                 allowDeveloperTools: true,
             },
         };

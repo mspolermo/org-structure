@@ -1,9 +1,19 @@
-import { Body, Controller, Get, Param, Patch, Post } from '@nestjs/common';
+import {
+    Body,
+    Controller,
+    Get,
+    Param,
+    Patch,
+    Post,
+    UseGuards,
+    Request,
+} from '@nestjs/common';
 import { OrgUnitService } from './org-unit.service';
 import { CreateOrgUnitDto } from './dto/create-orgUnit.dto';
 import { ApiOperation, ApiResponse, ApiTags } from '@nestjs/swagger';
 import { OrgUnit } from './org-unit.model';
 import { UpdateOrgUnitDto } from './dto/update-orgUnit.dto';
+import { JwtAuthGuard } from 'src/auth/jwt-auth.guard';
 
 @ApiTags('Оргюниты')
 @Controller('org-unit')
@@ -26,10 +36,12 @@ export class OrgUnitController {
 
     @ApiOperation({ summary: 'Получить навигацию' })
     @ApiResponse({ status: 200 })
-    // TODO: типизировать и переделать на получение юзера
+    // TODO: типизировать req
+    @UseGuards(JwtAuthGuard)
     @Get('getNav')
-    getNav() {
-        return this.orgUnitService.getOrgUnitsNavigation();
+    getNav(@Request() req) {
+        const user = req.user;
+        return this.orgUnitService.getOrgUnitsNavigation(user);
     }
 
     @ApiOperation({ summary: 'Получить оргюнит по id' })

@@ -1,7 +1,8 @@
 export interface User {
+    id: string;
+    email: string;
+    name: string;
     allowDeveloperTools: boolean;
-    fullName: string;
-    shortName: string;
 }
 
 export interface UserAuthData {
