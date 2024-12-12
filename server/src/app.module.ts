@@ -13,6 +13,8 @@ import { PersonDetales } from './persons/person-detales.model';
 import { OrgUnitModule } from './org-unit/org-unit.module';
 import { OrgUnit } from './org-unit/org-unit.model';
 import { AuthModule } from './auth/auth.module';
+import { FavoritePerson } from './favorites/favorite-person.model';
+import { FavoritesModule } from './favorites/favorites.module';
 
 @Module({
     controllers: [],
@@ -28,7 +30,15 @@ import { AuthModule } from './auth/auth.module';
             username: process.env.POSTGRES_USER,
             password: process.env.POSTGRES_PASSWORD,
             database: process.env.POSTGRES_DB,
-            models: [OrgUnit, Person, User, Role, UserRoles, PersonDetales],
+            models: [
+                OrgUnit,
+                Person,
+                User,
+                Role,
+                UserRoles,
+                PersonDetales,
+                FavoritePerson,
+            ],
             autoLoadModels: true,
         }),
         OrgUnitModule,
@@ -36,6 +46,7 @@ import { AuthModule } from './auth/auth.module';
         UsersModule,
         RolesModule,
         AuthModule,
+        FavoritesModule,
     ],
 })
 export class AppModule {}
