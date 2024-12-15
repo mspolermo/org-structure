@@ -2,7 +2,9 @@ import { observer } from 'mobx-react';
 import { useCallback } from 'react';
 import { useNavigate } from 'react-router-dom';
 
+import { useStoreProvider } from '@/app/providers/StoreProvider';
 import { Person } from '@/entities/Person/model/types/person';
+import { addToFavorites } from '@/entities/User';
 import { Star2 } from '@/shared/assets/svg-icons/action';
 import { Pencil } from '@/shared/assets/svg-icons/button';
 import { Briefcase, GoToDetails } from '@/shared/assets/svg-icons/status';
@@ -26,8 +28,11 @@ interface PersonDetalesViewProps {
 export const PersonDetalesView = observer(({ className, person }: PersonDetalesViewProps) => {
     const {id, name: personFullName} = person;
     const navigate = useNavigate();
+    const { rootStore } = useStoreProvider();
 
-    const favoriteBtnHandler = useCallback(()=> navigate(getRouteFavorites()), [navigate]);
+    const favoriteBtnHandler = useCallback(()=> {
+        if (rootStore.auth) addToFavorites(person.id, rootStore.auth)
+    }, [person.id, rootStore.auth]);
 
     return (
         <VStack max gap='8' className={classNames(cls.PersonDetails, {}, [className])}>

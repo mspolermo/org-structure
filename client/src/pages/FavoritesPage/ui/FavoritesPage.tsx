@@ -1,7 +1,8 @@
 import { memo, useCallback, useEffect, useState } from "react";
 
 import { useStoreProvider } from "@/app/providers/StoreProvider";
-import { Favorites, fetchFavorites, PersonStore, PersonViewCard } from "@/entities/Person";
+import { PersonStore, PersonViewCard } from "@/entities/Person";
+import { Favorites, fetchFavorites } from "@/entities/User";
 import { Text } from "@/shared/ui/Text";
 import { Page } from "@/widgets/Page";
 
