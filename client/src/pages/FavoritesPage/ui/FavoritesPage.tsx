@@ -34,8 +34,8 @@ const FavoritesPage = memo(() => {
             {error && <Text text={error} />}
             {favoritesList && favoritesList.length > 0 ? (
                 <>
-                    {favoritesList.map((favorite) => (
-                        <PersonViewCard person={favorite.person} key={favorite.person.id} store={new PersonStore()}/>
+                    {favoritesList.map((person) => (
+                        <PersonViewCard person={person} key={person.id} store={new PersonStore()}/>
                     ))}
                 </>
             ) : (

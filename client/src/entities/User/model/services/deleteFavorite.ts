@@ -2,12 +2,12 @@ import axios from 'axios';
 
 import { Favorites } from '../types/favorites';
 
-export async function addToFavorites(personID: string, token: string) {
+export async function deleteFavorite(personID: string, token: string) {
     axios.defaults.withCredentials = true;
     console.log(token)
 
     try {
-        await axios.post<Favorites>(`${__API_FAVORITES__}/${personID}`, null, {
+        await axios.delete<Favorites>(`${__API_FAVORITES__}/${personID}`, {
             headers: {
                 Authorization: `Bearer ${token}`,
             },
@@ -15,7 +15,7 @@ export async function addToFavorites(personID: string, token: string) {
         });
 
     } catch (e) {
-        console.error('Ошибка отправки данных (addToFavorites):', e);
+        console.error('Ошибка отправки данных (deleteFavorite):', e);
         throw e;
     }
 }

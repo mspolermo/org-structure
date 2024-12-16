@@ -3,7 +3,7 @@ import { observable, action, makeAutoObservable } from 'mobx';
 import { IPromiseBasedObservable, fromPromise } from 'mobx-utils';
 
 import { UserNavType } from '@/entities/Navigation';
-import { User } from '@/entities/User';
+import { Favorites, User } from '@/entities/User';
 import { DEV_MODE_LOCALSTORAGE_KEY, LOCAL_STORAGE_THEME_KEY } from '@/shared/const/localstorage';
 
 // Создатель общего стора приложения
@@ -16,6 +16,7 @@ class RootStore {
     constructor() {
         makeAutoObservable(this)
         this.auth = null;
+        this.favorites = []
     }
 
     @observable 
@@ -27,6 +28,7 @@ class RootStore {
         user?: User;
         auth: string | null;
         isNavChange: boolean = false;
+        favorites: Favorites
 
         focusedCardNumber: number = -1;
         focusedPersonId: string = "";
@@ -68,6 +70,10 @@ class RootStore {
 
         updateNavChanged(value: boolean) {
             this.isNavChange = value;
+        }
+
+        updateFavorites(value: Favorites) {
+            this.favorites = value;
         }
 
 }

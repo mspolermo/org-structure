@@ -11,11 +11,13 @@ import { Person } from 'src/persons/persons.model';
 import { UpdateOrgUnitDto } from './dto/update-orgUnit.dto';
 import { User } from 'src/users/users.model';
 import { PersonsService } from 'src/persons/persons.service';
+import { FavoritesService } from 'src/favorites/favorites.service';
 
 @Injectable()
 export class OrgUnitService {
     constructor(
         private readonly personsService: PersonsService,
+        private readonly favoritesService: FavoritesService,
         @InjectModel(OrgUnit) private orgUnitRepository: typeof OrgUnit,
     ) {}
 
@@ -396,8 +398,9 @@ export class OrgUnitService {
             })),
         }));
 
-        // Получение персоны по email пользователя
         const person = await this.personsService.getPersonByEmail(user.email);
+
+        const favorites = await this.favoritesService.getFavorites(user.id);
 
         //TODO: исправить на нормальную ошибку и добавить allowDeveloperTools использование
         if (!person) {
@@ -414,6 +417,7 @@ export class OrgUnitService {
                 email: user.email,
                 allowDeveloperTools: true,
             },
+            favorites: favorites,
         };
     }
 

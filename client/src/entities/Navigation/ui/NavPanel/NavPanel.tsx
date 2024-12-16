@@ -48,6 +48,7 @@ export const Navpanel = observer(({ className, localData }: NavpanelProps) => {
         rejected: () => {throw new Error()},
         fulfilled: (value) => {
             rootStore.updateUser(value.user)
+            rootStore.updateFavorites(value.favorites)
             if (!rootStore.auth) return null
             return (
                 <nav

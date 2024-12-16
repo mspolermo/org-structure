@@ -23,11 +23,13 @@ export class FavoritesService {
     }
 
     // Получить всех избранных персонажей пользователя
-    async getFavorites(userId: string): Promise<FavoritePerson[]> {
-        return this.favoritePersonRepository.findAll({
+    async getFavorites(userId: string): Promise<Person[]> {
+        const favorites = await this.favoritePersonRepository.findAll({
             where: { userId },
             include: [Person],
         });
+
+        return favorites.map((favorite) => favorite.person);
     }
 
     // Удалить персону из избранного

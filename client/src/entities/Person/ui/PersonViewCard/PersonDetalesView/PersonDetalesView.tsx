@@ -1,14 +1,14 @@
 import { observer } from 'mobx-react';
-import { useCallback } from 'react';
+import { useCallback, useEffect, useState } from 'react';
 import { useNavigate } from 'react-router-dom';
 
 import { useStoreProvider } from '@/app/providers/StoreProvider';
 import { Person } from '@/entities/Person/model/types/person';
-import { addToFavorites } from '@/entities/User';
-import { Star2 } from '@/shared/assets/svg-icons/action';
+import { addToFavorites, deleteFavorite } from '@/entities/User';
+import { Star2, StarFilled } from '@/shared/assets/svg-icons/action';
 import { Pencil } from '@/shared/assets/svg-icons/button';
 import { Briefcase, GoToDetails } from '@/shared/assets/svg-icons/status';
-import { getRouteEditPerson, getRouteFavorites, getRouteViewPerson } from '@/shared/const/router';
+import { getRouteEditPerson, getRouteViewPerson } from '@/shared/const/router';
 import { classNames } from '@/shared/lib/classNames/classNames';
 import { formatDate } from '@/shared/lib/formatDate/formatDate';
 import { getColor } from '@/shared/lib/getColors/getColors';
@@ -30,9 +30,21 @@ export const PersonDetalesView = observer(({ className, person }: PersonDetalesV
     const navigate = useNavigate();
     const { rootStore } = useStoreProvider();
 
+    const [isFavorite, setIsFavorite] = useState(false)
+
     const favoriteBtnHandler = useCallback(()=> {
-        if (rootStore.auth) addToFavorites(person.id, rootStore.auth)
-    }, [person.id, rootStore.auth]);
+        if (!rootStore.auth) return
+        if (!isFavorite) addToFavorites(person.id, rootStore.auth)
+        if (isFavorite) deleteFavorite(person.id, rootStore.auth)
+        setIsFavorite((prev) => !prev)
+    }, [isFavorite, person.id, rootStore.auth]);
+
+    useEffect(() => {
+        console.log(rootStore.favorites)
+        const checkedFaforite = rootStore.favorites?.some((x: Person) => x.id === person.id);
+
+        setIsFavorite(checkedFaforite)
+    }, [person.id, rootStore])
 
     return (
         <VStack max gap='8' className={classNames(cls.PersonDetails, {}, [className])}>
@@ -50,9 +62,10 @@ export const PersonDetalesView = observer(({ className, person }: PersonDetalesV
                     <HStack gap='8'>
                         <Tooltip text='В избранное'>
                             <Icon
-                                Svg={Star2}
+                                Svg={isFavorite ? StarFilled : Star2}
                                 borderType='soft'
                                 stroke={'var(--icon-color)'}
+                                fill={'var(--icon-color)'}
                                 clickable
                                 onClick={favoriteBtnHandler}
                             />
