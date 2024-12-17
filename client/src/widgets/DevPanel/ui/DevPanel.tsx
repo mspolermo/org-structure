@@ -4,6 +4,7 @@ import { useNavigate } from "react-router-dom";
 
 import { BugButton } from "@/app/providers/ErrorBoundary";
 import { useStoreProvider } from "@/app/providers/StoreProvider";
+import { authLogin } from "@/entities/User";
 import { Person } from "@/shared/assets/svg-icons/action";
 import {
     getRouteAbout,
@@ -30,17 +31,29 @@ export const DevPanel = observer(() => {
     const { rootStore } = useStoreProvider();
     const isOpen = rootStore.devMode;
     const navigate = useNavigate();
-    const forwardToAuth = useCallback(()=> navigate(getRouteAuth()), [navigate]);
+
     const logOut = useCallback(()=> {
         rootStore.updateAuth(null) 
         navigate(getRouteAuth())
     }, [navigate, rootStore]);
 
+    const logInAsAdmin = useCallback(async()=> {
+        try {
+            await authLogin({
+                email: 'admin@gmail.com',
+                password: 'admin',
+            }, rootStore);
+            navigate(getRouteMain());
+        } catch (error) {
+            console.error('Ошибка при авторизации:', error);
+        }
+    }, [navigate, rootStore]);
+
     const itemsForDropDown = useMemo(() => [
 
         {
-            content: rootStore.auth ? 'Выйти' : 'Войти',
-            onClick: rootStore.auth ? logOut : forwardToAuth,
+            content: rootStore.auth ? 'Выйти' : 'Войти как администратор',
+            onClick: rootStore.auth ? logOut : logInAsAdmin,
         }
     // eslint-disable-next-line react-hooks/exhaustive-deps
     ], [rootStore.auth]);

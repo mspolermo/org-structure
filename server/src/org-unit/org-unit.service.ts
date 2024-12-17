@@ -12,12 +12,14 @@ import { UpdateOrgUnitDto } from './dto/update-orgUnit.dto';
 import { User } from 'src/users/users.model';
 import { PersonsService } from 'src/persons/persons.service';
 import { FavoritesService } from 'src/favorites/favorites.service';
+import { RolesService } from 'src/roles/roles.service';
 
 @Injectable()
 export class OrgUnitService {
     constructor(
         private readonly personsService: PersonsService,
         private readonly favoritesService: FavoritesService,
+        private rolesService: RolesService,
         @InjectModel(OrgUnit) private orgUnitRepository: typeof OrgUnit,
     ) {}
 
@@ -399,15 +401,18 @@ export class OrgUnitService {
         }));
 
         const person = await this.personsService.getPersonByEmail(user.email);
-
         const favorites = await this.favoritesService.getFavorites(user.id);
+        const roles = await this.rolesService.getUserRoles(user.id);
 
-        //TODO: исправить на нормальную ошибку и добавить allowDeveloperTools использование
+        //TODO: исправить на нормальную ошибку
+
         if (!person) {
             throw new NotFoundException(
                 `Person with email ${user.email} not found`,
             );
         }
+
+        const hasAdminRole = roles.some((role) => role.value === 'ADMIN');
 
         return {
             groups: result,
@@ -415,7 +420,8 @@ export class OrgUnitService {
                 id: person.id,
                 name: person.name,
                 email: user.email,
-                allowDeveloperTools: true,
+                roles,
+                allowDeveloperTools: hasAdminRole,
             },
             favorites: favorites,
         };

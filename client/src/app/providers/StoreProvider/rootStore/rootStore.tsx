@@ -15,8 +15,6 @@ class RootStore {
     
     constructor() {
         makeAutoObservable(this)
-        this.auth = null;
-        this.favorites = []
     }
 
     @observable 
@@ -26,9 +24,9 @@ class RootStore {
 
         userNavData?: IPromiseBasedObservable<UserNavType>
         user?: User;
-        auth: string | null;
+        auth: string | null = null;
         isNavChange: boolean = false;
-        favorites: Favorites
+        favorites: Favorites = []
 
         focusedCardNumber: number = -1;
         focusedPersonId: string = "";

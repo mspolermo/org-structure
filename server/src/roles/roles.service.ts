@@ -1,8 +1,9 @@
-import { Injectable } from '@nestjs/common';
+import { Injectable, NotFoundException } from '@nestjs/common';
 import { InjectModel } from '@nestjs/sequelize';
 
 import { Role } from './roles.model';
 import { CreateRoleDto } from './dto/create-role.dto';
+import { User } from 'src/users/users.model';
 
 @Injectable()
 export class RolesService {
@@ -21,5 +22,20 @@ export class RolesService {
     async getRoleByValue(value: string) {
         const role = await this.roleRepository.findOne({ where: { value } });
         return role;
+    }
+
+    async getUserRoles(userId: string) {
+        const user = await User.findByPk(userId, {
+            include: [Role],
+        });
+        if (!user) {
+            throw new NotFoundException(`User with ID ${userId} not found`);
+        }
+
+        // Возвращаем только value и description для каждой роли
+        return user.roles.map((role) => ({
+            value: role.value,
+            description: role.description,
+        }));
     }
 }

@@ -1,10 +1,11 @@
+import { runInAction } from 'mobx';
 import { observer } from 'mobx-react';
-import { useCallback, useEffect, useState } from 'react';
+import { useCallback, useState } from 'react';
 import { useNavigate } from 'react-router-dom';
 
 import { useStoreProvider } from '@/app/providers/StoreProvider';
 import { Person } from '@/entities/Person/model/types/person';
-import { addToFavorites, deleteFavorite } from '@/entities/User';
+import { addToFavorites, deleteFavorite, fetchFavorites } from '@/entities/User';
 import { Star2, StarFilled } from '@/shared/assets/svg-icons/action';
 import { Pencil } from '@/shared/assets/svg-icons/button';
 import { Briefcase, GoToDetails } from '@/shared/assets/svg-icons/status';
@@ -29,22 +30,28 @@ export const PersonDetalesView = observer(({ className, person }: PersonDetalesV
     const {id, name: personFullName} = person;
     const navigate = useNavigate();
     const { rootStore } = useStoreProvider();
+    const [isFavorite, setIsFavorite] = useState(rootStore.favorites?.some((x: Person) => x.id === person.id))
 
-    const [isFavorite, setIsFavorite] = useState(false)
-
-    const favoriteBtnHandler = useCallback(()=> {
-        if (!rootStore.auth) return
-        if (!isFavorite) addToFavorites(person.id, rootStore.auth)
-        if (isFavorite) deleteFavorite(person.id, rootStore.auth)
-        setIsFavorite((prev) => !prev)
-    }, [isFavorite, person.id, rootStore.auth]);
-
-    useEffect(() => {
-        console.log(rootStore.favorites)
-        const checkedFaforite = rootStore.favorites?.some((x: Person) => x.id === person.id);
-
-        setIsFavorite(checkedFaforite)
-    }, [person.id, rootStore])
+    const favoriteBtnHandler = useCallback(async () => {
+        if (!rootStore.auth) return;
+    
+        try {
+            if (!isFavorite) {
+                await addToFavorites(person.id, rootStore.auth);
+            } else {
+                await deleteFavorite(person.id, rootStore.auth);
+            }
+            
+            const response = await fetchFavorites(rootStore.auth);
+            
+            runInAction(() => {
+                rootStore.updateFavorites(response);
+                setIsFavorite(response.some((x: Person) => x.id === person.id));
+            });
+        } catch (e) {
+            console.error("Ошибка при обновлении избранного:", e);
+        }
+    }, [isFavorite, person.id, rootStore]);
 
     return (
         <VStack max gap='8' className={classNames(cls.PersonDetails, {}, [className])}>
@@ -60,7 +67,7 @@ export const PersonDetalesView = observer(({ className, person }: PersonDetalesV
                         {getInitials(personFullName)}
                     </VStack>
                     <HStack gap='8'>
-                        <Tooltip text='В избранное'>
+                        <Tooltip text={isFavorite ? 'Из избранного' : 'В избранное'}>
                             <Icon
                                 Svg={isFavorite ? StarFilled : Star2}
                                 borderType='soft'

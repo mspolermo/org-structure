@@ -7,6 +7,7 @@ import { Person } from 'src/persons/persons.model';
 import { AuthModule } from 'src/auth/auth.module';
 import { PersonsModule } from 'src/persons/persons.module';
 import { FavoritesModule } from 'src/favorites/favorites.module';
+import { RolesModule } from 'src/roles/roles.module';
 
 @Module({
     providers: [OrgUnitService],
@@ -16,6 +17,7 @@ import { FavoritesModule } from 'src/favorites/favorites.module';
         forwardRef(() => AuthModule),
         PersonsModule,
         FavoritesModule,
+        RolesModule,
     ],
     exports: [OrgUnitService],
 })
