@@ -1,6 +1,6 @@
 import { memo } from "react";
 
-import { GetAuth } from "@/features/authUser";
+import { GetAuth } from "@/features/getAuth";
 import { Page } from "@/widgets/Page";
 
 const AuthorizationPage = memo(() => {
