@@ -3,6 +3,7 @@
 */
 
 import { AboutPage } from '@/pages/AboutPage';
+import { AdminPage } from '@/pages/AdminPage';
 import { AuthorizationPage } from '@/pages/AuthorizationPage';
 import { DepartmentPage } from '@/pages/DepartmentPage';
 import EditOrgUnitPage from '@/pages/EditOrgUnitPage/ui/EditOrgUnitPage';
@@ -27,6 +28,7 @@ import {
     getRouteEditOrgUnit,
     getRouteViewPerson,
     getRouteAuth,
+    getRouteAdmin,
 } from '@/shared/const/router';
 import { AppRoutesProps } from '@/shared/types/router';
 
@@ -67,7 +69,8 @@ export const RouteConfig: Record<AppRoutes, AppRoutesProps> = {
     },
     [AppRoutes.SETTINGS]: {
         path: getRouteSettings(),
-        element: <SettingsPage />
+        element: <SettingsPage />,
+        authOnly: true
     },
     [AppRoutes.SEARCH]: {
         path: getRouteSearch(':searchValue'),
@@ -85,5 +88,10 @@ export const RouteConfig: Record<AppRoutes, AppRoutesProps> = {
     [AppRoutes.AUTHORIZATION]: {
         path: getRouteAuth(),
         element: <AuthorizationPage />
+    },
+    [AppRoutes.ADMIN]: {
+        path: getRouteAdmin(),
+        element: <AdminPage />,
+        authOnly: true
     },
 };

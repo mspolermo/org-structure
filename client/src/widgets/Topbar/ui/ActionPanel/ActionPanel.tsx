@@ -5,6 +5,7 @@ import { OpenReportModal } from '@/features/openReportModal';
 import { HStack } from '@/shared/ui/Stack';
 
 import { ServicePanel } from './ServicePanel/ServicePanel';
+import { ToAdminPageButton } from './ToAdminPageButton/ToAdminPageButton';
 import { ToMainPageButton } from './ToMainPageButton/ToMainPageButton';
 import { UserButton } from './UserButton/UserButton';
 import { modalActionType, modalType } from '../../model/types/types';
@@ -37,6 +38,8 @@ export const ActionPanel = memo((props: Props) => {
         <HStack maxHeight className={className}>
 
             <ToMainPageButton />
+
+            <ToAdminPageButton />
 
             <UserButton />
 

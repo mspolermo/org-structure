@@ -17,7 +17,8 @@ import {
     getRouteSettings,
     getRouteSearch,
     getRouteEditOrgUnit,
-    getRouteAuth
+    getRouteAuth,
+    getRouteAdmin
 } from "@/shared/const/router";
 import { classNames } from '@/shared/lib/classNames/classNames';
 import { AppLink } from "@/shared/ui/AppLink";
@@ -78,9 +79,20 @@ export const DevPanel = observer(() => {
 
             <HStack gap="16">
 
-                <AppLink to={getRouteMain()} variant='blue' activeClassName={cls.active}>
+                <AppLink to={getRouteAuth()} variant='blue' activeClassName={cls.active}>
+                    Авторизация
+                </AppLink>
+
+                {rootStore.auth &&<AppLink to={getRouteMain()} variant='blue' activeClassName={cls.active}>
                     Главная
                 </AppLink>
+                }
+
+                {rootStore.auth &&
+                    <AppLink to={getRouteAdmin()} variant='blue' activeClassName={cls.active}>
+                        Администрирование
+                    </AppLink>
+                }
 
                 {rootStore.auth &&
                     <AppLink to={getRouteFavorites()} variant='blue' activeClassName={cls.active}>
@@ -94,7 +106,7 @@ export const DevPanel = observer(() => {
                         variant='blue'
                         activeClassName={cls.active}
                     >
-                        Отдел 16
+                        Отдел
                     </AppLink>
                 }
 
@@ -106,19 +118,20 @@ export const DevPanel = observer(() => {
 
                 {rootStore.auth && 
                 <AppLink to={getRouteEditPerson('unexisted')} variant='blue' activeClassName={cls.active}>
-                    Пользователь(ред) 
+                    Персона(ред) 
                 </AppLink>
                 }
-               
+
                 {rootStore.auth && 
                 <AppLink to={getRouteSearch('мед')} variant='blue' activeClassName={cls.active}>
                     Поиск 
                 </AppLink>
                 }
 
-                <AppLink to={getRouteSettings()} variant='blue' activeClassName={cls.active}>
+                {rootStore.auth && <AppLink to={getRouteSettings()} variant='blue' activeClassName={cls.active}>
                     Настройки 
                 </AppLink>
+                }
                 
                 <AppLink to={getRouteNotFound()} variant='blue' activeClassName={cls.active}>
                     Не найдено

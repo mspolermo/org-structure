@@ -32,6 +32,7 @@ export function useAppNavpanel() {
         [AppRoutes.SEARCH]: <Navpanel/>,
         [AppRoutes.NOT_FOUND]: <Navpanel/>,
         [AppRoutes.FORBIDDEN]: <Navpanel/>,
+        [AppRoutes.ADMIN]: <Navpanel/>,
     };
 
     return toolbarByAppRoute[appRoute];

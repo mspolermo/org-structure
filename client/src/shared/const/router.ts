@@ -15,6 +15,7 @@ export enum AppRoutes {
     NOT_FOUND = 'not_found',
     FORBIDDEN = 'forbidden',
     AUTHORIZATION = 'authorization',
+    ADMIN = 'admin'
 }
 
 export const getRouteMain = () => '/';
@@ -29,6 +30,7 @@ export const getRouteSearch = ( searchValue:string ) => `/search/${searchValue}`
 export const getRouteNotFound = () => '/not_found';
 export const getRouteForbidden = () => '/forebidden';
 export const getRouteAuth = () => '/authorization';
+export const getRouteAdmin = () => '/admin';
 
 
 export const AppRouteByPathPattern: Record<string, AppRoutes> = {
@@ -44,4 +46,5 @@ export const AppRouteByPathPattern: Record<string, AppRoutes> = {
     [getRouteNotFound()]: AppRoutes.NOT_FOUND,
     [getRouteForbidden()]: AppRoutes.FORBIDDEN,
     [getRouteAuth()]: AppRoutes.AUTHORIZATION,
+    [getRouteAdmin()]: AppRoutes.ADMIN,
 };
