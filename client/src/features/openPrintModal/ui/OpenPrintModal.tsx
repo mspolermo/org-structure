@@ -22,7 +22,7 @@ const OpenPrintModal = memo(({ className, onCloseModal, isOpen }: OpenPrintModal
         setClosingStatus(false)
     }, [closingStatus]);
 
-    // TODO - изменить ссылки на реальные
+    // TODO - изменить ссылки на реальные, если сделаю бек
 
     const closingHandler = useCallback(() => setClosingStatus(true), []);
 

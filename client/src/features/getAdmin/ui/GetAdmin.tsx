@@ -1,4 +1,5 @@
 import { observer } from 'mobx-react-lite';
+import { useCallback, useState } from 'react';
 
 import { CrossInsideCircle, Pencil, PlusInsideCircle } from "@/shared/assets/svg-icons/status";
 import { Button } from "@/shared/ui/Button";
@@ -7,18 +8,38 @@ import { Input } from "@/shared/ui/Input";
 import { HStack, VStack } from "@/shared/ui/Stack";
 import { Text } from "@/shared/ui/Text";
 
+import { CreateOrgUnitModalAsync as CreateOrgUnitModal } from './createOrgUnitModal/CreateOrgUnitModal.async';
+import { CreatePersonModalAsync as CreatePersonModal } from './createPersonModal/CreatePersonModal.async';
 import cls from './GetAdmin.module.scss';
+import { modalAdminActionType, modalAdminType } from '../model/types/types';
 
 const GetAdmin = observer(() => {
+
+    const [isCreatePersonModal, setIsCreatePersonModal] = useState(false);
+    const [isCreateOrgUnitModal, setIsCreateOrgUnitModal] = useState(false);
+
+    const onModalAction = useCallback((type: modalAdminType, action: modalAdminActionType) => {
+        const flag = action == 'open' ? true : false;
+
+        switch (type) {
+        case 'createPerson':
+            setIsCreatePersonModal(flag);
+            break
+        case 'createOrgUnit':
+            setIsCreateOrgUnitModal(flag)
+            break
+        }
+
+    }, []);
 
     return (
         <VStack gap="32" max>
 
             <HStack gap="8">
-                <Button onClick={() => console.log('modal open')} >
+                <Button onClick={() => onModalAction('createOrgUnit', 'open')} >
                     Создать отдел
                 </Button>
-                <Button onClick={() => console.log('modal open')} >
+                <Button onClick={() => onModalAction('createPerson', 'open')} >
                     Добавить сотрудника
                 </Button>
 
@@ -53,6 +74,16 @@ const GetAdmin = observer(() => {
                     </Button>
                 </HStack>
             </VStack>
+
+            <CreatePersonModal
+                isOpen={isCreatePersonModal}
+                onCloseModal={() => onModalAction('createPerson', 'close')}
+            />
+
+            <CreateOrgUnitModal
+                isOpen={isCreateOrgUnitModal}
+                onCloseModal={() => onModalAction('createOrgUnit', 'close')}
+            />
 
         </VStack>
     );
