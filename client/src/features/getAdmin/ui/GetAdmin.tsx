@@ -1,5 +1,5 @@
 import { observer } from 'mobx-react-lite';
-import { useCallback, useState } from 'react';
+import { useCallback, useEffect, useState } from 'react';
 
 import { CrossInsideCircle, Pencil, PlusInsideCircle } from "@/shared/assets/svg-icons/status";
 import { Button } from "@/shared/ui/Button";
@@ -11,10 +11,13 @@ import { Text } from "@/shared/ui/Text";
 import { CreateOrgUnitModalAsync as CreateOrgUnitModal } from './createOrgUnitModal/CreateOrgUnitModal.async';
 import { CreatePersonModalAsync as CreatePersonModal } from './createPersonModal/CreatePersonModal.async';
 import cls from './GetAdmin.module.scss';
+import UserRolesList from './userRolesList/UserRolesList';
 import { modalAdminActionType, modalAdminType } from '../model/types/types';
+import { getAllUserRoles, UserRole } from '@/entities/User';
 
 const GetAdmin = observer(() => {
 
+    const [userRoles, setUserRoles] = useState<UserRole[]>()
     const [isCreatePersonModal, setIsCreatePersonModal] = useState(false);
     const [isCreateOrgUnitModal, setIsCreateOrgUnitModal] = useState(false);
 
@@ -32,6 +35,19 @@ const GetAdmin = observer(() => {
 
     }, []);
 
+    const fetchUserRoles = useCallback(async () => {
+        try {
+            const response = await getAllUserRoles()
+            setUserRoles(response)
+        } catch (e) {
+            console.log('Ошибка зашрузки ролей пользователя: ', e)
+        }
+    }, [])
+
+    useEffect(() => {
+        fetchUserRoles()
+    }, [])
+
     return (
         <VStack gap="32" max>
 
@@ -45,13 +61,7 @@ const GetAdmin = observer(() => {
 
             </HStack>
 
-            <VStack gap="16" className={cls.block}>
-                <Text title="Роли пользователя" size="xl"/>
-                <HStack gap="4">
-                    <Input inputVariant="clear" className={cls.input} placeholder="Название"/>
-                    <Input inputVariant="clear" className={cls.input} placeholder="Описание"/>
-                </HStack>
-            </VStack>
+            <UserRolesList userRoles={userRoles} />
 
             <VStack gap="16" className={cls.block}>
                 <HStack gap="4">

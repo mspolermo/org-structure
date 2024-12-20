@@ -39,6 +39,7 @@ export class UsersService {
         const role = await this.rolesService.getRoleByValue('USER');
         await user.$set('roles', [role.id]);
         user.roles = [role];
+        //TODO: добавить шифрование пароля
         return user;
     }
 

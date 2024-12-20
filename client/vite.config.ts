@@ -48,5 +48,6 @@ export default defineConfig({
         __API_PERSON_SEARCH__: JSON.stringify('http://localhost:5001/persons/search'),
         __API_LOGIN__: JSON.stringify('http://localhost:5001/auth/login'),
         __API_FAVORITES__: JSON.stringify('http://localhost:5001/favorites'),
+        __API_ROLES__: JSON.stringify('http://localhost:5001/roles'),
     },
 })

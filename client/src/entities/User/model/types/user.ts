@@ -1,4 +1,4 @@
-type UserRole = {
+export type UserRole = {
     value: string
     description: string
 }

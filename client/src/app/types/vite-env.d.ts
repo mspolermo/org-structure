@@ -10,6 +10,7 @@ declare const __API_ORGUNIT_UPDATE__: string;
 declare const __API_PERSON_SEARCH__: string;
 declare const __API_LOGIN__: string;
 declare const __API_FAVORITES__: string;
+declare const __API_ROLES__: string;
 
 declare module '*.svg' {
   import * as React from 'react';
