@@ -15,3 +15,8 @@ export interface UserAuthData {
     email: string;
     password: string;
 }
+
+export interface UserCreateData {
+    email: string;
+    password: string;
+}

@@ -4,38 +4,23 @@
     padding-bottom: 16px;
 }
 
-.photo {
-    min-width: 112px; 
-    min-height: 150px; 
-    border: 1px solid var(--divider-color); 
-    align-items: center; 
-    justify-content: center;
-}
-
-.toggleBlock {
-    width: 350px;
-}
-
-.toggleBlockMin {
-    width: 250px;
-    padding-bottom: 5px;
-}
-
-.inputVBlock {
-    padding: 10px;
-    border: 1px solid var(--divider-color);
-}
-
 .input {
     border: 1px solid var(--divider-color); 
     border-radius: 0; 
     margin: 0; 
     min-height: 35px;
     font-size: var(--font-size-m);
+    min-width: 450px;
 
     &:focus {
         border: 1px solid var(--divider-color);
     }
+}
+
+.icon {
+    width: 18px;
+    height: 18px;
+    fill: var(--additional-icon-color);
 }
 
 .btn {
@@ -48,10 +33,4 @@
     :hover {
         fill: var(--icon-color);
     }
-}
-
-.icon {
-    width: 18px;
-    height: 18px;
-    fill: var(--additional-icon-color);
 }

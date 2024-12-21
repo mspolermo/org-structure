@@ -1,11 +1,11 @@
 import { memo } from 'react';
 
+import { UserRole } from '@/entities/User';
 import { Input } from '@/shared/ui/Input';
 import { HStack, VStack } from '@/shared/ui/Stack';
 import { Text } from '@/shared/ui/Text';
 
 import cls from './UserRolesList.module.scss'
-import { UserRole } from '@/entities/User';
 
 
 interface Props {
@@ -25,8 +25,8 @@ const UserRolesList = memo((props: Props) => {
             </HStack>
             {userRoles && userRoles.map((role) => (
                 <HStack gap="4" key={role.value}>
-                    <Input inputVariant="clear" disabled className={cls.input} value={role.value}/>
-                    <Input inputVariant="clear" disabled className={cls.input} value={role.description}/>
+                    <Input inputVariant="clear" disabled className={cls.input} placeholder="Название:" value={role.value}/>
+                    <Input inputVariant="clear" disabled className={cls.input} placeholder="Описание:" value={role.description}/>
                 </HStack>
             ))}
         </VStack>

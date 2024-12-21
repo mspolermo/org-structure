@@ -1,0 +1,31 @@
+.text {
+    min-width: 280px;
+}
+
+.additionalText {
+    min-width: 200px;
+}
+
+.additionalInput {
+    min-width: 200px;
+    max-width: 200px;
+}
+
+.workingHours {
+    margin-right: 32px;
+}
+
+.additionalInfo {
+    margin-top: 10px;
+}
+
+.textarea {
+    border: 1px solid var(--divider-color); 
+    background: transparent;
+    border-radius: 4px; 
+    font-size: var(--font-size-m);
+}
+
+.listbox {
+    min-width: 500px;
+}

@@ -30,7 +30,6 @@ export const OrgUnitEditView = observer(({ className, orgUnit }: Props) => {
     const onEditToggle = useCallback(() => setIsEdit(true), []);
 
     const onSaveHandler = useCallback(async () => {
-        console.log(updatedOrgUnit)
         if (!updatedOrgUnit) return
 
         await updateOrgUnitItem(orgUnit.id, {...updatedOrgUnit})

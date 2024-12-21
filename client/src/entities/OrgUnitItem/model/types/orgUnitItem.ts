@@ -29,3 +29,7 @@ OrgUnitItem,
     'lunchBreak' |
     'summary'
 > {}
+
+export interface OrgUnitCreateData extends OrgUnitUpdateData {
+    parentOrgUnitId: string | null
+}
