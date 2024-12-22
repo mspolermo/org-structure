@@ -15,6 +15,7 @@ import { OrgUnit } from './org-unit/org-unit.model';
 import { AuthModule } from './auth/auth.module';
 import { FavoritePerson } from './favorites/favorite-person.model';
 import { FavoritesModule } from './favorites/favorites.module';
+import { NotificationAd } from './notifications/notification.model';
 
 @Module({
     controllers: [],
@@ -38,6 +39,7 @@ import { FavoritesModule } from './favorites/favorites.module';
                 UserRoles,
                 PersonDetales,
                 FavoritePerson,
+                NotificationAd,
             ],
             autoLoadModels: true,
         }),

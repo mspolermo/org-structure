@@ -63,7 +63,6 @@ const GetAdmin = observer(() => {
             break
         }
 
-
     }, []);
 
     const fetchUserRoles = useCallback(async () => {
@@ -71,7 +70,7 @@ const GetAdmin = observer(() => {
             const response = await getAllUserRoles()
             setUserRoles(response)
         } catch (e) {
-            console.log('Ошибка зашрузки ролей пользователя: ', e)
+            console.log('Ошибка загрузки ролей пользователя: ', e)
         }
     }, [])
 

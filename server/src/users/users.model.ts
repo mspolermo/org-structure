@@ -5,9 +5,11 @@ import {
     Column,
     DataType,
     ForeignKey,
+    HasMany,
     Model,
     Table,
 } from 'sequelize-typescript';
+import { NotificationAd } from 'src/notifications/notification.model';
 import { Person } from 'src/persons/persons.model';
 import { Role } from 'src/roles/roles.model';
 import { UserRoles } from 'src/roles/user-roles.model';
@@ -64,4 +66,7 @@ export class User extends Model<User, UserCreationAttrs> {
 
     @BelongsTo(() => Person)
     person: Person;
+
+    @HasMany(() => NotificationAd)
+    notifications: NotificationAd[];
 }

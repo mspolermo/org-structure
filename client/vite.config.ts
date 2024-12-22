@@ -51,5 +51,6 @@ export default defineConfig({
         __API_FAVORITES__: JSON.stringify('http://localhost:5001/favorites'),
         __API_ROLES__: JSON.stringify('http://localhost:5001/roles'),
         __API_USERS__: JSON.stringify('http://localhost:5001/users'),
+        __API_NOTIFICATIONS__: JSON.stringify('http://localhost:5001/notifications'),
     },
 })

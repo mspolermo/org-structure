@@ -87,7 +87,6 @@ const CreateOrgUnitModal = memo((props: Props) => {
 
                         <VStack gap="16" max>
                     
-            
                             <HStack gap="4" max>
                                 <Text title={'Название подразделения:'} thin className={cls.text}/>
                                 <Input 

@@ -9,7 +9,7 @@ import {
     Table,
 } from 'sequelize-typescript';
 import { Person } from 'src/persons/persons.model';
-import { uuid } from 'uuidv4';
+import { v4 as uuid } from 'uuid';
 
 interface OrgUnitCreationAttrs {
     name: string;

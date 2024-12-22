@@ -1,0 +1,14 @@
+.card {
+    min-width: 800px;
+}
+
+.text {
+    min-width: 160px;
+}
+
+.textarea {
+    border: 1px solid var(--divider-color); 
+    background: transparent;
+    border-radius: 4px; 
+    font-size: var(--font-size-m);
+}
