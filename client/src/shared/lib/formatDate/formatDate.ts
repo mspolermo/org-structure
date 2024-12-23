@@ -27,7 +27,7 @@ export function formatDate(dateString: string): string {
  * @param dateString - строка с датой в формате "день/месяц/год"
  * @returns строка с датой в формате ISO
  */
-export function formatDateToISO(dateString: string): string {
+export function formatDateToISO(dateString: string): string {      
     const [day, month, year] = dateString.split('/').map(Number); // Разделяем строку и преобразуем в числа
 
     // Создаем объект Date, указывая месяц (месяцы начинаются с 0)

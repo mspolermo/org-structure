@@ -9,6 +9,9 @@ export async function createOrgUnitItem (orgUnitData: OrgUnitCreateData) {
     try {
         await axios.post(__API_ORGUNIT_CREATE__, {...orgUnitData});
     } catch (e) {
+        if (axios.isAxiosError(e)) {
+            throw new Error(e.response?.data.message);
+        }
         console.log('Ошибка создания оргюнита', e);
     }
 }

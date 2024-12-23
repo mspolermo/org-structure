@@ -49,7 +49,7 @@ export class NotificationAd extends Model<
         example: 'Текст объявления',
         description: 'Текст объявления',
     })
-    @Column({ type: DataType.STRING, allowNull: false })
+    @Column({ type: DataType.STRING(1000), allowNull: false })
     text: string;
 
     @BelongsTo(() => User)

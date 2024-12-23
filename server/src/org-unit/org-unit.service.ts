@@ -468,4 +468,36 @@ export class OrgUnitService {
             throw new HttpException(error.message, HttpStatus.BAD_REQUEST);
         }
     }
+
+    async deleteOrgUnit(id: string) {
+        const orgUnit = await this.orgUnitRepository.findByPk(id);
+
+        if (!orgUnit) {
+            throw new HttpException(
+                'ОргЮнит с данным ID не найден',
+                HttpStatus.NOT_FOUND,
+            );
+        }
+
+        // Проверяем, есть ли дочерние подразделения
+        const childOrgUnits = await this.orgUnitRepository.findAll({
+            where: { parentOrgUnitId: id },
+        });
+
+        if (childOrgUnits.length > 0) {
+            throw new HttpException(
+                'Невозможно удалить оргюнит с дочерними подразделениями',
+                HttpStatus.BAD_REQUEST,
+            );
+        }
+
+        // Удаляем оргюнит
+        try {
+            await orgUnit.destroy();
+            return { message: 'ОргЮнит успешно удален' };
+        } catch (error) {
+            console.error('Error deleting OrgUnit:', error);
+            throw new HttpException(error.message, HttpStatus.BAD_REQUEST);
+        }
+    }
 }

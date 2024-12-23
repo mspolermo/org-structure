@@ -5,7 +5,7 @@ import OrgUnitViewStore from "../store/orgUnitIViewStore";
 export interface OrgUnitItem {
     id: string,
     name: string,
-    description: string | null,
+    description: string,
     chef: Person | null, 
     managers: Person[],
     childOrgUnitItems: OrgUnitItem[],

@@ -1,17 +1,23 @@
 import { memo, useCallback, useEffect, useState } from 'react';
 
+import { useStoreProvider } from '@/app/providers/StoreProvider';
 import { deleteNotification, fetchNotifications, NotificationCard, NotificationType } from '@/entities/Notification';
+import { Button } from '@/shared/ui/Button';
+import { Loader } from '@/shared/ui/Loader';
 import { VStack } from '@/shared/ui/Stack';
 import { Text } from '@/shared/ui/Text';
-import { useStoreProvider } from '@/app/providers/StoreProvider';
-import { Loader } from '@/shared/ui/Loader';
+
+import {
+    CreateNotificationModalAsync as CreateNotificationModal
+} from './CreateNotificationModal/CreateNotificationModal.async'
+import { 
+    EditNotificationModalAsync as EditNotificationModal
+} from './EditNotificationModal/EditNotificationModal.async';
 import { modalNotificationActionType, modalNotificationType } from '../model/types/types';
-import { Button } from '@/shared/ui/Button';
-import CreateNotificationModal from './CreateNotificationModal/CreateNotificationModal';
-import EditNotificationModal from './EditNotificationModal/EditNotificationModal';
 
 const GetNotificationsEditView = memo(() => {
     const { rootStore } = useStoreProvider();
+
     const [notifications, setNotifications] = useState<NotificationType[]>([])
     const [isLoading, setIsLoading] = useState(false)
     const [error, setError] = useState<string | null>(null);
@@ -19,19 +25,6 @@ const GetNotificationsEditView = memo(() => {
     const [isCreateNotificationModal, setIsCreateNotificationModal] = useState(false);
     const [isEditNotificationModal, setIsEditNotificationModal] = useState(false);
     const [currentNotification, setCurrentNotification] = useState<NotificationType>();
-
-    const onModalAction = useCallback((type: modalNotificationType, action: modalNotificationActionType) => {
-        const flag = action == 'open' ? true : false;
-
-        switch (type) {
-        case 'createNotification':
-            setIsCreateNotificationModal(flag)
-            break
-        case 'editNotification':
-            setIsEditNotificationModal(flag);
-            break
-        }
-    }, []);
 
     const fetchNotificattionsList = useCallback(async () => {
 
@@ -47,7 +40,20 @@ const GetNotificationsEditView = memo(() => {
                 setIsLoading(false)
             }
         }
-    }, [])
+    }, [rootStore.auth, rootStore.userNavData])
+
+    const onModalAction = useCallback((type: modalNotificationType, action: modalNotificationActionType) => {
+        const flag = action == 'open' ? true : false;
+
+        switch (type) {
+        case 'createNotification':
+            setIsCreateNotificationModal(flag)
+            break
+        case 'editNotification':
+            setIsEditNotificationModal(flag);
+            break
+        }
+    }, []);
 
     const editHandler = useCallback((current: NotificationType)=>{
         setCurrentNotification(current)
@@ -67,7 +73,7 @@ const GetNotificationsEditView = memo(() => {
                 setIsLoading(false)
             }
         }
-    }, [])
+    }, [fetchNotificattionsList, rootStore.auth, rootStore.userNavData])
 
     useEffect(() => {
         fetchNotificattionsList();
@@ -91,7 +97,12 @@ const GetNotificationsEditView = memo(() => {
             {notifications.length === 0 && <Text text="Объявления отстутствуют" />}
 
             {notifications.length > 0 && notifications.map((notification) => (
-                <NotificationCard key={notification.id} notification={notification} onEdit={editHandler} onDelete={deleteHandler}/>
+                <NotificationCard
+                    key={notification.id}
+                    notification={notification}
+                    onEdit={editHandler}
+                    onDelete={deleteHandler}
+                />
             ))}
 
             <CreateNotificationModal

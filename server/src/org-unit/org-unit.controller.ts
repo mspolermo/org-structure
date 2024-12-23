@@ -7,6 +7,7 @@ import {
     Post,
     UseGuards,
     Request,
+    Delete,
 } from '@nestjs/common';
 import { OrgUnitService } from './org-unit.service';
 import { CreateOrgUnitDto } from './dto/create-orgUnit.dto';
@@ -59,5 +60,12 @@ export class OrgUnitController {
         @Body() updateOrgUnitDto: UpdateOrgUnitDto,
     ) {
         return this.orgUnitService.updateOrgUnit(id, updateOrgUnitDto);
+    }
+
+    @ApiOperation({ summary: 'Удаление оргюнита по ID' })
+    @ApiResponse({ status: 200, description: 'Оргюнит успешно удален' })
+    @Delete('/:id')
+    async deleteOrgUnit(@Param('id') id: string) {
+        return this.orgUnitService.deleteOrgUnit(id);
     }
 }

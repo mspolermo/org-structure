@@ -42,12 +42,14 @@ export interface PersonDetalesUpdateData extends Pick<
     | 'exams'
 > {}
 
-export interface PersonCreateData extends Omit<PersonUpdateData, 'phone'> {
-    phone: string | null,
-    orgUnitId: string
-    employmentDate: Date
-    table: string | null
+export interface PersonCreateData extends Omit<PersonUpdateData, 'phone' | 'birthday' | 'employmentDate' | 'table'> {
+    phone: string | null;
+    birthday: Date | null;
+    orgUnitId: string;
+    employmentDate: Date | null;
+    table: string | null;
 }
+
 
 export interface PersonFullUpdateData {
     person: PersonUpdateData;

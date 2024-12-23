@@ -1,16 +1,11 @@
 import { memo, useCallback, useState, useEffect} from 'react';
 
 import { useStoreProvider } from '@/app/providers/StoreProvider';
-import { createNotification, NotificationCreateData } from '@/entities/Notification';
-import { classNames } from '@/shared/lib/classNames/classNames';
+import { createNotification, NotificationCreateCard, NotificationCreateData } from '@/entities/Notification';
 import { Button } from '@/shared/ui/Button';
-import { Card } from '@/shared/ui/Card';
-import { Input } from '@/shared/ui/Input';
 import { Modal } from '@/shared/ui/Modal';
 import { HStack, VStack } from '@/shared/ui/Stack';
 import { Text } from '@/shared/ui/Text';
-
-import cls from './CreateNotificationModal.module.scss';
 
 interface Props {
 	className?: string;
@@ -22,36 +17,29 @@ interface Props {
 const CreateNotificationModal = memo((props: Props) => {
     const { rootStore } = useStoreProvider();
     const { className, onCloseModal, isOpen, updateNotificationsList } = props
+
     const [closingStatus, setClosingStatus] = useState(false);
-
-    const [title, setTitle] = useState('')
-    const [text, setText] = useState('')
-
+    const [notificationData, setNotificationData] = useState<NotificationCreateData>()
+    const [resetFlag, setResetFlag] = useState(false)
     const [error, setError] = useState<string | null>(null)
     const [isLoading, setIsLoading] = useState(false);
+    const [isButtonDisabled, setIsButtonDisabled] = useState(true)
 
     useEffect(() => {
         setClosingStatus(false)
     }, [closingStatus]);
 
-    const resetToDefault = useCallback( () => {
-        setTitle('')
-        setText('')
-    }, []);
-
     const createHandler = useCallback(async () => {
-        if (!rootStore.auth) return
+        if (!rootStore.auth || !notificationData) return
 
-        const data: NotificationCreateData = {title, text };
-    
         setIsLoading(true);
     
         try {
-            await createNotification(rootStore.auth, {...data} );
+            await createNotification(rootStore.auth, {...notificationData} );
 
             setError(null);
             setClosingStatus(true);
-            resetToDefault();
+            setResetFlag((prev) => !prev);
             await updateNotificationsList();
             onCloseModal();
         } catch (e) {
@@ -60,63 +48,43 @@ const CreateNotificationModal = memo((props: Props) => {
         } finally {
             setIsLoading(false);
         }
-    }, [rootStore.auth, title, text, resetToDefault, updateNotificationsList, onCloseModal]);
+    }, [rootStore.auth, notificationData, updateNotificationsList, onCloseModal]);
 
     const closingHandler = useCallback(() => {
         setError(null);
         setClosingStatus(true);
-        resetToDefault();
-    }, [resetToDefault]);
+        setResetFlag((prev) => !prev);
+    }, []);
+
+    useEffect(() => {
+        if (notificationData?.title === '' || notificationData?.text === '') {
+            setIsButtonDisabled(true)
+        } else {
+            setIsButtonDisabled(false)
+        }
+    },[notificationData])
 
     return (
         <Modal
             isOpen={isOpen}
             onClose={onCloseModal}
             lazy
-            className={classNames(cls.CreateNotificationModal, {}, [className ])}
+            className={className}
             closeStatus={closingStatus}
         >
             <VStack gap='24' justify='between'>
 
                 <Text title='Создание объявления на главной странице' size="xl"/>
 
-                <Card border='border-slightly' padding='24' max className={classNames(cls.card, {}, [className])}>
-                    <VStack gap="16" max>
-                        <HStack gap="4" max>
-                            <Text title="Заголовок:" thin className={cls.text}/>
-                            <Input
-                                inputVariant="bordered"
-                                placeholder="Заголовок объявления"
-                                value={title}
-                                onChange={setTitle}
-                            />
-                        </HStack>
-                        <HStack gap="4" max align='start'>
-                            <Text title="Тело объявления:" thin className={classNames(cls.text, {}, [cls.additionalInfo])}/>
-                            <Input
-                                isTextArea
-                                textareaVaraint="big"
-                                className={cls.textarea}
-                                placeholder="Тело объявления"
-                                value={text}
-                                onChange={setText}
-                            />
-                        </HStack>
-                    </VStack>
-                </Card>
+                <NotificationCreateCard resetFlag={resetFlag} setNotificationData={setNotificationData}/>
 
                 {error && <Text title={error} variant='error' />}
 
                 <HStack justify="end" align="center" gap='16' max>
-                    <Button
-                        onClick={createHandler}
-                        variant='outline-inverted'
-                        className={cls.btn}
-                        disabled={isLoading}
-                    >
+                    <Button onClick={createHandler} variant='outline-inverted' disabled={isLoading || isButtonDisabled}>
                         {isLoading ? 'Создание...' : 'Создать'}
                     </Button>
-                    <Button onClick={closingHandler} variant='outline-inverted' className={cls.btn}>Закрыть</Button>
+                    <Button onClick={closingHandler} variant='outline-inverted'>Закрыть</Button>
                 </HStack>
             </VStack>
         </Modal>
