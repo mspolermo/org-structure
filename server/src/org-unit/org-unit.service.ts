@@ -470,12 +470,40 @@ export class OrgUnitService {
     }
 
     async deleteOrgUnit(id: string) {
-        const orgUnit = await this.orgUnitRepository.findByPk(id);
+        const orgUnit = await this.orgUnitRepository.findByPk(id, {
+            include: [
+                { model: Person, as: 'persons' },
+                { model: Person, as: 'managers' },
+                { model: Person, as: 'chef' },
+                { model: OrgUnit, as: 'childOrgUnitItems' },
+            ],
+        });
 
         if (!orgUnit) {
             throw new HttpException(
                 'ОргЮнит с данным ID не найден',
                 HttpStatus.NOT_FOUND,
+            );
+        }
+
+        if (orgUnit.persons && orgUnit.persons.length > 0) {
+            throw new HttpException(
+                'Невозможно удалить оргюнит с сотрудниками.',
+                HttpStatus.BAD_REQUEST,
+            );
+        }
+
+        if (orgUnit.managers && orgUnit.managers.length > 0) {
+            throw new HttpException(
+                'Невозможно удалить оргюнит с менеджерами.',
+                HttpStatus.BAD_REQUEST,
+            );
+        }
+
+        if (orgUnit.chef) {
+            throw new HttpException(
+                'Невозможно удалить оргюнит с назначенным руководителем.',
+                HttpStatus.BAD_REQUEST,
             );
         }
 

@@ -17,6 +17,7 @@ import { HStack, VStack } from "@/shared/ui/Stack";
 
 import { CreateOrgUnitModalAsync as CreateOrgUnitModal } from './createOrgUnitModal/CreateOrgUnitModal.async';
 import { CreatePersonModalAsync as CreatePersonModal } from './createPersonModal/CreatePersonModal.async';
+import CreateRoleModal from './createRoleModal/CreateRoleModal';
 import { CreateUserModalAsync as CreateUserModal } from './createUserModal/CreateUserModal.async';
 import { gerOrgUnitsOptions } from '../model/lib/gerOrgUnitsOptions';
 import { modalAdminActionType, modalAdminType } from '../model/types/types';
@@ -29,6 +30,7 @@ const GetAdmin = observer(() => {
     const [isCreatePersonModal, setIsCreatePersonModal] = useState(false);
     const [isCreateOrgUnitModal, setIsCreateOrgUnitModal] = useState(false);
     const [isCreateUserModal, setIsCreateUserModal] = useState(false);
+    const [isCreateRoleModal, setIsCreateRoleModal] = useState(false);
     const [userNav, setUserNav] = useState<UserNavType>()
 
     const orgUnitsDataList: ListBoxItem<string>[] = gerOrgUnitsOptions(userNav, false)
@@ -40,7 +42,6 @@ const GetAdmin = observer(() => {
         try {
             await fetchUserNav(rootStore, rootStore.auth);
 
-            
             if (rootStore.userNavData) {
                 const value = await rootStore.userNavData;
                 setUserNav(value);
@@ -81,8 +82,10 @@ const GetAdmin = observer(() => {
         case 'createOrgUnit':
             setIsCreateOrgUnitModal(flag)
             break
+        case 'createRole':
+            setIsCreateRoleModal(flag)
+            break
         }
-
     }, []);
 
     useEffect(() => {
@@ -103,6 +106,9 @@ const GetAdmin = observer(() => {
                 </Button>
                 <Button onClick={() => onModalAction('createUser', 'open')} >
                     Создать пользователя
+                </Button>
+                <Button onClick={() => onModalAction('createRole', 'open')} >
+                    Создать роль пользователя
                 </Button>
             </HStack>
 
@@ -127,6 +133,12 @@ const GetAdmin = observer(() => {
                 updateUsersList={fetchUsers}
                 isOpen={isCreateUserModal}
                 onCloseModal={() => onModalAction('createUser', 'close')}
+            />
+
+            <CreateRoleModal 
+                updateRolesList={fetchUserRoles}
+                isOpen={isCreateRoleModal}
+                onCloseModal={() => onModalAction('createRole', 'close')}
             />
 
         </VStack>

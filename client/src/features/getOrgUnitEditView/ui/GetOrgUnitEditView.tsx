@@ -16,8 +16,6 @@ export const GetOrgUnitEditView = observer((props: Props) => {
     
     const { orgUnit } = useOrgUnitData(id, orgUnitStore);
 
-
-
     if (!orgUnit) {
         return (
             <VStack gap='24' max maxHeight align="start" justify="start">

@@ -1,2 +1,2 @@
-export type modalAdminType = 'createPerson' | 'createOrgUnit' | 'createUser';
+export type modalAdminType = 'createPerson' | 'createOrgUnit' | 'createUser' | 'createRole';
 export type modalAdminActionType = 'open' | 'close';

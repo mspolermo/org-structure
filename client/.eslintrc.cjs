@@ -79,8 +79,6 @@ module.exports = {
     __API_PERSON_DETAILS__: true,
     __API_PERSON__: true,
     __API_PERSON_WITH_DETALES_UPDATE__: true,
-    __API_ORGUNIT_UPDATE__: true,
-    __API_ORGUNIT_CREATE__: true,
     __API_PERSON_SEARCH__: true,
     __API_LOGIN__: true,
     __API_FAVORITES__: true,

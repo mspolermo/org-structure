@@ -6,8 +6,6 @@ declare const __API_NAV__: string;
 declare const __API_PERSON_DETAILS__: string;
 declare const __API_PERSON__: string;
 declare const __API_PERSON_WITH_DETALES_UPDATE__: string;
-declare const __API_ORGUNIT_UPDATE__: string;
-declare const __API_ORGUNIT_CREATE__: string;
 declare const __API_PERSON_SEARCH__: string;
 declare const __API_LOGIN__: string;
 declare const __API_FAVORITES__: string;

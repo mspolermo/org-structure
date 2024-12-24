@@ -44,4 +44,11 @@ export class FavoritesService {
 
         await favorite.destroy();
     }
+
+    // Удалить персону из всех списков избранного
+    async removePersonFromAllFavorites(personId: string): Promise<void> {
+        await this.favoritePersonRepository.destroy({
+            where: { personId },
+        });
+    }
 }

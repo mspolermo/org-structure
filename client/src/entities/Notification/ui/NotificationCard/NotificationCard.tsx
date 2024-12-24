@@ -1,9 +1,10 @@
-import { memo } from 'react';
+import { memo, useCallback, useState } from 'react';
 
 import { Cross, Pencil } from '@/shared/assets/svg-icons/button';
 import { formatDate } from '@/shared/lib/formatDate/formatDate';
 import { Card } from '@/shared/ui/Card';
 import { Icon } from '@/shared/ui/Icon';
+import RemoveModal from '@/shared/ui/RemoveModal/RemoveModal';
 import { HStack, VStack } from '@/shared/ui/Stack';
 import { Text } from '@/shared/ui/Text';
 import { Tooltip } from '@/shared/ui/Tooltip';
@@ -22,6 +23,21 @@ interface Props {
 export const NotificationCard = memo((props: Props) => {
     const { className, notification, onEdit, onDelete } = props
     const { title, text, updatedAt } = notification
+
+    const [isDeleteModalOpen, setIsDeleteModalOpen] = useState(false);
+
+    const deleteHandler = useCallback(async()=>{
+        try {
+            await onDelete(notification.id)
+        } catch (e) {
+            console.error("Ошибка при удалении объявления:", e);
+            if (e instanceof Error) {
+                throw new Error(e.message)
+            } else {
+                throw new Error("Неизвестная ошибка")
+            }
+        } 
+    }, [notification.id, onDelete])
 
     return (
         <Card padding={'24'} className={className} max>
@@ -45,18 +61,24 @@ export const NotificationCard = memo((props: Props) => {
                                 onClick={()=>onEdit(notification)}
                             />
                         </Tooltip>
-                        <Tooltip text='В избранное'>
+                        <Tooltip text='Удалить'>
                             <Icon
                                 Svg={Cross}
                                 borderType='soft'
                                 stroke={'var(--icon-color)'}
                                 clickable
-                                onClick={() => onDelete(notification.id)}
+                                onClick={() => setIsDeleteModalOpen(true)}
                             />
                         </Tooltip> 
                     </HStack>
                 </VStack>
             </HStack>
+
+            <RemoveModal
+                onDelete={deleteHandler}
+                isOpen={isDeleteModalOpen}
+                onCloseModal={() => setIsDeleteModalOpen(false)}
+            />
 
         </Card>
     )}

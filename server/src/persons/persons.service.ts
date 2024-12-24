@@ -9,6 +9,7 @@ import { PersonDetales } from './person-detales.model';
 import { OrgUnit } from 'src/org-unit/org-unit.model';
 import { UpdatePersonDto } from './dto/update-person.dto';
 import { Op } from 'sequelize';
+import { FavoritesService } from 'src/favorites/favorites.service';
 
 const generateRandomNumber = (length: number): string => {
     //TODO вынести в хелперы
@@ -24,6 +25,7 @@ export class PersonsService {
         @InjectModel(PersonDetales)
         private personDetalesRepository: typeof PersonDetales,
         @InjectModel(OrgUnit) private orgUnitRepository: typeof OrgUnit,
+        private favoritesService: FavoritesService,
     ) {}
 
     async createPerson(dto: CreatePersonDto) {
@@ -220,10 +222,32 @@ export class PersonsService {
     }
 
     async deletePerson(id: string): Promise<boolean> {
-        const person = await this.personRepository.findByPk(id);
+        const person = await this.personRepository.findByPk(id, {
+            include: [
+                { model: User, attributes: ['email'] }, // Для проверки привязки к User
+            ],
+        });
+
         if (!person) {
-            return false;
+            throw new HttpException(
+                'Сотрудник с данным ID не найден',
+                HttpStatus.NOT_FOUND,
+            );
         }
+
+        // Проверка привязки к User по email
+        const user = await User.findOne({ where: { email: person.email } });
+        if (user) {
+            throw new HttpException(
+                'Невозможно удалить сотрудника, так как он привязан к пользователю.',
+                HttpStatus.BAD_REQUEST,
+            );
+        }
+
+        // Удаляем персону из всех списков избранного
+        await this.favoritesService.removePersonFromAllFavorites(id);
+
+        // Удаление сотрудника
         await person.destroy();
         return true;
     }

@@ -8,10 +8,11 @@ export { authLogin } from './model/services/authLogin'
 export { fetchFavorites } from './model/services/fetchFavorites';
 export { addToFavorites } from './model/services/addToFavorites';
 export { deleteFavorite } from './model/services/deleteFavorite';
-export { getAllUserRoles } from './model/services/getAllUserRoles'
-export { getAllUsers } from './model/services/getAllUsers'
-export { createUser } from './model/services/createUser'
+export { getAllUserRoles } from './model/services/getAllUserRoles';
+export { getAllUsers } from './model/services/getAllUsers';
+export { createUser } from './model/services/createUser';
+export { createUserRole } from './model/services/createUserRole';
 
-export { UserCreationCard } from './ui/UserCreationCard/UserCreationCard'
-export { UserRolesList }
-export { UsersList }
+export { UserCreationCard } from './ui/UserCreationCard/UserCreationCard';
+export { UserRoleCreationCard } from './ui/UserRoleCreationCard/UserRoleCreationCard';
+export { UserRolesList, UsersList };

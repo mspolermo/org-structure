@@ -1,16 +1,47 @@
-import { Injectable, NotFoundException } from '@nestjs/common';
+import {
+    HttpException,
+    HttpStatus,
+    Injectable,
+    NotFoundException,
+} from '@nestjs/common';
 import { InjectModel } from '@nestjs/sequelize';
 
 import { Role } from './roles.model';
 import { CreateRoleDto } from './dto/create-role.dto';
 import { User } from 'src/users/users.model';
+import { Op } from 'sequelize';
 
 @Injectable()
 export class RolesService {
     constructor(@InjectModel(Role) private roleRepository: typeof Role) {}
 
     async createRole(dto: CreateRoleDto) {
-        const role = await this.roleRepository.create(dto);
+        // Приводим value к верхнему регистру и очищаем от цифр и символов
+        const cleanedValue = dto.value
+            .toUpperCase() // Преобразуем в верхний регистр
+            .replace(/[^A-Z]/g, ''); // Удаляем все символы, кроме букв
+
+        // Проверка наличия роли с таким же значением value
+        const existingRole = await this.roleRepository.findOne({
+            where: {
+                value: {
+                    [Op.iLike]: cleanedValue, // Используем iLike для регистронезависимого сравнения
+                },
+            },
+        });
+
+        if (existingRole) {
+            throw new HttpException(
+                `Role with value "${cleanedValue}" already exists`,
+                HttpStatus.BAD_REQUEST,
+            );
+        }
+
+        const role = await this.roleRepository.create({
+            ...dto,
+            value: cleanedValue,
+        });
+
         return role;
     }
 
@@ -40,5 +71,40 @@ export class RolesService {
             value: role.value,
             description: role.description,
         }));
+    }
+
+    // Удалить роль
+    async deleteRole(roleValue: string): Promise<void> {
+        // Проверяем, есть ли пользователи с этой ролью
+        const usersWithRole = await User.findAll({
+            include: {
+                model: Role,
+                where: {
+                    value: {
+                        [Op.iLike]: roleValue, // Используем iLike для регистронезависимого поиска
+                    },
+                },
+            },
+        });
+
+        if (usersWithRole.length > 0) {
+            throw new HttpException(
+                `Cannot delete role "${roleValue}" as it is assigned to users.`,
+                HttpStatus.BAD_REQUEST,
+            );
+        }
+
+        // Если роли нет у пользователей, то удаляем роль
+        const role = await this.roleRepository.findOne({
+            where: { value: roleValue },
+        });
+
+        if (!role) {
+            throw new NotFoundException(
+                `Role with value "${roleValue}" not found`,
+            );
+        }
+
+        await role.destroy();
     }
 }

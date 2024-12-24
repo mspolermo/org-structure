@@ -7,7 +7,7 @@ export async function createOrgUnitItem (orgUnitData: OrgUnitCreateData) {
     axios.defaults.withCredentials = true;
 
     try {
-        await axios.post(__API_ORGUNIT_CREATE__, {...orgUnitData});
+        await axios.post(__API_ORGUNIT__, {...orgUnitData});
     } catch (e) {
         if (axios.isAxiosError(e)) {
             throw new Error(e.response?.data.message);

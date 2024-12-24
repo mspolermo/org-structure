@@ -14,5 +14,4 @@ export async function createUser(userData: UserCreateData) {
         }
         console.log('Ошибка создания пользователя', e);
     }
-    '34ef21fd-e5a6-457a-aecc-55ebf1a8a95c'
 }
