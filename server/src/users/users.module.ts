@@ -12,6 +12,7 @@ import { PersonsModule } from 'src/persons/persons.module';
 import { AuthModule } from 'src/auth/auth.module';
 import { NotificationAd } from 'src/notifications/notification.model';
 import { NotificationModule } from 'src/notifications/notifications.module';
+import { FavoritesModule } from 'src/favorites/favorites.module';
 
 @Module({
     controllers: [UsersController],
@@ -28,6 +29,7 @@ import { NotificationModule } from 'src/notifications/notifications.module';
         PersonsModule,
         forwardRef(() => NotificationModule),
         forwardRef(() => AuthModule),
+        forwardRef(() => FavoritesModule),
     ],
     exports: [UsersService],
 })

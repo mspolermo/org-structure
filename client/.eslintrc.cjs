@@ -85,5 +85,6 @@ module.exports = {
     __API_ROLES__: true,
     __API_USERS__: true,
     __API_NOTIFICATIONS__: true,
+    __API_REGISTRATION__: true,
   },
 }

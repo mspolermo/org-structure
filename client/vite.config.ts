@@ -46,9 +46,10 @@ export default defineConfig({
         __API_PERSON_WITH_DETALES_UPDATE__: JSON.stringify('http://localhost:5001/persons/update-all/'),
         __API_PERSON_SEARCH__: JSON.stringify('http://localhost:5001/persons/search'),
         __API_LOGIN__: JSON.stringify('http://localhost:5001/auth/login'),
+        __API_REGISTRATION__: JSON.stringify('http://localhost:5001/auth/registration'),
         __API_FAVORITES__: JSON.stringify('http://localhost:5001/favorites'),
         __API_ROLES__: JSON.stringify('http://localhost:5001/roles/'),
-        __API_USERS__: JSON.stringify('http://localhost:5001/users'),
+        __API_USERS__: JSON.stringify('http://localhost:5001/users/'),
         __API_NOTIFICATIONS__: JSON.stringify('http://localhost:5001/notifications'),
     },
 })

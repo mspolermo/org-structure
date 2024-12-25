@@ -6,6 +6,8 @@ import { CreateUserDto } from './dto/create-user.dto';
 import { RolesService } from 'src/roles/roles.service';
 import { PersonsService } from 'src/persons/persons.service';
 import { Person } from 'src/persons/persons.model';
+import { FavoritesService } from 'src/favorites/favorites.service';
+import { NotificationService } from 'src/notifications/notification.service';
 
 @Injectable()
 export class UsersService {
@@ -13,6 +15,8 @@ export class UsersService {
         @InjectModel(User) private userRepository: typeof User,
         private rolesService: RolesService,
         private personsService: PersonsService,
+        private favoritesService: FavoritesService,
+        private notificationService: NotificationService,
     ) {}
 
     async createUser(dto: CreateUserDto) {
@@ -39,7 +43,7 @@ export class UsersService {
         const role = await this.rolesService.getRoleByValue('USER');
         await user.$set('roles', [role.id]);
         user.roles = [role];
-        //TODO: добавить шифрование пароля
+
         return user;
     }
 
@@ -70,5 +74,39 @@ export class UsersService {
             include: [{ all: true }, { model: Person }],
         });
         return user;
+    }
+
+    async deleteUser(personId: string) {
+        // Найти пользователя по personId
+        const user = await this.userRepository.findOne({
+            where: { personId },
+        });
+
+        // Если пользователь не найден, выбросить исключение
+        if (!user) {
+            throw new HttpException(
+                'Пользователь не найден',
+                HttpStatus.NOT_FOUND,
+            );
+        }
+
+        // Проверяем, есть ли у пользователя уведомления
+        const userNotifications =
+            await this.notificationService.getNotificationsByUser(user.id);
+
+        if (userNotifications.length > 0) {
+            throw new HttpException(
+                'Невозможно удалить пользователя, так как у него есть созданные объявления.',
+                HttpStatus.BAD_REQUEST,
+            );
+        }
+
+        // Очистить избранное пользователя
+        await this.favoritesService.removeAllFavoritesByUser(user.id);
+
+        // Удалить пользователя
+        await user.destroy();
+
+        return { message: 'Пользователь успешно удален' };
     }
 }

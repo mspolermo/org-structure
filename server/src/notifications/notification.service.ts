@@ -54,7 +54,12 @@ export class NotificationService {
 
     async deleteNotification(id: string, userId: string) {
         const notification = await this.getNotificationById(id, userId);
+        //TODO: сделать чтоб другие могли удалять чужие объявления
         await notification.destroy();
         return { message: 'Объявление удалено' };
+    }
+
+    async getNotificationsByUser(userId: string): Promise<NotificationAd[]> {
+        return this.notificationAdModel.findAll({ where: { userId } });
     }
 }

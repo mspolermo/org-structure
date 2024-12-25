@@ -12,7 +12,7 @@ import { FavoritesController } from './favorites.controller';
     imports: [
         SequelizeModule.forFeature([FavoritePerson]),
         forwardRef(() => AuthModule),
-        UsersModule,
+        forwardRef(() => UsersModule),
         PersonsModule,
     ],
     providers: [FavoritesService],

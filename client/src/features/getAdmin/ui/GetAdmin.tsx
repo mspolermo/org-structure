@@ -4,6 +4,8 @@ import { useCallback, useEffect, useState } from 'react';
 import { useStoreProvider } from '@/app/providers/StoreProvider';
 import { fetchUserNav, UserNavType } from '@/entities/Navigation';
 import {
+    deleteUser,
+    deleteUserRole,
     getAllUserRoles,
     getAllUsers,
     User,
@@ -13,6 +15,7 @@ import {
 } from '@/entities/User'
 import { Button } from "@/shared/ui/Button";
 import { ListBoxItem } from '@/shared/ui/Popups';
+import RemoveModal from '@/shared/ui/RemoveModal/RemoveModal';
 import { HStack, VStack } from "@/shared/ui/Stack";
 
 import { CreateOrgUnitModalAsync as CreateOrgUnitModal } from './createOrgUnitModal/CreateOrgUnitModal.async';
@@ -31,6 +34,12 @@ const GetAdmin = observer(() => {
     const [isCreateOrgUnitModal, setIsCreateOrgUnitModal] = useState(false);
     const [isCreateUserModal, setIsCreateUserModal] = useState(false);
     const [isCreateRoleModal, setIsCreateRoleModal] = useState(false);
+    const [isDeleteRoleModal, setIsDeleteRoleModal] = useState(false);
+    const [deleteRoleValue, setDeleteRoleValue] = useState('')
+
+    const [isDeleteUserModal, setIsDeleteUserModal] = useState(false);
+    const [deleteUserId, setDeleteUserId] = useState('')
+
     const [userNav, setUserNav] = useState<UserNavType>()
 
     const orgUnitsDataList: ListBoxItem<string>[] = gerOrgUnitsOptions(userNav, false)
@@ -85,8 +94,54 @@ const GetAdmin = observer(() => {
         case 'createRole':
             setIsCreateRoleModal(flag)
             break
+        case 'removeRole':
+            setIsDeleteRoleModal(flag)
+            break
+        case 'removeUser':
+            setIsDeleteUserModal(flag)
+            break
         }
     }, []);
+
+    const openDeleteRoleModal = useCallback((value: string) => {
+        setDeleteRoleValue(value)
+        onModalAction('removeRole', 'open')
+    },[onModalAction])
+
+    const openDeleteUserModal = useCallback((id: string) => {
+        setDeleteUserId(id)
+        onModalAction('removeUser', 'open')
+    },[onModalAction])
+
+    const deleteRoleHandler = useCallback(async()=>{
+        try {
+            await deleteUserRole(deleteRoleValue)
+            await fetchUserRoles()
+        } catch (e) {
+            console.error("Ошибка при удалении роли пользователя:", e);
+            if (e instanceof Error) {
+                throw new Error(e.message)
+            } else {
+                throw new Error("Неизвестная ошибка")
+            }
+        } 
+    }, [deleteRoleValue, fetchUserRoles])
+
+    const deleteUserHandler = useCallback(async()=>{
+        if(!rootStore.auth) return
+
+        try {
+            await deleteUser(rootStore.auth, deleteUserId)
+            await fetchUsers()
+        } catch (e) {
+            console.error("Ошибка при удалении пользователя:", e);
+            if (e instanceof Error) {
+                throw new Error(e.message)
+            } else {
+                throw new Error("Неизвестная ошибка")
+            }
+        } 
+    }, [deleteUserId, fetchUsers, rootStore.auth])
 
     useEffect(() => {
         updateUserNav()
@@ -104,17 +159,19 @@ const GetAdmin = observer(() => {
                 <Button onClick={() => onModalAction('createPerson', 'open')} >
                     Добавить сотрудника
                 </Button>
-                <Button onClick={() => onModalAction('createUser', 'open')} >
-                    Создать пользователя
-                </Button>
-                <Button onClick={() => onModalAction('createRole', 'open')} >
-                    Создать роль пользователя
-                </Button>
             </HStack>
 
-            <UserRolesList userRoles={userRoles} />
+            <UserRolesList
+                onCreate={() => onModalAction('createRole', 'open')}
+                onDelete={openDeleteRoleModal}
+                userRoles={userRoles} 
+            />
 
-            <UsersList users={users}/>
+            <UsersList
+                onCreate={() => onModalAction('createUser', 'open')}
+                onDelete={openDeleteUserModal}
+                users={users}
+            />
 
             <CreateOrgUnitModal
                 orgUnitsList={orgUnitsList}
@@ -139,6 +196,18 @@ const GetAdmin = observer(() => {
                 updateRolesList={fetchUserRoles}
                 isOpen={isCreateRoleModal}
                 onCloseModal={() => onModalAction('createRole', 'close')}
+            />
+
+            <RemoveModal
+                onDelete={deleteRoleHandler}
+                isOpen={isDeleteRoleModal}
+                onCloseModal={() => onModalAction('removeRole', 'close')}
+            />
+
+            <RemoveModal
+                onDelete={deleteUserHandler}
+                isOpen={isDeleteUserModal}
+                onCloseModal={() => onModalAction('removeUser', 'close')}
             />
 
         </VStack>

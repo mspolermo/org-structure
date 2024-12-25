@@ -30,6 +30,16 @@ export class RolesController {
         return this.roleService.getRoleByValue(value);
     }
 
+    @ApiOperation({ summary: 'Добавление роли пользователю' })
+    @ApiResponse({ status: 200, description: 'Role assigned successfully' })
+    @Post('/assign/:personId')
+    async assignRoleToUser(
+        @Param('personId') personId: string,
+        @Body('roleValue') roleValue: string,
+    ) {
+        return this.roleService.assignRoleToUser(personId, roleValue);
+    }
+
     @ApiOperation({ summary: 'Удалить роль' })
     @ApiResponse({ status: 200, description: 'Role deleted successfully' })
     @ApiResponse({

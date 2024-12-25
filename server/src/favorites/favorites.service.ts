@@ -51,4 +51,10 @@ export class FavoritesService {
             where: { personId },
         });
     }
+
+    async removeAllFavoritesByUser(userId: string): Promise<void> {
+        await this.favoritePersonRepository.destroy({
+            where: { userId },
+        });
+    }
 }

@@ -13,7 +13,10 @@ import { Op } from 'sequelize';
 
 @Injectable()
 export class RolesService {
-    constructor(@InjectModel(Role) private roleRepository: typeof Role) {}
+    constructor(
+        @InjectModel(Role) private roleRepository: typeof Role,
+        @InjectModel(User) private userRepository: typeof User,
+    ) {}
 
     async createRole(dto: CreateRoleDto) {
         // Приводим value к верхнему регистру и очищаем от цифр и символов
@@ -73,7 +76,6 @@ export class RolesService {
         }));
     }
 
-    // Удалить роль
     async deleteRole(roleValue: string): Promise<void> {
         // Проверяем, есть ли пользователи с этой ролью
         const usersWithRole = await User.findAll({
@@ -106,5 +108,43 @@ export class RolesService {
         }
 
         await role.destroy();
+    }
+
+    async assignRoleToUser(personId: string, roleValue: string) {
+        // Находим пользователя
+
+        const user = await this.userRepository.findOne({
+            where: { personId },
+            include: [Role],
+        });
+
+        if (!user) {
+            throw new NotFoundException(`User with ID "${user.id}" not found`);
+        }
+
+        // Находим роль
+        const role = await this.getRoleByValue(roleValue);
+
+        if (!role) {
+            throw new NotFoundException(
+                `Role with value "${roleValue}" not found`,
+            );
+        }
+
+        // Проверяем, есть ли уже такая роль у пользователя
+        const hasRole = user.roles.some((userRole) => userRole.id === role.id);
+
+        if (hasRole) {
+            throw new HttpException(
+                `User already has role "${roleValue}"`,
+                HttpStatus.BAD_REQUEST,
+            );
+        }
+
+        await user.$set('roles', [role.id]);
+
+        return {
+            message: `Role "${roleValue}" assigned to user with ID "${user.id}"`,
+        };
     }
 }

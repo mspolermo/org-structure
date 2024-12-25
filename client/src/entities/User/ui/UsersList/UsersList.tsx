@@ -1,7 +1,8 @@
 import { memo } from 'react';
 
+import { useStoreProvider } from '@/app/providers/StoreProvider';
 import { User } from '@/entities/User';
-import { PlusInsideCircle } from '@/shared/assets/svg-icons/status';
+import { CrossInsideCircle, PlusInsideCircle } from '@/shared/assets/svg-icons/status';
 import { Button } from '@/shared/ui/Button';
 import { Icon } from '@/shared/ui/Icon';
 import { Input } from '@/shared/ui/Input';
@@ -13,16 +14,21 @@ import cls from './UsersList.module.scss'
 
 interface Props {
     users: User[] | undefined
+    onCreate: () => void
+    onDelete: (value: string) => void
 }
 
 const UsersList = memo((props: Props) => {
-    const { users } = props
+    const { users, onCreate, onDelete } = props
+    const {rootStore} = useStoreProvider();
+
+    const isAvalableToRemove = (currentUser: User) => !(currentUser.id === rootStore.user?.id)
 
     return (
         <VStack gap="4" className={cls.block}>
             <HStack gap="4">
                 <Text title="Пользователи" size="xl"/>
-                <Button onClick={() => console.log('modal open')} className={cls.btn}>
+                <Button onClick={() => onCreate()} className={cls.btn}>
                     <Icon Svg={PlusInsideCircle} className={cls.icon}/>
                 </Button>
             </HStack>
@@ -43,6 +49,10 @@ const UsersList = memo((props: Props) => {
                         placeholder="Роли пользователя"
                         value={user.roles.map((role) => role.value).join(', ')}
                     />
+                    { isAvalableToRemove(user) && <Button onClick={() => onDelete(user.id)} className={cls.btn}>
+                        <Icon Svg={CrossInsideCircle} className={cls.icon}/>
+                    </Button>
+                    }
                 </HStack>
             ))}
         </VStack>

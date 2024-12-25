@@ -6,7 +6,7 @@ export async function createUser(userData: UserCreateData) {
     axios.defaults.withCredentials = true;
 
     try {
-        await axios.post(__API_USERS__, {...userData});
+        await axios.post(__API_REGISTRATION__, {...userData});
     } catch (e) {
         
         if (axios.isAxiosError(e)) {

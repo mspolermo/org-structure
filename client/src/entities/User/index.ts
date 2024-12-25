@@ -12,6 +12,8 @@ export { getAllUserRoles } from './model/services/getAllUserRoles';
 export { getAllUsers } from './model/services/getAllUsers';
 export { createUser } from './model/services/createUser';
 export { createUserRole } from './model/services/createUserRole';
+export { deleteUserRole } from './model/services/deleteUserRole';
+export { deleteUser } from './model/services/deleteUser';
 
 export { UserCreationCard } from './ui/UserCreationCard/UserCreationCard';
 export { UserRoleCreationCard } from './ui/UserRoleCreationCard/UserRoleCreationCard';
