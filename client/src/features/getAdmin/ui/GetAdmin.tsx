@@ -18,6 +18,7 @@ import { ListBoxItem } from '@/shared/ui/Popups';
 import RemoveModal from '@/shared/ui/RemoveModal/RemoveModal';
 import { HStack, VStack } from "@/shared/ui/Stack";
 
+import { ChangeUserRoleModalAsync as ChangeUserRoleModal } from './changeUserRoleModal/ChangeUserRoleModal.async'
 import { CreateOrgUnitModalAsync as CreateOrgUnitModal } from './createOrgUnitModal/CreateOrgUnitModal.async';
 import { CreatePersonModalAsync as CreatePersonModal } from './createPersonModal/CreatePersonModal.async';
 import CreateRoleModal from './createRoleModal/CreateRoleModal';
@@ -28,19 +29,20 @@ import { modalAdminActionType, modalAdminType } from '../model/types/types';
 const GetAdmin = observer(() => {
     const {rootStore} = useStoreProvider();
 
+    const [userNav, setUserNav] = useState<UserNavType>()
     const [userRoles, setUserRoles] = useState<UserRole[]>()
     const [users, setUsers] = useState<User[]>()
+    
     const [isCreatePersonModal, setIsCreatePersonModal] = useState(false);
     const [isCreateOrgUnitModal, setIsCreateOrgUnitModal] = useState(false);
     const [isCreateUserModal, setIsCreateUserModal] = useState(false);
     const [isCreateRoleModal, setIsCreateRoleModal] = useState(false);
     const [isDeleteRoleModal, setIsDeleteRoleModal] = useState(false);
-    const [deleteRoleValue, setDeleteRoleValue] = useState('')
-
     const [isDeleteUserModal, setIsDeleteUserModal] = useState(false);
-    const [deleteUserId, setDeleteUserId] = useState('')
+    const [isChangeUserRoleModal, setIsChangeUserRoleModal] = useState(false)
 
-    const [userNav, setUserNav] = useState<UserNavType>()
+    const [chosenRoleValue, setChoseRoleValue] = useState('')
+    const [chosenUserId, setChosenUserId] = useState('')
 
     const orgUnitsDataList: ListBoxItem<string>[] = gerOrgUnitsOptions(userNav, false)
     const orgUnitsList: ListBoxItem<string>[] = gerOrgUnitsOptions(userNav, true)
@@ -100,22 +102,32 @@ const GetAdmin = observer(() => {
         case 'removeUser':
             setIsDeleteUserModal(flag)
             break
+        case 'changeUserRole':
+            setIsChangeUserRoleModal(flag)
+            break
         }
     }, []);
 
     const openDeleteRoleModal = useCallback((value: string) => {
-        setDeleteRoleValue(value)
+        setChoseRoleValue(value)
         onModalAction('removeRole', 'open')
     },[onModalAction])
 
     const openDeleteUserModal = useCallback((id: string) => {
-        setDeleteUserId(id)
+        setChosenUserId(id)
         onModalAction('removeUser', 'open')
     },[onModalAction])
 
+    const openChangeUserModal = useCallback((id: string) => {
+        setChosenUserId(id)
+        onModalAction('changeUserRole', 'open')
+    },[onModalAction])
+
+
+
     const deleteRoleHandler = useCallback(async()=>{
         try {
-            await deleteUserRole(deleteRoleValue)
+            await deleteUserRole(chosenRoleValue)
             await fetchUserRoles()
         } catch (e) {
             console.error("Ошибка при удалении роли пользователя:", e);
@@ -125,13 +137,13 @@ const GetAdmin = observer(() => {
                 throw new Error("Неизвестная ошибка")
             }
         } 
-    }, [deleteRoleValue, fetchUserRoles])
+    }, [chosenRoleValue, fetchUserRoles])
 
     const deleteUserHandler = useCallback(async()=>{
         if(!rootStore.auth) return
 
         try {
-            await deleteUser(rootStore.auth, deleteUserId)
+            await deleteUser(rootStore.auth, chosenUserId)
             await fetchUsers()
         } catch (e) {
             console.error("Ошибка при удалении пользователя:", e);
@@ -141,7 +153,7 @@ const GetAdmin = observer(() => {
                 throw new Error("Неизвестная ошибка")
             }
         } 
-    }, [deleteUserId, fetchUsers, rootStore.auth])
+    }, [chosenUserId, fetchUsers, rootStore.auth])
 
     useEffect(() => {
         updateUserNav()
@@ -170,6 +182,7 @@ const GetAdmin = observer(() => {
             <UsersList
                 onCreate={() => onModalAction('createUser', 'open')}
                 onDelete={openDeleteUserModal}
+                onEdit={openChangeUserModal}
                 users={users}
             />
 
@@ -196,6 +209,15 @@ const GetAdmin = observer(() => {
                 updateRolesList={fetchUserRoles}
                 isOpen={isCreateRoleModal}
                 onCloseModal={() => onModalAction('createRole', 'close')}
+            />
+
+            <ChangeUserRoleModal 
+                updateUsersList={fetchUsers}
+                isOpen={isChangeUserRoleModal}
+                onCloseModal={() => onModalAction('changeUserRole', 'close')}
+                availableRoles={userRoles}
+                userId={chosenUserId}
+                usersList={users}
             />
 
             <RemoveModal
