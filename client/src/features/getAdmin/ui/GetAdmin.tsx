@@ -1,5 +1,6 @@
 import { observer } from 'mobx-react-lite';
 import { useCallback, useEffect, useState } from 'react';
+import { useNavigate } from 'react-router-dom';
 
 import { useStoreProvider } from '@/app/providers/StoreProvider';
 import { fetchUserNav, UserNavType } from '@/entities/Navigation';
@@ -13,6 +14,8 @@ import {
     UserRolesList,
     UsersList
 } from '@/entities/User'
+import { getRouteForbidden } from '@/shared/const/router';
+import useCheckRoles from '@/shared/lib/hooks/useCheckRoles/useCheckRoles';
 import { Button } from "@/shared/ui/Button";
 import { ListBoxItem } from '@/shared/ui/Popups';
 import RemoveModal from '@/shared/ui/RemoveModal/RemoveModal';
@@ -27,7 +30,9 @@ import { gerOrgUnitsOptions } from '../model/lib/gerOrgUnitsOptions';
 import { modalAdminActionType, modalAdminType } from '../model/types/types';
 
 const GetAdmin = observer(() => {
-    const {rootStore} = useStoreProvider();
+    const navigate = useNavigate();
+    const { rootStore } = useStoreProvider();
+    const isAdmin = useCheckRoles('ADMIN')
 
     const [userNav, setUserNav] = useState<UserNavType>()
     const [userRoles, setUserRoles] = useState<UserRole[]>()
@@ -123,8 +128,6 @@ const GetAdmin = observer(() => {
         onModalAction('changeUserRole', 'open')
     },[onModalAction])
 
-
-
     const deleteRoleHandler = useCallback(async()=>{
         try {
             await deleteUserRole(chosenRoleValue)
@@ -160,6 +163,11 @@ const GetAdmin = observer(() => {
         fetchUserRoles()
         fetchUsers()
     }, [fetchUserRoles, fetchUsers, updateUserNav])
+
+    if (!isAdmin) {
+        navigate(getRouteForbidden())
+        return null
+    }
 
     return (
         <VStack gap="32" max>

@@ -1,7 +1,9 @@
-import { memo, useCallback, useState } from 'react';
+import { observer } from 'mobx-react-lite';
+import { useCallback, useState } from 'react';
 
 import { OpenPrintModal } from '@/features/openPrintModal';
 import { OpenReportModal } from '@/features/openReportModal';
+import useCheckRoles from '@/shared/lib/hooks/useCheckRoles/useCheckRoles';
 import { HStack } from '@/shared/ui/Stack';
 
 import { ServicePanel } from './ServicePanel/ServicePanel';
@@ -14,8 +16,10 @@ interface Props {
 	className?: string;
 }
 
-export const ActionPanel = memo((props: Props) => {
+export const ActionPanel = observer((props: Props) => {
     const { className } = props;
+
+    const isAdmin = useCheckRoles('ADMIN')
     const [isPrintModal, setIsPrintModal] = useState(false);
     const [isReportModal, setIsReportModal] = useState(false);
 
@@ -39,7 +43,7 @@ export const ActionPanel = memo((props: Props) => {
 
             <ToMainPageButton />
 
-            <ToAdminPageButton />
+            { isAdmin && <ToAdminPageButton /> }
 
             <UserButton />
 

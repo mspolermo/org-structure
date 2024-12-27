@@ -18,10 +18,11 @@ interface Props {
     notification: NotificationType;
     onEdit: (current: NotificationType) => void
     onDelete: (id: string) => Promise<void>
+    isEditable: boolean
 }
 
 export const NotificationCard = memo((props: Props) => {
-    const { className, notification, onEdit, onDelete } = props
+    const { className, notification, onEdit, onDelete, isEditable } = props
     const { title, text, updatedAt } = notification
 
     const [isDeleteModalOpen, setIsDeleteModalOpen] = useState(false);
@@ -50,35 +51,39 @@ export const NotificationCard = memo((props: Props) => {
 
             <Text text={text}/>
 
-            <HStack max gap='8' align='start'>
-                <VStack max gap='8'>
-                    <HStack max gap='8' justify='end'>
-                        <Tooltip text='Редактировать'>
-                            <Icon
-                                borderType='soft'
-                                Svg={Pencil}
-                                clickable
-                                onClick={()=>onEdit(notification)}
-                            />
-                        </Tooltip>
-                        <Tooltip text='Удалить'>
-                            <Icon
-                                Svg={Cross}
-                                borderType='soft'
-                                stroke={'var(--icon-color)'}
-                                clickable
-                                onClick={() => setIsDeleteModalOpen(true)}
-                            />
-                        </Tooltip> 
-                    </HStack>
-                </VStack>
-            </HStack>
+            {isEditable && (
+                <HStack max gap='8' align='start'>
+                    <VStack max gap='8'>
+                        <HStack max gap='8' justify='end'>
+                            <Tooltip text='Редактировать'>
+                                <Icon
+                                    borderType='soft'
+                                    Svg={Pencil}
+                                    clickable
+                                    onClick={()=>onEdit(notification)}
+                                />
+                            </Tooltip>
+                            <Tooltip text='Удалить'>
+                                <Icon
+                                    Svg={Cross}
+                                    borderType='soft'
+                                    stroke={'var(--icon-color)'}
+                                    clickable
+                                    onClick={() => setIsDeleteModalOpen(true)}
+                                />
+                            </Tooltip> 
+                        </HStack>
+                    </VStack>
+                </HStack>
+            )}
 
-            <RemoveModal
-                onDelete={deleteHandler}
-                isOpen={isDeleteModalOpen}
-                onCloseModal={() => setIsDeleteModalOpen(false)}
-            />
+            {isEditable && (
+                <RemoveModal
+                    onDelete={deleteHandler}
+                    isOpen={isDeleteModalOpen}
+                    onCloseModal={() => setIsDeleteModalOpen(false)}
+                />
+            )}
 
         </Card>
     )}

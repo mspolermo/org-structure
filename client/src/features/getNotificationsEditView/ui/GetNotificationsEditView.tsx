@@ -1,7 +1,9 @@
-import { memo, useCallback, useEffect, useState } from 'react';
+import { observer } from 'mobx-react-lite';
+import { useCallback, useEffect, useState } from 'react';
 
 import { useStoreProvider } from '@/app/providers/StoreProvider';
 import { deleteNotification, fetchNotifications, NotificationCard, NotificationType } from '@/entities/Notification';
+import useCheckRoles from '@/shared/lib/hooks/useCheckRoles/useCheckRoles';
 import { Button } from '@/shared/ui/Button';
 import { Loader } from '@/shared/ui/Loader';
 import { VStack } from '@/shared/ui/Stack';
@@ -15,8 +17,9 @@ import {
 } from './EditNotificationModal/EditNotificationModal.async';
 import { modalNotificationActionType, modalNotificationType } from '../model/types/types';
 
-const GetNotificationsEditView = memo(() => {
+const GetNotificationsEditView = observer(() => {
     const { rootStore } = useStoreProvider();
+    const isAdmin = useCheckRoles('ADMIN')
 
     const [notifications, setNotifications] = useState<NotificationType[]>([])
     const [isLoading, setIsLoading] = useState(false)
@@ -85,16 +88,16 @@ const GetNotificationsEditView = memo(() => {
         </VStack>
     )
 
-    if (error) return <Text text={error} />
-
     return (
         <VStack gap='32' max>
 
-            <Button onClick={() => onModalAction('createNotification', 'open')} >
+            {isAdmin && <Button onClick={() => onModalAction('createNotification', 'open')} >
                 Создать объявление
-            </Button>
+            </Button>}
 
             {notifications.length === 0 && <Text text="Объявления отстутствуют" />}
+
+            {error && <Text title={error} variant='error' />}
 
             {notifications.length > 0 && notifications.map((notification) => (
                 <NotificationCard
@@ -102,21 +105,26 @@ const GetNotificationsEditView = memo(() => {
                     notification={notification}
                     onEdit={editHandler}
                     onDelete={deleteHandler}
+                    isEditable={isAdmin}
                 />
             ))}
 
-            <CreateNotificationModal
-                isOpen={isCreateNotificationModal}
-                onCloseModal={() => onModalAction('createNotification', 'close')}
-                updateNotificationsList={fetchNotificattionsList}
-            />
+            {isAdmin && (
+                <CreateNotificationModal
+                    isOpen={isCreateNotificationModal}
+                    onCloseModal={() => onModalAction('createNotification', 'close')}
+                    updateNotificationsList={fetchNotificattionsList}
+                />
+            )}
 
-            <EditNotificationModal
-                notification={currentNotification}
-                isOpen={isEditNotificationModal}
-                onCloseModal={() => onModalAction('editNotification', 'close')}
-                updateNotificationsList={fetchNotificattionsList}
-            />
+            {isAdmin && (
+                <EditNotificationModal
+                    notification={currentNotification}
+                    isOpen={isEditNotificationModal}
+                    onCloseModal={() => onModalAction('editNotification', 'close')}
+                    updateNotificationsList={fetchNotificattionsList}
+                />
+            )}
 
         </VStack>
     );
