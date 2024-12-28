@@ -4,6 +4,7 @@ import { useMemo, useCallback } from 'react';
 import { Plus } from '@/shared/assets/svg-icons/control';
 import { Minus } from '@/shared/assets/svg-icons/status';
 import { classNames } from '@/shared/lib/classNames/classNames';
+import useCheckRoles from '@/shared/lib/hooks/useCheckRoles/useCheckRoles';
 import { ExpandableCard } from '@/shared/ui/ExpandableCard';
 
 import cls from './OrgUnitItemView.module.scss';
@@ -30,6 +31,8 @@ export const OrgUnitItemView = observer((props: OrgUnitItemViewProps) => {
         }
     } = props;
 
+    const isAdmin = useCheckRoles('ADMIN')
+
     const collapseHandler = useCallback((e: React.MouseEvent<HTMLButtonElement, MouseEvent>) => {
         e.stopPropagation();
         updateIsPersonsCollapsed(!isPersonsCollapsed)
@@ -54,7 +57,7 @@ export const OrgUnitItemView = observer((props: OrgUnitItemViewProps) => {
                     setIsOpen={updateCardOpeningStatus}
                 />
             }
-            expandableView={<OrgUnitItemDetails orgUnitItem={orgUnitItem}/>}
+            expandableView={<OrgUnitItemDetails orgUnitItem={orgUnitItem} isEditable={isAdmin}/>}
             withBorder
             withButtons
             icons={icons}

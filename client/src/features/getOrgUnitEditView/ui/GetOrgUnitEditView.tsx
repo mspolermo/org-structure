@@ -1,6 +1,9 @@
 import { observer } from "mobx-react";
+import { useNavigate } from "react-router-dom";
 
 import { OrgUnitEditView, OrgUnitStore } from "@/entities/OrgUnitItem";
+import { getRouteForbidden } from "@/shared/const/router";
+import useCheckRoles from "@/shared/lib/hooks/useCheckRoles/useCheckRoles";
 import { Skeleton } from "@/shared/ui/Skeleton";
 import { VStack } from "@/shared/ui/Stack";
 
@@ -13,8 +16,15 @@ interface Props {
 
 export const GetOrgUnitEditView = observer((props: Props) => {
     const {id, orgUnitStore} = props;
+    const navigate = useNavigate();
+    const isAdmin = useCheckRoles('ADMIN')
     
     const { orgUnit } = useOrgUnitData(id, orgUnitStore);
+
+    if (!isAdmin) {
+        navigate(getRouteForbidden())
+        return null
+    }
 
     if (!orgUnit) {
         return (

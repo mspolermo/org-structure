@@ -1,9 +1,11 @@
+/* eslint-disable max-len */
 import { observer } from "mobx-react";
-import { useCallback, useMemo } from 'react';
+import { useCallback, useEffect, useMemo, useState } from 'react';
 import { useNavigate } from "react-router-dom";
 
 import { BugButton } from "@/app/providers/ErrorBoundary";
 import { useStoreProvider } from "@/app/providers/StoreProvider";
+import { UserNavType } from "@/entities/Navigation";
 import { authLogin } from "@/entities/User";
 import { Person } from "@/shared/assets/svg-icons/action";
 import {
@@ -32,6 +34,22 @@ export const DevPanel = observer(() => {
     const { rootStore } = useStoreProvider();
     const isOpen = rootStore.devMode;
     const navigate = useNavigate();
+    const [data, setData] = useState<UserNavType>()
+
+    const getFromUserNav = useCallback(async () => {
+        if (!rootStore.auth) return;
+
+        try {
+            const req = await rootStore.userNavData
+            setData(req)
+        } catch (e) {
+            console.error("Ошибка при обновлении избранного:", e);
+        }
+    }, [rootStore.auth, rootStore.userNavData]);
+
+    useEffect(() => {
+        getFromUserNav()
+    }, [getFromUserNav])
 
     const logOut = useCallback(()=> {
         rootStore.updateAuth(null) 
@@ -102,7 +120,7 @@ export const DevPanel = observer(() => {
 
                 {rootStore.auth &&
                     <AppLink
-                        to={getRouteDepartment('d1bb72db-d00c-49ee-a4f3-a105ac81ca94')}
+                        to={getRouteDepartment(data?.groups[0].name.id ?? '')}
                         variant='blue'
                         activeClassName={cls.active}
                     >
@@ -111,19 +129,19 @@ export const DevPanel = observer(() => {
                 }
 
                 {rootStore.auth && 
-                <AppLink to={getRouteEditOrgUnit('unexisted')} variant='blue' activeClassName={cls.active}>
+                <AppLink to={getRouteEditOrgUnit(data?.groups[0].name.id ?? '')} variant='blue' activeClassName={cls.active}>
                     ОргЮнит(ред)
                 </AppLink>
                 }
 
                 {rootStore.auth && 
-                <AppLink to={getRouteEditPerson('unexisted')} variant='blue' activeClassName={cls.active}>
+                <AppLink to={getRouteEditPerson(data?.user?.id ?? '')} variant='blue' activeClassName={cls.active}>
                     Персона(ред) 
                 </AppLink>
                 }
 
                 {rootStore.auth && 
-                <AppLink to={getRouteSearch('мед')} variant='blue' activeClassName={cls.active}>
+                <AppLink to={getRouteSearch('ле')} variant='blue' activeClassName={cls.active}>
                     Поиск 
                 </AppLink>
                 }

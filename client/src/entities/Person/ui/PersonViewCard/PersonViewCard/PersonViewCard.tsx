@@ -1,6 +1,7 @@
 import { observer } from 'mobx-react';
 
 import { classNames } from '@/shared/lib/classNames/classNames';
+import useCheckRoles from '@/shared/lib/hooks/useCheckRoles/useCheckRoles';
 import { ExpandableCard } from '@/shared/ui/ExpandableCard';
 
 import PersonStore from '../../../model/store/personStore';
@@ -16,6 +17,7 @@ interface PersonViewCardProps {
 
 export const PersonViewCard = observer((props: PersonViewCardProps) => {
     const { className, person, store } = props;
+    const isAdmin = useCheckRoles('ADMIN')
 
     const {
         cardOpeningStatus: isOpen,
@@ -34,7 +36,7 @@ export const PersonViewCard = observer((props: PersonViewCardProps) => {
                     setIsOpen={setIsOpen}
                 />
             }
-            expandableView={<PersonDetalesView person={person}/>}
+            expandableView={<PersonDetalesView person={person} isEditable={isAdmin}/>}
         />
     );
 });

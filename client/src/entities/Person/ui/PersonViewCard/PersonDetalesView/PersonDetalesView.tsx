@@ -21,12 +21,14 @@ import { Tooltip } from '@/shared/ui/Tooltip';
 
 import cls from './PersonDetalesView.module.scss';
 
-interface PersonDetalesViewProps {
+interface Props {
 	className?: string;
     person: Person;
+    isEditable: boolean;
 }
 
-export const PersonDetalesView = observer(({ className, person }: PersonDetalesViewProps) => {
+export const PersonDetalesView = observer((props: Props) => {
+    const { className, person, isEditable } = props;
     const {id, name: personFullName} = person;
     const navigate = useNavigate();
     const { rootStore } = useStoreProvider();
@@ -95,14 +97,14 @@ export const PersonDetalesView = observer(({ className, person }: PersonDetalesV
                                 onClick={()=> {}}
                             />
                         </Tooltip> 
-                        <Tooltip text='Редактировать'>
+                        {isEditable && <Tooltip text='Редактировать'>
                             <Icon
                                 borderType='soft'
                                 Svg={Pencil}
                                 clickable
                                 onClick={()=> navigate(getRouteEditPerson(id))}
                             />
-                        </Tooltip>
+                        </Tooltip>}
                     </HStack>
                 </VStack>
 
