@@ -7,7 +7,7 @@ import useCheckRoles from "@/shared/lib/hooks/useCheckRoles/useCheckRoles";
 import { Skeleton } from "@/shared/ui/Skeleton";
 import { VStack } from "@/shared/ui/Stack";
 
-import { useOrgUnitData } from "../model/useOrgUnitData";
+import { useOrgUnitData } from "../model/lib/useOrgUnitData";
 
 interface Props {
     id: string

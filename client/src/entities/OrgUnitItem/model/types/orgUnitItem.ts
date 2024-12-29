@@ -16,7 +16,7 @@ export interface OrgUnitItem {
     summary?: string
 }
 
-export interface orgUnitsCardType {
+export interface OrgUnitsCardType {
     id: string;
     store: OrgUnitViewStore
 }

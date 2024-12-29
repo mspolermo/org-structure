@@ -3,7 +3,7 @@ import OrgUnitStore from './model/store/orgUnitStore';
 
 export { OrgUnitViewStore, OrgUnitStore };
 export { createOrgUnitCardStore } from './model/lib/getOrgUnitCardStore';
-export type { OrgUnitItem, orgUnitsCardType, OrgUnitCreateData } from './model/types/orgUnitItem';
+export type { OrgUnitItem, OrgUnitsCardType, OrgUnitCreateData } from './model/types/orgUnitItem';
 
 export { fetchOrgUnitItem } from './model/services/fetchOrgUnitItem';
 export { createOrgUnitItem } from './model/services/createOrgUnit'

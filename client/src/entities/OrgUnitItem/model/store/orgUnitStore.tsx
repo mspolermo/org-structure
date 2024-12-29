@@ -3,7 +3,7 @@
 import { observable, action, makeAutoObservable } from 'mobx';
 import { IPromiseBasedObservable, fromPromise } from 'mobx-utils';
 
-import { OrgUnitItem, orgUnitsCardType } from '../types/orgUnitItem';
+import { OrgUnitItem, OrgUnitsCardType } from '../types/orgUnitItem';
 
 class OrgUnitStore {
     
@@ -14,7 +14,7 @@ class OrgUnitStore {
     @observable 
         mainOrgUnit?: IPromiseBasedObservable<OrgUnitItem>; // стейт для подгруженных данных об отделах
 
-        orgUnitsCards:orgUnitsCardType[] = []; // статусы карточек Оргюнитов
+        orgUnitsCards:OrgUnitsCardType[] = []; // статусы карточек Оргюнитов
         collapseAllOrgUnitCards: boolean = false; //общий статус сворачивания\разворачивания всех списков персон на странице
 
     @action
@@ -35,7 +35,7 @@ class OrgUnitStore {
         }
 
 
-        addOrgUnitCard(newOrgUnit: orgUnitsCardType) {
+        addOrgUnitCard(newOrgUnit: OrgUnitsCardType) {
             this.orgUnitsCards.push(newOrgUnit)
         }
 

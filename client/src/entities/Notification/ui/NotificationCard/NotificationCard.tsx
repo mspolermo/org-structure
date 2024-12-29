@@ -16,9 +16,9 @@ import { NotificationType } from '../../model/types/notification';
 interface Props {
     className?: string;
     notification: NotificationType;
+    isEditable: boolean
     onEdit: (current: NotificationType) => void
     onDelete: (id: string) => Promise<void>
-    isEditable: boolean
 }
 
 export const NotificationCard = memo((props: Props) => {

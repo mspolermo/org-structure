@@ -4,7 +4,7 @@ import { useEffect, useState } from 'react';
 
 import { getOrgUnitCardStore } from './getOrgUnitCardStore';
 import OrgUnitStore from '../../model/store/orgUnitStore';
-import {OrgUnitItem, orgUnitsCardType } from '../../model/types/orgUnitItem';
+import {OrgUnitItem, OrgUnitsCardType } from '../../model/types/orgUnitItem';
 
 interface useOrgUnitCardStoreProps {
     orgUnitItems: OrgUnitItem[]
@@ -13,10 +13,10 @@ interface useOrgUnitCardStoreProps {
 
 export const useOrgUnitCardStore = ({orgUnitItems, orgUnitStore}: useOrgUnitCardStoreProps) => {
 
-    const [orgUnitsCardArray, setOrgUnitsCardArray] = useState<orgUnitsCardType[]>()
+    const [orgUnitsCardArray, setOrgUnitsCardArray] = useState<OrgUnitsCardType[]>()
 
     useEffect( () => {
-        const tempArray:orgUnitsCardType[] = [];
+        const tempArray:OrgUnitsCardType[] = [];
         orgUnitItems?.forEach(el => tempArray.push(
             {id: el.id, store: getOrgUnitCardStore(el.id, orgUnitStore) }
         ));
