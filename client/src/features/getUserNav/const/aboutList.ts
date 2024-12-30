@@ -10,10 +10,6 @@ export const aboutList: aboutItem [] = [
         anchor: '#additional-info',
         child: [
             {
-                title: 'Сервис просмотра фотографии',
-                anchor: '#service-view-photo'
-            },
-            {
                 title: 'Сервис просмотра дней рождений',
                 anchor: '#service-view-birthday'
             },
@@ -32,21 +28,9 @@ export const aboutList: aboutItem [] = [
                 anchor: '#auto-last-name'
             },
             {
-                title: 'Уточняющий поиск',
-                anchor: '#specifying-search'
-            },
-            {
-                title: 'Поиск отдела и группы',
-                anchor: '#search-by-group'
-            },
-            {
                 title: 'Служебные слова',
                 anchor: '#work-words'
-            },
-            {
-                title: 'Поиск с пробелом',
-                anchor: '#search-with-space'
-            },
+            }
         ]
     },
     {
@@ -56,10 +40,6 @@ export const aboutList: aboutItem [] = [
             {
                 title: 'Редактирование сотрудника',
                 anchor: '#employee-edit'
-            },
-            {
-                title: 'Редактирование информации об отсутсвии сотрудника',
-                anchor: '#employee-edit-leave'
             },
             {
                 title: 'Редактирование контакта',
