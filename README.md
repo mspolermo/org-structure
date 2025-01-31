@@ -25,6 +25,48 @@
 
 ---
 
+<div style="display: flex; flex-wrap: wrap; gap: 16px;">
+  <a href="./public/screenshots/1.png" target="_blank">
+    <img src="./public/screenshots/1.png" alt="Главная страница" style="width: 240px; border-radius: 8px;" />
+  </a>
+  <a href="./public/screenshots/2.png" target="_blank">
+    <img src="./public/screenshots/2.png" alt="Выбор видеосервиса" style="width: 240px; border-radius: 8px;" />
+  </a>
+  <a href="./public/screenshots/3.png" target="_blank">
+    <img src="./public/screenshots/3.png" alt="Видеосервис" style="width: 240px; border-radius: 8px;" />
+  </a>
+  <a href="./public/screenshots/4.png" target="_blank">
+    <img src="./public/screenshots/4.png" alt="Выбор сервиса такси" style="width: 240px; border-radius: 8px;" />
+  </a>
+  <a href="./public/screenshots/5.png" target="_blank">
+    <img src="./public/screenshots/5.png" alt="Такси" style="width: 240px; border-radius: 8px;" />
+  </a>
+  <a href="./public/screenshots/6.png" target="_blank">
+    <img src="./public/screenshots/6.png" alt="Другие сервисы" style="width: 240px; border-radius: 8px;" />
+  </a>
+    <a href="./public/screenshots/7.png" target="_blank">
+    <img src="./public/screenshots/7.png" alt="Расписание автобусов" style="width: 240px; border-radius: 8px;" />
+  </a>
+    </a>
+    <a href="./public/screenshots/8.png" target="_blank">
+    <img src="./public/screenshots/8.png" alt="Расписание автобусов" style="width: 240px; border-radius: 8px;" />
+  </a>
+    </a>
+    <a href="./public/screenshots/9.png" target="_blank">
+    <img src="./public/screenshots/9.png" alt="Расписание автобусов" style="width: 240px; border-radius: 8px;" />
+  </a>
+    </a>
+    <a href="./public/screenshots/10.png" target="_blank">
+    <img src="./public/screenshots/10.png" alt="Расписание автобусов" style="width: 240px; border-radius: 8px;" />
+  </a>
+    </a>
+    <a href="./public/screenshots/11.png" target="_blank">
+    <img src="./public/screenshots/11.png" alt="Расписание автобусов" style="width: 240px; border-radius: 8px;" />
+  </a>
+</div>
+
+---
+
 ## **Архитектура проекта**
 
 Проект состоит из трех основных частей:
