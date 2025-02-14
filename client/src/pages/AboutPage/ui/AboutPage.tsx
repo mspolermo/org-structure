@@ -1,9 +1,12 @@
 import { memo } from 'react';
 
+import ImageWithSkeleton from '@/shared/ui/ImageWithSkeleton/ImageWithSkeleton';
 import { Skeleton } from '@/shared/ui/Skeleton';
 import { VStack } from '@/shared/ui/Stack';
 import { Text } from "@/shared/ui/Text";
 import { Page } from "@/widgets/Page";
+
+import DepartmentImage from '@/shared/assets/images/1.png';
 
 const AboutPage = memo(() => {
     return (
@@ -18,6 +21,7 @@ const AboutPage = memo(() => {
                     id="view-department"
                 /> 
 
+                <ImageWithSkeleton width={'60%'} height={400} src={DepartmentImage} alt='Общее'/>
                 <Skeleton width={'60%'} height={400}/>
 
                 <Text
