@@ -2,18 +2,22 @@ import { aboutItem } from "@/entities/Navigation";
 
 export const aboutList: aboutItem [] = [
     {
+        title: 'Главная страница',
+        anchor: '#main-page',
+        child: [
+            {
+                title: 'Создание объявлений',
+                anchor: '#create-notification'
+            },
+        ]
+    },
+    {
         title: 'Просмотр отделов',
         anchor: '#view-department'
     },
     {
         title: 'Просмотр дополнительной информации',
         anchor: '#additional-info',
-        child: [
-            {
-                title: 'Сервис просмотра дней рождений',
-                anchor: '#service-view-birthday'
-            },
-        ]
     },
     {
         title: 'Работа с избранным',
