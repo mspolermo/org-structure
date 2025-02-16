@@ -46,25 +46,9 @@ export const aboutList: aboutItem [] = [
                 anchor: '#employee-edit'
             },
             {
-                title: 'Редактирование контакта',
-                anchor: '#contact-edit'
-            },
-            {
                 title: 'Редактирование отдела',
                 anchor: '#department-edit'
             },
         ]
-    },
-    {
-        title: 'Бумажная версия',
-        anchor: '#Report'
-    },
-    {
-        title: 'Версия для сторонних организаций',
-        anchor: '#ExternalReport'
-    },
-    {
-        title: 'Сообщение разработчикам',
-        anchor: '#Feedback'
     }
 ];
