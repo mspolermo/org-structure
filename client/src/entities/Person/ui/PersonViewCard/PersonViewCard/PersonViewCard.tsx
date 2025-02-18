@@ -36,7 +36,7 @@ export const PersonViewCard = observer((props: PersonViewCardProps) => {
                     setIsOpen={setIsOpen}
                 />
             }
-            expandableView={<PersonDetalesView person={person} isEditable={isAdmin}/>}
+            expandableView={<PersonDetalesView person={person} isEditable={isAdmin} store={store}/>}
         />
     );
 });

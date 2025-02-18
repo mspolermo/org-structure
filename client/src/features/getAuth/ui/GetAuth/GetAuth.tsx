@@ -56,6 +56,7 @@ const GetAuth = observer(() => {
                         placeholder="Введите пароль"
                         value={password}
                         onChange={setPassword}
+                        type="password"
                     />
                 </HStack>
 
