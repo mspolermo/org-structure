@@ -4,7 +4,7 @@ import { IPromiseBasedObservable, fromPromise } from 'mobx-utils';
 
 import { UserNavType } from '@/entities/Navigation';
 import { Favorites, User } from '@/entities/User';
-import { DEV_MODE_LOCALSTORAGE_KEY, LOCAL_STORAGE_THEME_KEY } from '@/shared/const/localstorage';
+import { DEV_MODE_LOCALSTORAGE_KEY, LOCAL_STORAGE_AUTH_KEY, LOCAL_STORAGE_THEME_KEY } from '@/shared/const/localstorage'
 
 // Создатель общего стора приложения
 
@@ -24,7 +24,7 @@ class RootStore {
 
         userNavData?: IPromiseBasedObservable<UserNavType>
         user?: User;
-        auth: string | null = null;
+        auth: string | null = localStorage.getItem(LOCAL_STORAGE_AUTH_KEY);
         isNavChange: boolean = false;
         favorites: Favorites = []
 
@@ -35,8 +35,10 @@ class RootStore {
         updateAuth( value: string | null) {   
             if (value) {
                 this.auth = value
+                localStorage.setItem(LOCAL_STORAGE_AUTH_KEY, value)
             } else {
-                this.auth = null             
+                this.auth = null
+                localStorage.removeItem(LOCAL_STORAGE_AUTH_KEY);          
             }
         }
 
