@@ -25,6 +25,7 @@ interface Props {
 export const PersonInfoBlock = observer((props: Props) => {
     const { className, isEdit, person, isCancelled, setUpdatedPerson } = props
 
+    //TODO: name нужно распилить на 3 инпута ФИО, и сделать все обязательными для заполнения 
     const [name, setName] = useState(person.name)
     const [phone, setPhone] = useState(person.phone)
     const [location, setLocation] = useState(person.location)
