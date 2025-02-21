@@ -25,7 +25,6 @@ interface Props {
 export const PersonInfoBlock = observer((props: Props) => {
     const { className, isEdit, person, isCancelled, setUpdatedPerson } = props
 
-    //TODO: name нужно распилить на 3 инпута ФИО, и сделать все обязательными для заполнения 
     const [name, setName] = useState(person.name)
     const [phone, setPhone] = useState(person.phone)
     const [location, setLocation] = useState(person.location)
@@ -82,12 +81,31 @@ export const PersonInfoBlock = observer((props: Props) => {
             
                     <VStack gap="8" max>
                         
-                
+                        <HStack gap="4" max>
+                            <Text title={'Фамилия:'} thin className={cls.text}/>
+                            <Input 
+                                inputVariant="bordered"
+                                placeholder="Фамилия сотрудника"
+                                value={name}
+                                onChange={setName}
+                                readonly={!isEdit}
+                            />
+                        </HStack>
                         <HStack gap="4" max>
                             <Text title={'Имя:'} thin className={cls.text}/>
                             <Input 
                                 inputVariant="bordered"
-                                placeholder="ФИО сотрудника"
+                                placeholder="Имя сотрудника"
+                                value={name}
+                                onChange={setName}
+                                readonly={!isEdit}
+                            />
+                        </HStack>
+                        <HStack gap="4" max>
+                            <Text title={'Отчество:'} thin className={cls.text}/>
+                            <Input 
+                                inputVariant="bordered"
+                                placeholder="Отчество сотрудника"
                                 value={name}
                                 onChange={setName}
                                 readonly={!isEdit}
