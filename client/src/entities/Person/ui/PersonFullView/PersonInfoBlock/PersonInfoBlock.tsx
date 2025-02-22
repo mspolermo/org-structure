@@ -1,5 +1,5 @@
 import { observer } from 'mobx-react';
-import { useCallback, useEffect, useState } from 'react';
+import { useCallback, useEffect, useMemo, useState } from 'react';
 
 import { Person, PersonUpdateData } from '@/entities/Person/model/types/person';
 import { classNames } from '@/shared/lib/classNames/classNames';
@@ -25,7 +25,12 @@ interface Props {
 export const PersonInfoBlock = observer((props: Props) => {
     const { className, isEdit, person, isCancelled, setUpdatedPerson } = props
 
-    const [name, setName] = useState(person.name)
+    const splitedName = useMemo(() => person.name.split(' ') ?? ['', '', ''], [person.name])
+
+    const [name, setName] = useState(splitedName[1])
+    const [secondName, setSecondName] = useState(splitedName[2])
+    const [surName, setSurName] = useState(splitedName[0])
+
     const [phone, setPhone] = useState(person.phone)
     const [location, setLocation] = useState(person.location)
     const [post, setPost] = useState(person.post)
@@ -36,7 +41,9 @@ export const PersonInfoBlock = observer((props: Props) => {
     const [isManager, setIsManager] = useState(person.isManager);
 
     const resetToDefault = useCallback(() => {
-        setName(person.name)
+        setName(splitedName[1])
+        setSecondName(splitedName[2])
+        setSurName(splitedName[0])
         setPhone(person.phone)
         setLocation(person.location)
         setPost(person.post)
@@ -44,11 +51,13 @@ export const PersonInfoBlock = observer((props: Props) => {
         setBirthday(formatDate(person.birthday.toString()))
         setIsChef(person.isChef)
         setIsManager(person.isManager)
-    }, [person.birthday, person.email, person.isChef, person.isManager, person.location, person.name, person.phone, person.post])
+    }, [person.birthday, person.email, person.isChef, person.isManager, person.location, person.phone, person.post, splitedName])
 
     useEffect(() => {
+        const fullname = [surName, name, secondName].join('');
+
         setUpdatedPerson({
-            name,
+            name: fullname,
             phone,
             location,
             post,
@@ -57,7 +66,7 @@ export const PersonInfoBlock = observer((props: Props) => {
             isChef,
             isManager,
         })
-    }, [birthday, email, isChef, isManager, location, name, phone, post, setUpdatedPerson])
+    }, [birthday, email, isChef, isManager, location, name, phone, post, secondName, setUpdatedPerson, surName])
 
     useEffect(() => {
         resetToDefault()
@@ -86,8 +95,8 @@ export const PersonInfoBlock = observer((props: Props) => {
                             <Input 
                                 inputVariant="bordered"
                                 placeholder="Фамилия сотрудника"
-                                value={name}
-                                onChange={setName}
+                                value={surName}
+                                onChange={setSurName}
                                 readonly={!isEdit}
                             />
                         </HStack>
@@ -106,8 +115,8 @@ export const PersonInfoBlock = observer((props: Props) => {
                             <Input 
                                 inputVariant="bordered"
                                 placeholder="Отчество сотрудника"
-                                value={name}
-                                onChange={setName}
+                                value={secondName}
+                                onChange={setSecondName}
                                 readonly={!isEdit}
                             />
                         </HStack>
