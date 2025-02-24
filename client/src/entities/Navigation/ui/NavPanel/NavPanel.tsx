@@ -2,6 +2,7 @@
  * Навигационная панель приложения (располагается слева, в сайдбаре) 
  * @param className - проброс класса сверху
 */
+import { runInAction } from 'mobx';
 import { observer } from 'mobx-react';
 import { useEffect } from 'react';
 
@@ -47,8 +48,11 @@ export const Navpanel = observer(({ className, localData }: NavpanelProps) => {
         pending: () => null,
         rejected: () => {throw new Error()},
         fulfilled: (value) => {
-            rootStore.updateUser(value.user)
-            rootStore.updateFavorites(value.favorites)
+            runInAction(() => {
+                rootStore.updateUser(value.user);
+                rootStore.updateFavorites(value.favorites);
+            });
+            
             if (!rootStore.auth) return null
             return (
                 <nav

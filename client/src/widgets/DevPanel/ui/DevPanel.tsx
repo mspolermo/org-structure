@@ -1,5 +1,4 @@
 /* eslint-disable max-len */
-import axios from 'axios';
 import { observer } from "mobx-react";
 import { useCallback, useEffect, useMemo, useState } from 'react';
 import { useNavigate } from "react-router-dom";
@@ -45,11 +44,7 @@ export const DevPanel = observer(() => {
             setData(req)
         } catch (e) {
             console.error("Ошибка при обновлении избранного:", e);
-            if (axios.isAxiosError(e) && e.response?.status === 401) {
-                //TODO: вынести в отдельную функцию
-                rootStore.updateAuth(null);
-                navigate(getRouteAuth());
-            }
+            navigate(getRouteAuth());
         }
     // eslint-disable-next-line react-hooks/exhaustive-deps
     }, [rootStore.auth, rootStore.userNavData, navigate]);

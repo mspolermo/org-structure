@@ -24,7 +24,7 @@ class RootStore {
 
         userNavData?: IPromiseBasedObservable<UserNavType>
         user?: User;
-        auth: string | null = localStorage.getItem(LOCAL_STORAGE_AUTH_KEY);
+        auth: string | null = localStorage.getItem(LOCAL_STORAGE_AUTH_KEY) === 'auth_token' ? null : localStorage.getItem(LOCAL_STORAGE_AUTH_KEY);
         isNavChange: boolean = false;
         favorites: Favorites = []
 
