@@ -11,16 +11,14 @@ import { Toggle } from "@/shared/ui/Toggle";
 import { Page } from "@/widgets/Page";
 
 const SettingsPage = observer(() => {
-    // TODO: isUserDev включить и поменять на false исходную
     const { rootStore } = useStoreProvider();
     const navigate = useNavigate();
-    const [isUserDev, setIsUserDev] = useState(true);
-
+    const [isUserDev, setIsUserDev] = useState(false);
 
     useEffect(() => {
         // ожидание звершения загрузки через fetchUserNav (чтоб консоль не спамила)
         if (rootStore.user == undefined || rootStore.user.allowDeveloperTools == undefined) return 
-        //setIsUserDev(rootStore.user?.allowDeveloperTools)
+        setIsUserDev(rootStore.user?.allowDeveloperTools)
     }, [rootStore, rootStore.userNavData?.state])
 
     const devModeHandler = useCallback((e: boolean) => (rootStore.updateDevMode(e)), [rootStore]);
