@@ -34,6 +34,13 @@ class RootStore {
     @action
         updateAuth( value: string | null) {   
             this.auth = value
+            if (!value) {
+                this.user = undefined;
+                this.favorites = [];
+                this.userNavData = undefined;
+                this.focusedCardNumber = -1;
+                this.focusedPersonId = "";
+            }
         }
 
         updateFocusedCardNumber(newResult: number) {

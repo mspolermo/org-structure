@@ -20,12 +20,12 @@ const GetAuth = observer(() => {
     const [error, setError] = useState<string | null>(null)
 
     const onSaveHandler = useCallback(async () => {
+        setError(null)
         try {
             await authLogin({
                 email,
                 password,
             }, rootStore);
-            setError(null)
             navigate(getRouteMain());
         } catch (error) {
             console.error('Ошибка при авторизации:', error);

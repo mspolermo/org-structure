@@ -13,8 +13,8 @@ export async function fetchUserNav(rootStore: rootStore, token: string) {
             withCredentials: true
         });
         rootStore.updateUserNav(Promise.resolve(response.then(n => n.data)));
-        //rootStore.updateUserNav(Promise.resolve((await response).data));
     } catch (e) {
+        rootStore.updateAuth(null)
         rootStore.updateUserNav(Promise.reject())
         console.error('Ошибка загрузки данных (fetchUserNav)');
     }
