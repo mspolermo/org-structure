@@ -25,11 +25,15 @@ interface Props {
 export const PersonInfoBlock = observer((props: Props) => {
     const { className, isEdit, person, isCancelled, setUpdatedPerson } = props
 
-    const splitedName = useMemo(() => person.name.split(' ') ?? ['', '', ''], [person.name])
+    const splitedName = useMemo(() => {
+        const parts = person.name.split(' ');
+        return [parts[0] ?? '', parts[1] ?? '', parts[2] ?? ''];
+    }, [person.name]);
+    
 
-    const [name, setName] = useState(splitedName[1])
-    const [secondName, setSecondName] = useState(splitedName[2])
-    const [surName, setSurName] = useState(splitedName[0])
+    const [name, setName] = useState(splitedName[1] ?? '')
+    const [secondName, setSecondName] = useState(splitedName[2] ?? '')
+    const [surName, setSurName] = useState(splitedName[0] ?? '')
 
     const [phone, setPhone] = useState(person.phone)
     const [location, setLocation] = useState(person.location)
@@ -54,7 +58,7 @@ export const PersonInfoBlock = observer((props: Props) => {
     }, [person.birthday, person.email, person.isChef, person.isManager, person.location, person.phone, person.post, splitedName])
 
     useEffect(() => {
-        const fullname = [surName, name, secondName].join('');
+        const fullname = [surName, name, secondName].join(' ');
 
         setUpdatedPerson({
             name: fullname,
