@@ -4,9 +4,10 @@ import { AppModule } from './app.module';
 
 async function start() {
     const PORT = process.env.PORT || 5001;
+    const CLIENT_URL = process.env.CLIENT_URL || 'http://localhost:5173';
     const app = await NestFactory.create(AppModule);
 
-    const clientOrigin = 'http://localhost:5173'; // Порт клиента
+    const clientOrigin = CLIENT_URL; // Порт клиента
     const extensionOrigin =
         'chrome-extension://kpgmkcjmbecpdinnoicgjmdokpblbceo'; // ИД расширения
 
@@ -25,7 +26,7 @@ async function start() {
     const document = SwaggerModule.createDocument(app, config);
     SwaggerModule.setup('/api/docs', app, document);
 
-    await app.listen(PORT, () => {
+    await app.listen(PORT, '0.0.0.0', () => {
         console.log('Server started on PORT: ' + PORT);
     });
 }

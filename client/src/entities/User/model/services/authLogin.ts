@@ -6,7 +6,6 @@ import { UserAuthData } from "../types/user";
 
 export async function authLogin(authData: UserAuthData, rootStore: rootStore) {
     axios.defaults.withCredentials = true;
-
     try {
         const response = await axios.post(__API_LOGIN__, authData);
         rootStore.updateAuth(response.data.token);
