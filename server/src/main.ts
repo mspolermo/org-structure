@@ -7,12 +7,12 @@ async function start() {
     const CLIENT_URL = process.env.CLIENT_URL || 'http://localhost:5173';
     const app = await NestFactory.create(AppModule);
 
-    const clientOrigin = CLIENT_URL; // Порт клиента
+    const clientOrigin = 'http://localhost:5173';
     const extensionOrigin =
         'chrome-extension://kpgmkcjmbecpdinnoicgjmdokpblbceo'; // ИД расширения
 
     app.enableCors({
-        origin: [clientOrigin, extensionOrigin],
+        origin: [clientOrigin, CLIENT_URL, extensionOrigin],
         methods: 'GET,HEAD,PUT,PATCH,POST,DELETE',
         credentials: true,
         allowedHeaders: 'Content-Type, Authorization',
