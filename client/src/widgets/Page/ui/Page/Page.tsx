@@ -28,6 +28,8 @@ export const Page = observer((props: PageProps) => {
 
     const { rootStore } = useStoreProvider();
     const isDevPanelOpen = rootStore.devMode;
+
+    const currentYear = new Date().getFullYear(); 
     
     return (
         <main
@@ -52,7 +54,7 @@ export const Page = observer((props: PageProps) => {
             </div>
             
             <div className={cls.footer}>
-                <Text text={`© 2024, "Оргструктура"`} size='xs' />
+                <Text text={`© ${currentYear}, "Оргструктура"`} size='xs' />
             </div>
             
         </main>
